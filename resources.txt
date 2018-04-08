@@ -1,0 +1,15 @@
+users
+
+mix phx.gen.json Users User users name:string email:string wallet:integer debit:integer credit:integer
+
+notifications
+
+mix phx.gen.json Notifications Notification notification user_id:references:users bitcoin:boolean litecoin:boolean ethereum:boolean bclimit:integer lclimit:integer etlimit:integer alert_sent:boolean
+
+requestedloan
+
+mix phx.gen.json Requestedloans Requestedloan requestedloans user_id:references:users amount:integer duration_requested:datetime granted:boolean
+
+loan
+
+mix phx.gen.json Loans Loan loans requestedloan_id:references:requestedloans user_id:references:users mini_balance:integer colletaral:integer accepted:boolean

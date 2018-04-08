@@ -13,6 +13,8 @@ defmodule Seeds do
   alias Cryptoloan.Repo
   alias Cryptoloan.Users.User
   alias Cryptoloan.Notifications.Notification
+  alias Cryptoloan.Requestedloans.Requestedloan
+  alias Cryptoloan.Loans.Loan
 
   def run do
     Repo.delete_all(User)
@@ -23,8 +25,13 @@ defmodule Seeds do
     Repo.delete_all(Notification)
     Repo.insert!(%Notification{ user_id: a.id, bitcoin: true, litecoin: false, ethereum: true, bclimit: 10000, lclimit: 100, etlimit: 5000, alert_sent: false})
 
+    Repo.delete_all(Requestedloan)
+    k = Repo.insert!(%Requestedloan{user_id: b.id, amount: 200, duration_requested: nil, granted: false })
+
+    Repo.delete_all(Loan)
+    Repo.insert!(%Loan{ user_id: c.id, requestedloan_id: k.id, mini_balance: 1500, colletaral: 2500, accepted: false})
+
   end
 end
 
 Seeds.run
-

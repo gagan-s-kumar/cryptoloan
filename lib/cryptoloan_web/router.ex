@@ -23,5 +23,7 @@ defmodule CryptoloanWeb.Router do
     pipe_through :api
     resources "/users", UserController, except: [:new, :edit]
     resources "/notifications", NotificationController, except: [:new, :edit]
+    resources "/requestedloans", RequestedloanController, except: [:new, :edit]
+    resources "/loans", LoanController, except: [:new, :edit]
   end
 end

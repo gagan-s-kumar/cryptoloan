@@ -11,7 +11,7 @@
 //
 // If you no longer want to use a dependency, remember
 // to also remove its path from "config.paths.watched".
-import "phoenix_html"
+import "phoenix_html";
 
 // Import local files
 //
@@ -19,12 +19,5 @@ import "phoenix_html"
 // paths "./socket" or full ones "web/static/js/socket".
 
 // import socket from "./socket"
-import todo_init from "./todo";
-
-function start() {
-  let root = document.getElementById('root');
-  todo_init(root);
-}
-
-$(start);
-
+import cryptoloan_init from "./components/cryptoloan";
+$(cryptoloan_init);
