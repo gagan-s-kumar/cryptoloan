@@ -3,7 +3,7 @@ import React from 'react';
 function ShowNotifications(props) {
 
   return <div>
-    <p>{props.note}</p>
+    <p>{props.note.bclimit}</p>
   </div>;
 
 }

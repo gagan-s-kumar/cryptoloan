@@ -44,7 +44,7 @@ class Cryptoloan extends React.Component {
   }
 
   request_notifications() {
-    $.ajax("/api/v1/notifications", {
+    $.ajax("/api/v1/notification", {
       method: "get",
       dataType: "json",
       contentType: "application/json; charset=UTF-8",

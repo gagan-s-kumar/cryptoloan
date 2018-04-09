@@ -19,10 +19,10 @@ defmodule CryptoloanWeb.Router do
     get "/", PageController, :index
   end
 
-  scope "/api/v1", TaskspaWeb do
+  scope "/api/v1", CryptoloanWeb do
     pipe_through :api
     resources "/users", UserController, except: [:new, :edit]
-    resources "/notifications", NotificationController, except: [:new, :edit]
+    resources "/notification", NotificationController, except: [:new, :edit]
     resources "/requestedloans", RequestedloanController, except: [:new, :edit]
     resources "/loans", LoanController, except: [:new, :edit]
   end

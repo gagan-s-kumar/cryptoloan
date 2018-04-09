@@ -3,7 +3,7 @@ import React from 'react';
 function ShowRequests(props) {
 
   return <div>
-    <p>{props.req}</p>
+    <p>{props.req.amount}</p>
   </div>;
 
 }

@@ -3,7 +3,7 @@ import React from 'react';
 function ShowLoans(props) {
 
   return <div>
-    <p>{props.loan}</p>
+    <p>{props.loan.collateral}</p>
   </div>;
 
 }
