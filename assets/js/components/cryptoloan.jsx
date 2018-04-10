@@ -21,12 +21,14 @@ class Cryptoloan extends React.Component {
     this.state ={
       notifications: [],
       loans: [],
-      requestedloans: []
+      requestedloans: [],
+      users: []
     };
 
     this.request_notifications();
     this.request_loans();
     this.request_requestedloans();
+    this.request_users();
 
     console.log(this.state);
   }
@@ -67,6 +69,18 @@ class Cryptoloan extends React.Component {
     });
   }
 
+  request_users() {
+    $.ajax("/api/v1/users", {
+      method: "get",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      success: (resp) => {
+        console.log("req loans:", resp.data);
+        this.setState(_.extend(this.state, { users: resp.data }));
+      },
+    });
+  }
+
   render(){
     console.log("this", this);
     return (
@@ -76,6 +90,7 @@ class Cryptoloan extends React.Component {
 
             <Route path="/" extact={true} render={() =>
               <div>
+                <NotifyForm users={this.state.users}/>
                 <HomePage notify={this.state.notifications}/>
               </div>
             } />

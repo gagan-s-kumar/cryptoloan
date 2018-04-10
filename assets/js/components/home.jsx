@@ -12,7 +12,6 @@ export default function HomePage(props) {
     </div>
     <div>
       <Notifylist notify={props.notify} />
-      <p>Hello world!</p>
     </div>
   </div>;
 }

@@ -4,16 +4,15 @@ import { Button, FormGroup, Label, Input } from 'reactstrap';
 
 export default function NotifyForm(props) {
 
+  let users = _.map(props.users, (uu) => <option key={uu.id} value={uu.id}>{uu.name}</option>);
+
   return <div style={{padding: "4ex"}}>
     <h2>New Post</h2>
     <FormGroup>
       <Label for="user_id">User</Label>
-      <Input type="text" name="user_id">
+      <Input type="select" name="user_id">
+       { users }
       </Input>
-    </FormGroup>
-    <FormGroup>
-      <Label for="bitcoin">Bitcoin:</Label>
-      <Input type="button" name="bitcoin" value="subcribe"/>
     </FormGroup>
     <FormGroup>
       <Label for="bclimit">Alert Limit:</Label>
@@ -21,18 +20,10 @@ export default function NotifyForm(props) {
     </FormGroup>
 
     <FormGroup>
-      <Label for="litecoin">Litecoin:</Label>
-      <Input type="button" name="litecoin" value="subcribe"/>
-    </FormGroup>
-    <FormGroup>
       <Label for="lclimit">Alert Limit:</Label>
       <Input type="number" name="lclimit" />
     </FormGroup>
 
-    <FormGroup>
-      <Label for="ethereum">Ethereum:</Label>
-      <Input type="button" name="ethereum" value="subcribe"/>
-    </FormGroup>
     <FormGroup>
       <Label for="etlimit">Alert Limit:</Label>
       <Input type="number" name="etlimit" />
