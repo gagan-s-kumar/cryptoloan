@@ -37,9 +37,8 @@ defmodule Coinbase do
     {status, response} = HTTPoison.post("https://api.coinbase.com/oauth/token", result, headers, [])
     response_map = Poison.decode!(response.body)
     client_instance = client()
-    client_instance = Map.put(client_instance, :token, OAuth2.AccessToken.new(response_map))
-    IO.inspect OAuth2.Client.get_token!(client_instance, params)
     client_instance
+    |> Map.put(:token, OAuth2.AccessToken.new(response_map))
   end
 
   # Strategy Callbacks
@@ -52,5 +51,11 @@ defmodule Coinbase do
     client
     |> put_header("Accept", "application/json")
     |> AuthCode.get_token(params, headers)
+  end
+  
+  def get_user(client) do
+    authorization = Enum.join(["Bearer", to_string(client.token.access_token)], " ")
+    {status, response} = HTTPoison.get("https://api.coinbase.com/v2/user", [{"Authorization", authorization}])
+    Poison.decode!(response.body)
   end
 end

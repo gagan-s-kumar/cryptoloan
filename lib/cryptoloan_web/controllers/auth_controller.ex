@@ -1,7 +1,7 @@
 
 defmodule CryptoloanWeb.AuthController do
   use CryptoloanWeb, :controller
-  alias Cryptoloan.User
+  alias Cryptoloan.Users.User
   
   @doc """
   This action is reached via `/auth/:provider` and redirects to the OAuth2 provider
@@ -28,10 +28,9 @@ defmodule CryptoloanWeb.AuthController do
     # Exchange an auth code for an access token
    
     client = get_token!(provider, code)
-    IO.inspect client
     # Request the user's data with the access token
     user = get_user!(provider, client)
-
+    user = user["data"]
     User.insert_or_update(user)
 
     # Store the token in the "database"
@@ -54,7 +53,6 @@ defmodule CryptoloanWeb.AuthController do
   defp get_token!("coinbase", code),   do: Coinbase.get_token!(code: code)
 
   defp get_user!("coinbase", client) do
-    %{body: user} = OAuth2.Client.get!(client, "/user")
-    %{name: user["name"], token: client.token.access_token}
+    Coinbase.get_user(client)
   end
 end
