@@ -13,10 +13,13 @@ export default function Nav() {
           <NavLink to="/" exact={true} activeClassName="active" className="nav-link">Home</NavLink>
         </NavItem>
         <NavItem>
-          <NavLink to="/requestedloans" href="#" className="nav-link">Loan Requests</NavLink>
+          <NavLink to="/requestedloans" href="#" className="nav-link">All Loan Requests</NavLink>
         </NavItem>
         <NavItem>
-          <NavLink to="/loans" href="#" className="nav-link">My Loans</NavLink>
+          <NavLink to="/loans" href="#" className="nav-link">All Loans</NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink to="/approvedloans" href="#" className="nav-link">My Loans</NavLink>
         </NavItem>
       </ul>
       <span className="navbar-text">

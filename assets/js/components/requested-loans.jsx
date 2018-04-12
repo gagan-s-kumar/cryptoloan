@@ -17,10 +17,6 @@ function ShowRequests(props) {
         <div className="col-md">
            {props.req.user_id}
         </div>
-        <div className="col-md">
-           <Button onClick={() => alert("TODO: Submit Notification")}>Accept</Button>
-           <Button onClick={() => alert("TODO: Submit Notification")}>Reject</Button>
-        </div>
     </div>
   </div>;
 
@@ -42,9 +38,6 @@ export default function Requestloans(props) {
         </div>
         <div className="col-md">
            Requested By
-        </div>
-        <div className="col-md">
-           Actions
         </div>
     </div>
     { req1 }

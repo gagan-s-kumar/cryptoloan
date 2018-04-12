@@ -28,7 +28,7 @@ function ShowLoans(props) {
 }
 
 
-export default function Loans(props) {
+export default function ApprovedLoans(props) {
 
   let loanList = _.map(props.loans, (nn) => <ShowLoans key={nn.id} loan={nn} />);
 

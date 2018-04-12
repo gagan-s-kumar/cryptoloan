@@ -7,13 +7,7 @@ export default function NotifyForm(props) {
   let users = _.map(props.users, (uu) => <option key={uu.id} value={uu.id}>{uu.name}</option>);
 
   return <div style={{padding: "4ex"}}>
-    <h2>New Post</h2>
-    <FormGroup>
-      <Label for="user_id">User</Label>
-      <Input type="select" name="user_id">
-       { users }
-      </Input>
-    </FormGroup>
+    <h2>Notifications List</h2>
     <FormGroup>
       <Label for="bclimit">BitCoin Alert Limit:</Label>
       <Input type="number" name="bclimit" />

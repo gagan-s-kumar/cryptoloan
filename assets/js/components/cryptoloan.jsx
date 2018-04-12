@@ -5,9 +5,11 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Nav from './nav';
 import HomePage from './home';
 import Loans from './loans';
+import ApprovedLoans from './approvedloans';
 import Requestloans from './requested-loans';
 import NotifyForm from './notifyform';
 import RequestLoanForm from './requestloanform';
+import OfferLoanForm from './offerloanform';
 
 export default function cryptoloan_init() {
   let root = document.getElementById('root');
@@ -100,9 +102,14 @@ class Cryptoloan extends React.Component {
                 <Loans loans={this.state.loans}/>
             } />
 
+          <Route path="/approvedloans" exact={true} render={() =>
+                <ApprovedLoans loans={this.state.loans}/>
+            } />
+
           <Route path="/requestedloans" exact={true} render={() =>
                 <div>
                   <RequestLoanForm users={this.state.users}/>
+                  <OfferLoanForm users={this.state.requestedloans}/>
                   <Requestloans ln={this.state.requestedloans}/>
                 </div>
               } />
