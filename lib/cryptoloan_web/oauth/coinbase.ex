@@ -30,8 +30,16 @@ defmodule Coinbase do
   end
 
   def get_token!(params \\ [], _headers \\ []) do
-    OAuth2.Client.get_token!(client(), 
-      Keyword.merge(params, client_id: client().client_id, redirect_uri: client().redirect_uri, client_secret: client().client_secret))
+    headers = [{"Content-type", "application/json"}]
+    params = Keyword.merge(params, client_id: client().client_id, redirect_uri: client().redirect_uri, client_secret: client().client_secret)
+    params_map = %{"grant_type" => "authorization_code", "code" => to_string(params[:code]), "client_id" => to_string(params[:client_id]), "client_secret" => to_string(params[:client_secret]), "redirect_uri" => to_string(params[:redirect_uri])}
+    {status, result} = JSON.encode(params_map)
+    {status, response} = HTTPoison.post("https://api.coinbase.com/oauth/token", result, headers, [])
+    response_map = Poison.decode!(response.body)
+    client_instance = client()
+    client_instance = Map.put(client_instance, :token, OAuth2.AccessToken.new(response_map))
+    IO.inspect OAuth2.Client.get_token!(client_instance, params)
+    client_instance
   end
 
   # Strategy Callbacks
@@ -41,8 +49,6 @@ defmodule Coinbase do
   end
 
   def get_token(client, params, headers) do
-    params_map = %{grant_type: "authorization_code", code: params[:code], client_id: params[:client_id], client_secret: params[:client_secret], redirect_uri: params[:redirect_uri]}
-    IO.inspect HTTPoison.request(:post, "https://api.coinbase.com/oauth/token", Poison.encode!(params_map), [{"Accept", "application/json"}])
     client
     |> put_header("Accept", "application/json")
     |> AuthCode.get_token(params, headers)

@@ -43,7 +43,8 @@ defmodule Cryptoloan.Mixfile do
       {:cowboy, "~> 1.0"},
       {:httpoison, "~> 0.13"}, 
       {:poison, "~> 3.1"},
-      {:oauth2, "~> 0.9"}
+      {:oauth2, "~> 0.9"},
+      {:json, "~> 1.2"}
     ]
   end
 
