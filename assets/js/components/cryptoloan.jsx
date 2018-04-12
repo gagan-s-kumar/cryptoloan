@@ -7,6 +7,7 @@ import HomePage from './home';
 import Loans from './loans';
 import Requestloans from './requested-loans';
 import NotifyForm from './notifyform';
+import RequestLoanForm from './requestloanform';
 
 export default function cryptoloan_init() {
   let root = document.getElementById('root');
@@ -88,21 +89,20 @@ class Cryptoloan extends React.Component {
         <div>
           <Nav/>
 
-            <Route path="/" extact={true} render={() =>
+            <Route path="/" exact={true} render={() =>
               <div>
                 <NotifyForm users={this.state.users}/>
                 <HomePage notify={this.state.notifications}/>
               </div>
             } />
 
-          <Route path="/loans" extact={true} render={() =>
-              <div>
+          <Route path="/loans" exact={true} render={() =>
                 <Loans loans={this.state.loans}/>
-              </div>
             } />
 
-          <Route path="/requestedloans" extact={true} render={() =>
+          <Route path="/requestedloans" exact={true} render={() =>
                 <div>
+                  <RequestLoanForm users={this.state.users}/>
                   <Requestloans ln={this.state.requestedloans}/>
                 </div>
               } />

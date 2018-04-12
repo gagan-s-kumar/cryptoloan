@@ -4,7 +4,7 @@ import { NavItem } from 'reactstrap';
 
 export default function Nav() {
   return (
-    <div className="navbar navbar-dark bg-dark navbar-expand">
+    <nav className="navbar navbar-dark bg-dark navbar-expand">
       <span className="navbar-brand">
         Cryptoloan
       </span>
@@ -20,8 +20,8 @@ export default function Nav() {
         </NavItem>
       </ul>
       <span className="navbar-text">
-        Login
+        user@host
       </span>
-    </div>
+    </nav>
   );
 }
