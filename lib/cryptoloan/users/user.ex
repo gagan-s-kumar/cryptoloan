@@ -19,4 +19,8 @@ defmodule Cryptoloan.Users.User do
     |> cast(attrs, [:name, :email, :wallet, :debit, :credit])
     |> validate_required([:name, :email, :wallet, :debit, :credit])
   end
+  
+  def insert_or_update(user) do
+    IO.inspect user
+  end
 end

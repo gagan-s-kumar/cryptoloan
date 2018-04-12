@@ -56,3 +56,8 @@ config :cryptoloan, Cryptoloan.Repo,
   database: "cryptoloan_dev",
   hostname: "localhost",
   pool_size: 10
+
+config :cryptoloan, Coinbase,
+  client_id: System.get_env("COINBASE_CLIENT_ID"),
+  client_secret: System.get_env("COINBASE_CLIENT_SECRET"),
+  redirect_uri: System.get_env("COINBASE_REDIRECT_URI")
