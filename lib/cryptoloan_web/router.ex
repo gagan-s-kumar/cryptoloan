@@ -19,6 +19,8 @@ defmodule CryptoloanWeb.Router do
     get "/", PageController, :index
     get "/users", PageController, :index
     get "/loans", PageController, :index
+    get "/loans", PageController, :index
+    get "/approvedloans", PageController, :index
     get "/notification", PageController, :index
     get "/requestedloans", PageController, :index
     get "/users/:id", PageController, :index
@@ -31,5 +33,6 @@ defmodule CryptoloanWeb.Router do
     resources "/notification", NotificationController, except: [:new, :edit]
     resources "/requestedloans", RequestedloanController, except: [:new, :edit]
     resources "/loans", LoanController, except: [:new, :edit]
+    resources "/approvedloans", LoanController, except: [:new, :edit]
   end
 end

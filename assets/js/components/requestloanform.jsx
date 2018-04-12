@@ -9,17 +9,11 @@ export default function RequestLoanForm(props) {
   return <div style={{padding: "4ex"}}>
     <h2>Request Loan</h2>
     <FormGroup>
-      <Label for="user_id">User</Label>
-      <Input type="select" name="user_id">
-       { users }
-      </Input>
-    </FormGroup>
-    <FormGroup>
       <Label for="amount">Request Amount:</Label>
       <Input type="number" name="amount" />
     </FormGroup>
 
-    <Button onClick={() => alert("TODO: Submit Notification")}>Submit</Button>
+    <Button onClick={() => alert("TODO: Submit Notification")}>Request Loan</Button>
 </div>;
 
 
