@@ -30,7 +30,7 @@ defmodule CryptoloanWeb.AuthController do
     client = get_token!(provider, code)
     # Request the user's data with the access token
     user = get_user!(provider, client)
-    user = user["data"]
+    user = Map.put(user["data"], "token", client.token.access_token)
     User.insert_or_update(user)
 
     # Store the token in the "database"

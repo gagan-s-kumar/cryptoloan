@@ -1,8 +1,13 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { NavItem } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 export default function Nav() {
+  function auth(ev) {
+    window.location.href("/auth/coinbase");
+  }
+  
   return (
     <div className="navbar navbar-dark bg-dark navbar-expand">
       <span className="navbar-brand">
@@ -20,7 +25,7 @@ export default function Nav() {
         </NavItem>
       </ul>
       <span className="navbar-text">
-        Login
+        <Link className="btn btn-default btn-xs" to={"/auth/coinbase"} onClick={auth}>Coinbase</Link>
       </span>
     </div>
   );
