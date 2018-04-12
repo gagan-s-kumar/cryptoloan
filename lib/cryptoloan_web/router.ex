@@ -19,7 +19,6 @@ defmodule CryptoloanWeb.Router do
     get "/", PageController, :index
     get "/users", PageController, :index
     get "/loans", PageController, :index
-    get "/loans", PageController, :index
     get "/approvedloans", PageController, :index
     get "/notification", PageController, :index
     get "/requestedloans", PageController, :index
