@@ -1,6 +1,8 @@
 defmodule CryptoloanWeb.LoanView do
   use CryptoloanWeb, :view
   alias CryptoloanWeb.LoanView
+  alias CryptoloanWeb.RequestedloanView
+  alias CryptoloanWeb.UserView
 
   def render("index.json", %{loans: loans}) do
     %{data: render_many(loans, LoanView, "loan.json")}
@@ -14,6 +16,8 @@ defmodule CryptoloanWeb.LoanView do
     %{id: loan.id,
       mini_balance: loan.mini_balance,
       colletaral: loan.colletaral,
-      accepted: loan.accepted}
+      accepted: loan.accepted,
+      user_id: render_one(loan.user, UserView, "user.json"),
+      requestedloan_id: render_one(loan.requestedloan, RequestedloanView, "requestedloan.json")}
   end
 end

@@ -17,10 +17,10 @@ function ShowLoans(props) {
            {props.loan.colletaral}
         </div>
         <div className="col-md">
-           {props.loan.requestedloan_id}
+           {props.loan.requestedloan_id.id}
         </div>
         <div className="col-md">
-           {props.loan.user_id}
+           {props.loan.user_id.name}
         </div>
     </div>
   </div>;
