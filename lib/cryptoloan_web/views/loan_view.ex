@@ -17,7 +17,7 @@ defmodule CryptoloanWeb.LoanView do
       mini_balance: loan.mini_balance,
       colletaral: loan.colletaral,
       accepted: loan.accepted,
-      user_id: render_one(loan.user, UserView, "user.json"),
-      requestedloan_id: render_one(loan.requestedloan, RequestedloanView, "requestedloan.json")}
+      requestedloan_id: render_one(loan.requestedloan, RequestedloanView, "requestedloan.json"),
+      user_id: render_one(loan.user, UserView, "user.json")}
   end
 end

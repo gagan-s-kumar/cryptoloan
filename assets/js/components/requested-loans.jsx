@@ -15,7 +15,7 @@ function ShowRequests(props) {
            {props.req.amount}
         </div>
         <div className="col-md">
-           {props.req.user_id}
+           {props.req.user_id.name}
         </div>
     </div>
   </div>;
