@@ -5,16 +5,16 @@ function ShowNotifications(props) {
   return <div>
     <div className="row">
         <div className="col-md">
-           {props.note.id}              
+           {props.note.id}
         </div>
         <div className="col-md">
-           {props.note.bclimit}              
+           {props.note.bclimit}
         </div>
         <div className="col-md">
-           {props.note.lclimit}              
+           {props.note.lclimit}
         </div>
         <div className="col-md">
-           {props.note.etlimit}              
+           {props.note.etlimit}
         </div>
     </div>
 
@@ -24,25 +24,22 @@ function ShowNotifications(props) {
 
 
 export default function Notifylist(props) {
-  console.log("notify list:",props);
   let notifyList = _.map(props.notify, (nn) => <ShowNotifications key={nn.id} note={nn} />);
-
-  //console.log("after", notifyList);
 
   return <div>
       <h2>Your Notifications</h2>
       <div className="row">
 	<div className="col-md">
-	   Notification ID	
+	   Notification ID
 	</div>
 	<div className="col-md">
-	   BC Limit	
+	   BC Limit
 	</div>
 	<div className="col-md">
-	   LC Limit	
+	   LC Limit
 	</div>
 	<div className="col-md">
-	   Ethereum Limit	
+	   Ethereum Limit
 	</div>
       </div>
       {notifyList}

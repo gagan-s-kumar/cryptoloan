@@ -23,6 +23,7 @@ export default function cryptoloan_init(store) {
 
 let Cryptoloan = connect((state) => state)((props) => {
 
+  console.log(props);
   return (
     <Router>
       <div>
@@ -31,7 +32,7 @@ let Cryptoloan = connect((state) => state)((props) => {
           <Route path="/" exact={true} render={() =>
             <div>
               <NotifyForm users={props.users}/>
-              <HomePage notify={props.notifications}/>
+              <HomePage notify={props.notifications} graph={props.graph}/>
             </div>
           } />
 

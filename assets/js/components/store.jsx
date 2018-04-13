@@ -37,11 +37,20 @@ function users(state = [], action) {
   }
 }
 
+function graph(state = [], action) {
+  switch (action.type) {
+  case 'GRAPH':
+    return [...action.graph];
+  default:
+    return state;
+  }
+}
+
 
 
 function root_reducer(state0, action) {
 
-  let reducer = combineReducers({loans, notifications, requestedloans, users});
+  let reducer = combineReducers({loans, notifications, requestedloans, users, graph});
 
   let state1 = reducer(state0, action);
 

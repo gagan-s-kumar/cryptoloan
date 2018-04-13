@@ -58,6 +58,21 @@ class TheServer {
     });
   }
 
+  get_graph_data() {
+    $.ajax("https://min-api.cryptocompare.com/data/histoday?fsym=ETH&tsym=USD&limit=20", {
+      method: "get",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      success: (resp) => {
+        console.log(resp.Data);
+        store.dispatch({
+          type: 'GRAPH',
+          graph: resp.Data,
+        });
+      },
+    });
+  }
+
 }
 
 export default new TheServer();
