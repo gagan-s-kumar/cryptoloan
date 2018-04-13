@@ -1,6 +1,9 @@
 import React from 'react';
 import { Link, Button } from 'reactstrap';
 import Notifylist from './notifylist';
+
+import api from '../api';
+
 import { LineChart } from 'react-easy-chart';
 
 
@@ -13,6 +16,7 @@ export default function HomePage(props) {
                                   let a = date.getDate()+'-'+monthNames[date.getMonth()];
                                   return {x: a, y: v.open}});
   console.log(gmap);
+
   return <div>
     <div>
 
