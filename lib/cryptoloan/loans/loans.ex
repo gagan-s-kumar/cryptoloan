@@ -19,8 +19,8 @@ defmodule Cryptoloan.Loans do
   """
   def list_loans do
     Repo.all(Loan)
-    |>Repo.preload(:user)
-    |>Repo.preload(:requestedloan)
+      |>Repo.preload(:user)
+      |>Repo.preload([requestedloan: [:user]])
   end
 
   @doc """
@@ -37,7 +37,11 @@ defmodule Cryptoloan.Loans do
       ** (Ecto.NoResultsError)
 
   """
-  def get_loan!(id), do: Repo.get!(Loan, id)
+  def get_loan!(id) do
+   Repo.get!(Loan, id)
+    |> Repo.preload(:user)
+    |> Repo.preload(:requestedloan)
+  end
 
   @doc """
   Creates a loan.

@@ -36,7 +36,10 @@ defmodule Cryptoloan.Requestedloans do
       ** (Ecto.NoResultsError)
 
   """
-  def get_requestedloan!(id), do: Repo.get!(Requestedloan, id)
+  def get_requestedloan!(id) do
+     Repo.get!(Requestedloan, id)
+     |> Repo.preload(:user)
+   end
 
   @doc """
   Creates a requestedloan.

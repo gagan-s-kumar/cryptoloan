@@ -19,5 +19,16 @@ import "phoenix_html";
 // paths "./socket" or full ones "web/static/js/socket".
 
 // import socket from "./socket"
+import store from "./components/store";
+import api from "./components/api";
+
 import cryptoloan_init from "./components/cryptoloan";
-$(cryptoloan_init);
+
+$(function() {
+  api.request_notifications();
+  api.request_loans();
+  api.request_requestedloans();
+  api.request_users();
+  api.get_graph_data();
+  cryptoloan_init(store);
+});

@@ -1,116 +1,63 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Provider, connect } from 'react-redux';
 
 import Nav from './nav';
 import HomePage from './home';
 import Loans from './loans';
+import ApprovedLoans from './approvedloans';
 import Requestloans from './requested-loans';
 import NotifyForm from './notifyform';
+import RequestLoanForm from './requestloanform';
+import OfferLoanForm from './offerloanform';
 
-export default function cryptoloan_init() {
+export default function cryptoloan_init(store) {
   let root = document.getElementById('root');
-  ReactDOM.render(<Cryptoloan />, root);
+  ReactDOM.render(
+    <Provider store={store}>
+      <Cryptoloan />
+      </Provider>,
+      root);
 }
 
-class Cryptoloan extends React.Component {
+let Cryptoloan = connect((state) => state)((props) => {
 
-  constructor(props){
-    super(props);
+  console.log(props);
+  return (
+    <Router>
+      <div>
+        <Nav/>
 
-    this.state ={
-      notifications: [],
-      loans: [],
-      requestedloans: [],
-      users: []
-    };
+          <Route path="/" exact={true} render={() =>
+            <div>
+              <NotifyForm users={props.users}/>
+              <HomePage notify={props.notifications} graph={props.graph}/>
+            </div>
+          } />
 
-    this.request_notifications();
-    this.request_loans();
-    this.request_requestedloans();
-    this.request_users();
+        <Route path="/loans" exact={true} render={() =>
+            <div>
+              <Loans loans={props.loans}/>
+            </div>
+          } />
 
-    console.log(this.state);
-  }
-
-  request_loans() {
-    $.ajax("/api/v1/loans", {
-      method: "get",
-      dataType: "json",
-      contentType: "application/json; charset=UTF-8",
-      success: (resp) => {
-        console.log("loans:", resp.data);
-        this.setState(_.extend(this.state, { loans: resp.data }));
-      },
-    });
-  }
-
-  request_notifications() {
-    $.ajax("/api/v1/notification", {
-      method: "get",
-      dataType: "json",
-      contentType: "application/json; charset=UTF-8",
-      success: (resp) => {
-        console.log("notify", resp.data);
-        this.setState(_.extend(this.state, { notifications: resp.data }));
-      },
-    });
-  }
-
-  request_requestedloans() {
-    $.ajax("/api/v1/requestedloans", {
-      method: "get",
-      dataType: "json",
-      contentType: "application/json; charset=UTF-8",
-      success: (resp) => {
-        console.log("req loans:", resp.data);
-        this.setState(_.extend(this.state, { requestedloans: resp.data }));
-      },
-    });
-  }
-
-  request_users() {
-    $.ajax("/api/v1/users", {
-      method: "get",
-      dataType: "json",
-      contentType: "application/json; charset=UTF-8",
-      success: (resp) => {
-        console.log("req loans:", resp.data);
-        this.setState(_.extend(this.state, { users: resp.data }));
-      },
-    });
-  }
-
-  render(){
-    console.log("this", this);
-    return (
-      <Router>
-        <div>
-          <Nav/>
-
-            <Route path="/" extact={true} render={() =>
+        <Route path="/approvedloans" exact={true} render={() =>
               <div>
-                <NotifyForm users={this.state.users}/>
-                <HomePage notify={this.state.notifications}/>
+                <ApprovedLoans loans={props.loans}/>
               </div>
             } />
 
-          <Route path="/loans" extact={true} render={() =>
+        <Route path="/requestedloans" exact={true} render={() =>
               <div>
-                <Loans loans={this.state.loans}/>
+                <RequestLoanForm users={props.users}/>
+                <OfferLoanForm users={props.requestedloans}/>
+                <Requestloans ln={props.requestedloans}/>
               </div>
             } />
 
-          <Route path="/requestedloans" extact={true} render={() =>
-                <div>
-                  <Requestloans ln={this.state.requestedloans}/>
-                </div>
-              } />
+      </div>
+    </Router>
+  );
 
-
-        </div>
-      </Router>
-    );
-  }
-
-}
+});
