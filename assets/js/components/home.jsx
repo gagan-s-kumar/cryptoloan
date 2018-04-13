@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link, Button } from 'reactstrap';
-import Notifylist from './notifylist';
 
 import api from './api';
 
@@ -30,9 +29,6 @@ export default function HomePage(props) {
     data={[gmap]}
     />
 
-    </div>
-    <div>
-      <Notifylist notify={props.notify} />
     </div>
   </div>;
 }

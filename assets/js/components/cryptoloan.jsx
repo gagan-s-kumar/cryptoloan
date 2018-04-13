@@ -11,6 +11,7 @@ import Requestloans from './requested-loans';
 import NotifyForm from './notifyform';
 import RequestLoanForm from './requestloanform';
 import OfferLoanForm from './offerloanform';
+import Notifylist from './notifylist';
 
 export default function cryptoloan_init(store) {
   let root = document.getElementById('root');
@@ -31,7 +32,6 @@ let Cryptoloan = connect((state) => state)((props) => {
 
           <Route path="/" exact={true} render={() =>
             <div>
-              <NotifyForm users={props.users}/>
               <HomePage notify={props.notifications} graph={props.graph}/>
             </div>
           } />
@@ -39,6 +39,13 @@ let Cryptoloan = connect((state) => state)((props) => {
         <Route path="/loans" exact={true} render={() =>
             <div>
               <Loans loans={props.loans}/>
+            </div>
+          } />
+
+        <Route path="/notifications" exact={true} render={() =>
+            <div>
+              <NotifyForm users={props.users}/>
+              <Notifylist notify={props.notifications} />
             </div>
           } />
 

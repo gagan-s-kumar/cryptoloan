@@ -26,6 +26,9 @@ export default function Nav() {
         <NavItem>
           <NavLink to="/approvedloans" href="#" className="nav-link">My Loans</NavLink>
         </NavItem>
+        <NavItem>
+          <NavLink to="/notifications" href="#" className="nav-link">Notifications</NavLink>
+        </NavItem>
       </ul>
       <span className="navbar-text">
         <Link className="btn btn-default btn-xs" to={"/auth/coinbase"} onClick={auth}>Coinbase</Link>
