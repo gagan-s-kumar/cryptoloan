@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, Button } from 'reactstrap';
 import Notifylist from './notifylist';
 
-import api from '../api';
+import api from './api';
 
 import { LineChart } from 'react-easy-chart';
 
