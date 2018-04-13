@@ -12,6 +12,7 @@ import NotifyForm from './notifyform';
 import RequestLoanForm from './requestloanform';
 import OfferLoanForm from './offerloanform';
 import Notifylist from './notifylist';
+import Userlist from './userlist';
 
 export default function cryptoloan_init(store) {
   let root = document.getElementById('root');
@@ -46,6 +47,12 @@ let Cryptoloan = connect((state) => state)((props) => {
             <div>
               <NotifyForm users={props.users}/>
               <Notifylist notify={props.notifications} />
+            </div>
+          } />
+
+        <Route path="/users" exact={true} render={() =>
+            <div>
+              <Userlist users={props.users} />
             </div>
           } />
 
