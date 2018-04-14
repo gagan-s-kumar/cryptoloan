@@ -18,6 +18,7 @@ defmodule CryptoloanWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+    get "/:id", PageController, :index
     get "/users", PageController, :index
     get "/loans", PageController, :index
     get "/approvedloans", PageController, :index
@@ -29,6 +30,7 @@ defmodule CryptoloanWeb.Router do
 
   scope "/api/v1", CryptoloanWeb do
     pipe_through :api
+    post "/token", TokenController, :create
     resources "/users", UserController, except: [:new, :edit]
     resources "/notification", NotificationController, except: [:new, :edit]
     resources "/requestedloans", RequestedloanController, except: [:new, :edit]

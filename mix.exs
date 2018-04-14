@@ -44,7 +44,9 @@ defmodule Cryptoloan.Mixfile do
       {:httpoison, "~> 0.13"}, 
       {:poison, "~> 3.1"},
       {:oauth2, "~> 0.9"},
-      {:json, "~> 1.2"}
+      {:json, "~> 1.2"}, 
+      {:comeonin, "~> 4.0"},
+      {:argon2_elixir, "~> 1.2"},
     ]
   end
 

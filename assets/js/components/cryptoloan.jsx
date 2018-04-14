@@ -11,9 +11,11 @@ import Requestloans from './requested-loans';
 import NotifyForm from './notifyform';
 import RequestLoanForm from './requestloanform';
 import OfferLoanForm from './offerloanform';
+import UserForm from './registration-form';
 
 export default function cryptoloan_init(store) {
   let root = document.getElementById('root');
+  console.log("Cryptoloan jsx file", store);
   ReactDOM.render(
     <Provider store={store}>
       <Cryptoloan />
@@ -28,9 +30,9 @@ let Cryptoloan = connect((state) => state)((props) => {
     <Router>
       <div>
         <Nav/>
-
           <Route path="/" exact={true} render={() =>
             <div>
+	      <UserForm />
               <NotifyForm users={props.users}/>
               <HomePage notify={props.notifications} graph={props.graph}/>
             </div>

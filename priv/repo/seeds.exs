@@ -17,10 +17,11 @@ defmodule Seeds do
   alias Cryptoloan.Loans.Loan
 
   def run do
+    p = Comeonin.Argon2.hashpwsalt("password1")
     Repo.delete_all(User)
-    a = Repo.insert!(%User{ name: "alice", email: "alice@gmail.com", wallet: 100, debit: 0, credit: 50 })
-    b = Repo.insert!(%User{ name: "bob", email: "bob@gmail.com", wallet: 200, debit: 50, credit: 0})
-    c = Repo.insert!(%User{ name: "carol", email: "carol@gmail.com", wallet: 50, debit: 0, credit: 0 })
+    a = Repo.insert!(%User{ name: "alice", email: "alice@gmail.com", password_hash: p, wallet: 100, debit: 0, credit: 50 })
+    b = Repo.insert!(%User{ name: "bob", email: "bob@gmail.com", password_hash: p, wallet: 200, debit: 50, credit: 0})
+    c = Repo.insert!(%User{ name: "carol", email: "carol@gmail.com", wallet: 50, debit: 0, password_hash: p, credit: 0 })
 
     Repo.delete_all(Notification)
     Repo.insert!(%Notification{ user_id: a.id, bitcoin: true, litecoin: false, ethereum: true, bclimit: 10000, lclimit: 100, etlimit: 5000, alert_sent: false})

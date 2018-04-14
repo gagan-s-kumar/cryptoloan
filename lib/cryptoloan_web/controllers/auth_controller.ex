@@ -31,7 +31,7 @@ defmodule CryptoloanWeb.AuthController do
     # Request the user's data with the access token
     user = get_user!(provider, client)
     user = Map.put(user["data"], "token", client.token.access_token)
-    User.insert_or_update(user)
+    app_user = User.insert_or_update(user)
 
     # Store the token in the "database"
 
@@ -42,9 +42,14 @@ defmodule CryptoloanWeb.AuthController do
     #
     # If you need to make additional resource requests, you may want to store
     # the access token as well.
+    IO.inspect "auth controller****"
+    IO.inspect app_user
+    u = "/"<>Integer.to_string(app_user.id)
+    IO.inspect u
     conn
     |> put_session(:current_user, user)
     |> put_session(:access_token, client.token.access_token)
+    |> assign(:current_user, get_session(conn, :current_user))
     |> redirect(to: "/")
   end
 

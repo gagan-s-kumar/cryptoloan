@@ -89,6 +89,11 @@ defmodule Cryptoloan.Users do
     Repo.delete(user)
   end
 
+  def get_and_auth_user(email, pass) do
+    user = Repo.one(from u in User, where: u.email == ^email)
+    Comeonin.Argon2.check_pass(user, pass) 
+  end
+
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking user changes.
 
