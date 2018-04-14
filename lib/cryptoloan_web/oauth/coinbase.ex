@@ -58,4 +58,10 @@ defmodule Coinbase do
     {status, response} = HTTPoison.get("https://api.coinbase.com/v2/user", [{"Authorization", authorization}])
     Poison.decode!(response.body)
   end
+
+  def get_accounts(client) do
+    authorization = Enum.join(["Bearer", to_string(client.token.access_token)], " ")
+    {status, response} = HTTPoison.get("https://api.coinbase.com/v2/accounts", [{"Authorization", authorization}])
+    Poison.decode!(response.body)
+  end
 end

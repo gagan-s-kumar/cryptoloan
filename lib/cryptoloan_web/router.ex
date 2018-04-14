@@ -26,6 +26,7 @@ defmodule CryptoloanWeb.Router do
     get "/requestedloans", PageController, :index
     get "/users/:id", PageController, :index
     get "/loans/:id", PageController, :index
+    get "/wallets/:id", PageController, :index
   end
 
   scope "/api/v1", CryptoloanWeb do
@@ -35,6 +36,7 @@ defmodule CryptoloanWeb.Router do
     resources "/requestedloans", RequestedloanController, except: [:new, :edit]
     resources "/loans", LoanController, except: [:new, :edit]
     resources "/approvedloans", LoanController, except: [:new, :edit]
+    resources "/wallets", WalletController, except: [:new, :edit]
   end
 
   scope "/auth", CryptoloanWeb do

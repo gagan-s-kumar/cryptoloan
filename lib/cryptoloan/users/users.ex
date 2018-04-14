@@ -7,6 +7,7 @@ defmodule Cryptoloan.Users do
   alias Cryptoloan.Repo
 
   alias Cryptoloan.Users.User
+  alias Cryptoloan.Wallets.Wallet
 
   @doc """
   Returns the list of users.

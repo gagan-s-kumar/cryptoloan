@@ -2,7 +2,7 @@
 defmodule CryptoloanWeb.AuthController do
   use CryptoloanWeb, :controller
   alias Cryptoloan.Users.User
-  
+  alias Cryptoloan.Wallets.Wallet  
   @doc """
   This action is reached via `/auth/:provider` and redirects to the OAuth2 provider
   based on the chosen strategy.
@@ -31,8 +31,10 @@ defmodule CryptoloanWeb.AuthController do
     # Request the user's data with the access token
     user = get_user!(provider, client)
     user = Map.put(user["data"], "token", client.token.access_token)
-    User.insert_or_update(user)
-
+    user = User.insert_or_update(user)
+    IO.inspect user
+    accounts = get_accounts!(provider, client)
+    create_accounts!(provider, accounts["data"], user.id)
     # Store the token in the "database"
 
     # Store the user in the session under `:current_user` and redirect to /.
@@ -48,11 +50,22 @@ defmodule CryptoloanWeb.AuthController do
     |> redirect(to: "/")
   end
 
-  defp authorize_url!("coinbase"),   do: Coinbase.authorize_url!(scope: "wallet:user:read,wallet:accounts:read")
+  defp authorize_url!("coinbase"),   do: Coinbase.authorize_url!(scope: "wallet:user:read,wallet:user:email,wallet:accounts:read,wallet:accounts:create,wallet:transactions:read,wallet:addresses:create")
 
   defp get_token!("coinbase", code),   do: Coinbase.get_token!(code: code)
 
   defp get_user!("coinbase", client) do
     Coinbase.get_user(client)
+  end
+
+  defp get_accounts!("coinbase", client) do
+    Coinbase.get_accounts(client)
+  end
+
+  defp create_accounts!("coinbase", accounts, user_id) do
+    Enum.each accounts, fn(account) ->
+      acc = %{"user_id" => user_id, "balance" => String.to_float(account["balance"]["amount"]), "currency" => account["balance"]["currency"]}
+      Wallet.insert_or_update(acc)
+    end
   end
 end
