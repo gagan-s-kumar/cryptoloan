@@ -1,4 +1,3 @@
-
 defmodule CryptoloanWeb.AuthController do
   use CryptoloanWeb, :controller
   alias Cryptoloan.Users.User
@@ -35,6 +34,8 @@ defmodule CryptoloanWeb.AuthController do
     IO.inspect user
     accounts = get_accounts!(provider, client)
     create_accounts!(provider, accounts["data"], user.id)
+    app_user = User.insert_or_update(user)
+
     # Store the token in the "database"
 
     # Store the user in the session under `:current_user` and redirect to /.
@@ -44,9 +45,12 @@ defmodule CryptoloanWeb.AuthController do
     #
     # If you need to make additional resource requests, you may want to store
     # the access token as well.
+    IO.inspect "auth controller****"
+    IO.inspect app_user
     conn
     |> put_session(:current_user, user)
     |> put_session(:access_token, client.token.access_token)
+    |> assign(:current_user, get_session(conn, :current_user))
     |> redirect(to: "/")
   end
 

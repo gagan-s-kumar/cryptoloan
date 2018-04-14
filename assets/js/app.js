@@ -29,6 +29,8 @@ $(function() {
   api.request_loans();
   api.request_requestedloans();
   api.request_users();
-  api.get_graph_data();
+  api.get_eth_graph_data();
+  api.get_btc_graph_data();
+  api.get_ltc_graph_data();
   cryptoloan_init(store);
 });

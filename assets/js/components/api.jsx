@@ -58,7 +58,55 @@ class TheServer {
     });
   }
 
-  get_graph_data() {
+  submit_login(data) {
+    $.ajax("/api/v1/token", {
+      method: "post",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      data: JSON.stringify(data),
+      success: (resp) => {
+        store.dispatch({
+          type: 'SET_TOKEN',
+          token: resp,
+        });
+      },
+    });
+  }
+
+  submit_user(data) {
+    $.ajax("/api/v1/users", {
+      method: "post",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      data: JSON.stringify({ token: data.token, user: data }),
+      success: (resp) => {
+        store.dispatch({
+          type: 'ADD_USER',
+          user: resp.data,
+        });
+      },
+    });
+  }
+
+  submit_logout() {
+    console.log("in api");
+    $.ajax("/api/v1/token", {
+      method: "post",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      data: JSON.stringify({}),
+      success: (resp) => {
+        store.dispatch({
+          type: 'RESET_TOKEN',
+          token: resp,
+        });
+      },
+    });
+  }
+
+
+
+  get_eth_graph_data() {
     $.ajax("https://min-api.cryptocompare.com/data/histoday?fsym=ETH&tsym=USD&limit=20", {
       method: "get",
       dataType: "json",
@@ -67,7 +115,39 @@ class TheServer {
         console.log(resp.Data);
         store.dispatch({
           type: 'GRAPH',
-          graph: resp.Data,
+          graph: {eth: resp.Data},
+        });
+      },
+    });
+  }
+
+  
+  get_btc_graph_data() {
+    $.ajax("https://min-api.cryptocompare.com/data/histoday?fsym=BTC&tsym=USD&limit=20", {
+      method: "get",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      success: (resp) => {
+        console.log(resp.Data);
+        store.dispatch({
+          type: 'GRAPH',
+          graph: {btc: resp.Data},
+        });
+      },
+    });
+  }
+
+
+  get_ltc_graph_data() {
+    $.ajax("https://min-api.cryptocompare.com/data/histoday?fsym=LTC&tsym=USD&limit=20", {
+      method: "get",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      success: (resp) => {
+        console.log(resp.Data);
+        store.dispatch({
+          type: 'GRAPH',
+          graph: {ltc: resp.Data},
         });
       },
     });
