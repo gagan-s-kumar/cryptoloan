@@ -8,14 +8,12 @@ import { LineChart } from 'react-easy-chart';
 
 
 export default function HomePage(props) {
-  console.log("graph",props.graph);
   let monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"];
   let g = props.graph;
   let gmap = _.map(g,function (v){ let date = new Date(v.time * 1000);
                                   let a = date.getDate()+'-'+monthNames[date.getMonth()];
                                   return {x: a, y: v.open}});
-  console.log(gmap);
 
   return <div>
     <div>

@@ -11,6 +11,7 @@ import Requestloans from './requested-loans';
 import NotifyForm from './notifyform';
 import RequestLoanForm from './requestloanform';
 import OfferLoanForm from './offerloanform';
+import CurrentPrice from './current-price'
 
 export default function cryptoloan_init(store) {
   let root = document.getElementById('root');
@@ -23,7 +24,6 @@ export default function cryptoloan_init(store) {
 
 let Cryptoloan = connect((state) => state)((props) => {
 
-  console.log(props);
   return (
     <Router>
       <div>
@@ -31,6 +31,7 @@ let Cryptoloan = connect((state) => state)((props) => {
 
           <Route path="/" exact={true} render={() =>
             <div>
+              <CurrentPrice bitcoin={props.bitcoin}/>
               <NotifyForm users={props.users}/>
               <HomePage notify={props.notifications} graph={props.graph}/>
             </div>

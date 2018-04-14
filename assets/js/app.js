@@ -30,5 +30,6 @@ $(function() {
   api.request_requestedloans();
   api.request_users();
   api.get_graph_data();
+  api.get_bitcoin();
   cryptoloan_init(store);
 });
