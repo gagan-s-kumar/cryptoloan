@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button, FormGroup, Label, Input } from 'reactstrap';
 
 function ShowLoans(props) {
 
@@ -22,6 +23,9 @@ function ShowLoans(props) {
         <div className="col-md">
            {props.loan.user_id.name}
         </div>
+        <div className="col-md">
+           <Button onClick={() => alert("TODO: Submit Notification")}>Accept</Button>
+        </div>
     </div>
   </div>;
 
@@ -44,10 +48,13 @@ export default function Loans(props) {
            Colletaral
         </div>
         <div className="col-md">
-           Application Number
+           Request Number
         </div>
         <div className="col-md">
-           User ID
+           Lender name
+        </div>
+        <div className="col-md">
+           Actions
         </div>
     </div>
     { loanList }

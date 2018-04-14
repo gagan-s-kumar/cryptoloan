@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button, FormGroup, Label, Input } from 'reactstrap';
 
 function ShowUsers(props) {
 
@@ -12,6 +13,9 @@ function ShowUsers(props) {
         </div>
         <div className="col-md">
            {props.user.email}
+        </div>
+        <div className="col-md">
+           <Button onClick={() => alert("TODO: Submit Notification")}>Edit</Button>
         </div>
     </div>
 
@@ -34,6 +38,9 @@ export default function Userlist(props) {
 	</div>
 	<div className="col-md">
 	   Email
+	</div>
+	<div className="col-md">
+	   Action
 	</div>
       </div>
       {userList}
