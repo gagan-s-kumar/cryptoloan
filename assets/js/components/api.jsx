@@ -58,7 +58,7 @@ class TheServer {
     });
   }
 
-  get_graph_data() {
+  get_eth_graph_data() {
     $.ajax("https://min-api.cryptocompare.com/data/histoday?fsym=ETH&tsym=USD&limit=20", {
       method: "get",
       dataType: "json",
@@ -67,7 +67,39 @@ class TheServer {
         console.log(resp.Data);
         store.dispatch({
           type: 'GRAPH',
-          graph: resp.Data,
+          graph: {eth: resp.Data},
+        });
+      },
+    });
+  }
+
+  
+  get_btc_graph_data() {
+    $.ajax("https://min-api.cryptocompare.com/data/histoday?fsym=BTC&tsym=USD&limit=20", {
+      method: "get",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      success: (resp) => {
+        console.log(resp.Data);
+        store.dispatch({
+          type: 'GRAPH',
+          graph: {btc: resp.Data},
+        });
+      },
+    });
+  }
+
+
+  get_ltc_graph_data() {
+    $.ajax("https://min-api.cryptocompare.com/data/histoday?fsym=LTC&tsym=USD&limit=20", {
+      method: "get",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      success: (resp) => {
+        console.log(resp.Data);
+        store.dispatch({
+          type: 'GRAPH',
+          graph: {ltc: resp.Data},
         });
       },
     });

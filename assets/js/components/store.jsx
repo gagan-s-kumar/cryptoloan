@@ -38,9 +38,10 @@ function users(state = [], action) {
 }
 
 function graph(state = [], action) {
+  console.log("IN STORE", action)
   switch (action.type) {
   case 'GRAPH':
-    return [...action.graph];
+    return [action.graph, ...state];
   default:
     return state;
   }
