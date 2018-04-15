@@ -1,7 +1,8 @@
 defmodule CryptoloanWeb.UserView do
   use CryptoloanWeb, :view
   alias CryptoloanWeb.UserView
-
+  alias CryptoloanWeb.WalletView
+  
   def render("index.json", %{users: users}) do
     %{data: render_many(users, UserView, "user.json")}
   end
@@ -11,11 +12,12 @@ defmodule CryptoloanWeb.UserView do
   end
 
   def render("user.json", %{user: user}) do
-    %{id: user.id,
+    data = %{id: user.id,
       name: user.name,
       email: user.email,
-      wallet: user.wallet,
       debit: user.debit,
-      credit: user.credit}
+      credit: user.credit,
+      wallet: user.wallet
+    }
   end
 end

@@ -39,4 +39,9 @@ defmodule CryptoloanWeb.WalletController do
       send_resp(conn, :no_content, "")
     end
   end
+  
+  def by_user(conn, params) do
+    wallet = Wallets.get_user_wallet(params["user_id"])
+    render(conn, "show.json", wallet: wallet)
+  end
 end
