@@ -68,7 +68,8 @@ class TheServer {
       success: (resp) => {
         const cookies = new Cookies();
         cookies.set('token', resp.token);
-        store.dispatch({
+        cookies.set('user_id', resp.user_id);
+	store.dispatch({
           type: 'SET_TOKEN',
           token: resp,
         });
@@ -101,6 +102,7 @@ class TheServer {
       success: (resp) => {
         const cookies = new Cookies();
         cookies.remove('token');
+	cookies.remove('user_id');
         store.dispatch({
           type: 'RESET_TOKEN',
           token: resp,
