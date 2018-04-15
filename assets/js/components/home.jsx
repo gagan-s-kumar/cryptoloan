@@ -91,8 +91,5 @@ export default function HomePage(props) {
   </Tabs>
 
 
-    <div>
-      <Notifylist notify={props.notify} />
-    </div>
   </div>;
 }

@@ -66,6 +66,7 @@ function Nav(props) {
     session_info = <LoginForm />
   }
 
+  if(props.token) { 
   return (
     <nav className="navbar navbar-dark bg-dark navbar-expand">
       <span className="navbar-brand">
@@ -89,6 +90,25 @@ function Nav(props) {
         </NavItem>
         <NavItem>
           <NavLink to="/users" href="#" className="nav-link">Profile</NavLink>
+        </NavItem>
+	<NavItem>
+          <span className="navbar-text">
+	    { session_info }
+          </span>
+	</NavItem>
+      </ul>
+    </nav>
+  );
+  }
+
+  return (
+    <nav className="navbar navbar-dark bg-dark navbar-expand">
+      <span className="navbar-brand">
+        Cryptoloan
+      </span>
+      <ul className="navbar-nav mr-auto">
+        <NavItem>
+          <NavLink to="/" exact={true} activeClassName="active" className="nav-link">Home</NavLink>
         </NavItem>
 	<NavItem>
           <span className="navbar-text">
