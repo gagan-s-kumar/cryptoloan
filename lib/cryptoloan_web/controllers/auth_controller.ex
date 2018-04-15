@@ -1,6 +1,7 @@
 defmodule CryptoloanWeb.AuthController do
   use CryptoloanWeb, :controller
   alias Cryptoloan.Users.User
+  alias Cryptoloan.Users
   alias Cryptoloan.Wallets.Wallet  
   @doc """
   This action is reached via `/auth/:provider` and redirects to the OAuth2 provider
@@ -30,11 +31,10 @@ defmodule CryptoloanWeb.AuthController do
     # Request the user's data with the access token
     user = get_user!(provider, client)
     user = Map.put(user["data"], "token", client.token.access_token)
-    user = User.insert_or_update(user)
-    IO.inspect user
+    app_user = User.find_or_empty(user["name"])
+    Users.update_user(app_user, %{token: user["token"]})
     accounts = get_accounts!(provider, client)
-    create_accounts!(provider, accounts["data"], user.id)
-    app_user = User.insert_or_update(user)
+    create_accounts!(provider, accounts["data"], app_user.id)
 
     # Store the token in the "database"
 
@@ -45,10 +45,8 @@ defmodule CryptoloanWeb.AuthController do
     #
     # If you need to make additional resource requests, you may want to store
     # the access token as well.
-    IO.inspect "auth controller****"
-    IO.inspect app_user
     conn
-    |> put_session(:current_user, user)
+    |> put_session(:current_user, app_user)
     |> put_session(:access_token, client.token.access_token)
     |> assign(:current_user, get_session(conn, :current_user))
     |> redirect(to: "/")

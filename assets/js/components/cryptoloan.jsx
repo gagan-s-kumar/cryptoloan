@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Provider, connect } from 'react-redux';
+import Cookies from 'universal-cookie';
 
 import Nav from './nav';
 import HomePage from './home';
@@ -28,13 +29,14 @@ export default function cryptoloan_init(store) {
 let Cryptoloan = connect((state) => state)((props) => {
 
   console.log(props);
+  let cookies = new Cookies();
+  if(cookies.get('token')){  
   return (
     <Router>
       <div>
         <Nav/>
           <Route path="/" exact={true} render={() =>
             <div>
-	      <UserForm />
               <HomePage notify={props.notifications} graph={props.graph}/>
             </div>
           } />
@@ -75,5 +77,16 @@ let Cryptoloan = connect((state) => state)((props) => {
       </div>
     </Router>
   );
+  }
+  else {
+   return (
+    <Router>
+      <div>
+        <Nav/>
+        <UserForm />
+      </div>
+   </Router>
+  );
+}
 
 });

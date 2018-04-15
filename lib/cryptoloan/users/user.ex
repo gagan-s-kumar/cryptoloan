@@ -33,6 +33,6 @@ defmodule Cryptoloan.Users.User do
   
   def insert_or_update(params) do
     user = find_or_empty(params["name"])
-    Repo.insert_or_update!(changeset(user, params))
+    #Repo.insert_or_update!(changeset(user, params))
   end
 end

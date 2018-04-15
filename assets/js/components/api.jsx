@@ -1,4 +1,5 @@
 import store from './store';
+import Cookies from 'universal-cookie';
 
 class TheServer {
 
@@ -65,6 +66,8 @@ class TheServer {
       contentType: "application/json; charset=UTF-8",
       data: JSON.stringify(data),
       success: (resp) => {
+        const cookies = new Cookies();
+        cookies.set('token', resp.token);
         store.dispatch({
           type: 'SET_TOKEN',
           token: resp,
@@ -96,6 +99,8 @@ class TheServer {
       contentType: "application/json; charset=UTF-8",
       data: JSON.stringify({}),
       success: (resp) => {
+        const cookies = new Cookies();
+        cookies.remove('token');
         store.dispatch({
           type: 'RESET_TOKEN',
           token: resp,

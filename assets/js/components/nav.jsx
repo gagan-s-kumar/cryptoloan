@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import api from './api';
 
-
 let LoginForm = connect(({login}) => {return {login};})((props) => {
   function update(ev) {
     let tgt = $(ev.target);
@@ -58,7 +57,6 @@ function Nav(props) {
 
 
   let session_info;
-
   if (props.token) {
     session_info = <Session token={props.token} />;
   }
