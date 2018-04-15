@@ -1,0 +1,5 @@
+curl --request POST \
+  --url https://api.sendgrid.com/v3/mail/send \
+  --header "Authorization: Bearer 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" \
+  --header 'Content-Type: application/json' \
+--data '{"personalizations": [{"to": [{"email": "naomi.m2101@gmail.com"}]}],"from": {"email": "bitcoinalertsend@gmail.com"},"subject": "Sending with SendGrid is Fun","content": [{"type": "text/plain", "value": "and easy to do anywhere, even with cURL"}]}'

@@ -14,6 +14,7 @@ defmodule CryptoloanWeb.Router do
     plug :accepts, ["json"]
   end
 
+
   scope "/", CryptoloanWeb do
     pipe_through :browser # Use the default browser stack
 
@@ -43,7 +44,7 @@ defmodule CryptoloanWeb.Router do
     get "/:provider/callback", AuthController, :callback
     delete "/logout", AuthController, :delete
   end
-  
+
   # Fetch the current user from the session and add it to `conn.assigns`. This
   # will allow you to have access to the current user in your views with
   # `@current_user`.

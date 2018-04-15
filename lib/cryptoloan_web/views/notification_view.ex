@@ -12,8 +12,6 @@ defmodule CryptoloanWeb.NotificationView do
   end
 
   def render("notification.json", %{notification: notification}) do
-    IO.inspect "Notification render view"
-    IO.inspect notification
     %{id: notification.id,
       bclimit: notification.bclimit,
       lclimit: notification.lclimit,
