@@ -47,12 +47,15 @@ defmodule CryptoloanWeb.WalletController do
     user = Users.get_user!(params["user_id"])
     client = %{token: %{access_token: user.token}}
     accounts = Coinbase.get_accounts(client)
- 
-    Enum.each accounts["data"], fn(account) ->
-      acc = %{"user_id" => user.id, "balance" => String.to_float(account["balance"]["amount"]), "currency" => account["balance"]["currency"]}
-      Wallet.insert_or_update(acc)
+    if !accounts do
+      send_resp(conn, :no_content, "")
+    else
+      Enum.each accounts["data"], fn(account) ->
+        acc = %{"user_id" => user.id, "balance" => String.to_float(account["balance"]["amount"]), "currency" => account["balance"]["currency"]}
+        Wallet.insert_or_update(acc)
+        wallet = Wallets.get_user_wallet(params["user_id"])
+        render(conn, "show.json", wallet: wallet)
+      end
     end
-    wallet = Wallets.get_user_wallet(params["user_id"])
-    render(conn, "show.json", wallet: wallet)
   end
 end
