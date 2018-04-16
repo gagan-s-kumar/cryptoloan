@@ -40,15 +40,22 @@ let LoginForm = connect(({login}) => {return {login};})((props) => {
 });
 
 
+function WalletInfo(params) {
+  return <div className="navbar-text">
+    User id = { params.token.user_id }
+    <Button onClick={reset_token}>Logout</Button>
+    Wallet Balance: BTC {params.wallet.balance}
+    </div>;
+}
+
 function reset_token(ev) {
     api.submit_logout();
 }
 
 let Session = connect(({token}) => {return {token};})((props) => {
-
-  return <div className="navbar-text">
+    return <div className="navbar-text">
     User id = { props.token.user_id }
-    <Button onClick={reset_token}>Logout</Button>          
+    <Button onClick={reset_token}>Logout</Button>
     <Link className="btn btn-primary btn-xs" to={"/auth/coinbase"} onClick={auth}>Link your Wallet</Link>
   </div>;
 });
@@ -58,7 +65,7 @@ function auth(ev) {
 }
 function Nav(props) {
 
-
+  let wallet;
   let session_info;
   let token;
   let cookie = new Cookies();
@@ -72,8 +79,13 @@ function Nav(props) {
     store.dispatch({type: 'SET_TOKEN', token: token}); 
   }
   if (token) {
-    api.request_user_wallet(token.user_id);
-    session_info = <Session token={token} />;
+    wallet = _.find(props.wallets, function(w){ if(w.user.id==token.user_id) return w});
+    if(wallet){
+      api.request_user_wallet(token.user_id);
+      session_info = <WalletInfo token={token} wallet={wallet} />
+    }
+    else
+      session_info = <Session token={token} />;
   }
   else {
     session_info = <LoginForm />
@@ -116,6 +128,7 @@ function Nav(props) {
 function state2props(state) {
   return {
     token: state.token,
+    wallets: state.wallets,
   };
 }
 

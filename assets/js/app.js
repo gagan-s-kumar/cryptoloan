@@ -29,6 +29,7 @@ $(function() {
   api.request_loans();
   api.request_requestedloans();
   api.request_users();
+  api.request_wallets();
   api.get_eth_graph_data();
   api.get_btc_graph_data();
   api.get_ltc_graph_data();

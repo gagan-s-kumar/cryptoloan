@@ -71,6 +71,15 @@ function token(state = null, action) {
   }
 }
 
+function wallets(state = [], action) {
+  switch (action.type) {
+    case 'WALLET_LIST':
+      return [...action.wallets];
+    default:
+      return state;
+  }
+}
+
 let empty_user_form = {
   name: "",
   email: "",
@@ -123,7 +132,7 @@ function errors(state="", action) {
 
 function root_reducer(state0, action) {
 
-  let reducer = combineReducers({loans, login, user_form, token, notifications, requestedloans, users, graph, errors, notify_form});
+  let reducer = combineReducers({loans, login, wallets,  user_form, token, notifications, requestedloans, users, graph, errors, notify_form});
 
   let state1 = reducer(state0, action);
 

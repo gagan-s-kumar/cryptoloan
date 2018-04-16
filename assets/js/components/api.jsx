@@ -69,6 +69,20 @@ class TheServer {
       },
     });
   }
+
+  request_wallets() {
+    $.ajax("/api/v1/wallets", {
+      method: "get",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      success: (resp) => {
+        store.dispatch({
+          type: 'WALLET_LIST',
+          wallets: resp.data,
+        });
+      },
+    });
+  }
   
   submit_login(data) {
     $.ajax("/api/v1/token", {
