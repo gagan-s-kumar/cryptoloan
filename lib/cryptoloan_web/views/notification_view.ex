@@ -16,7 +16,9 @@ defmodule CryptoloanWeb.NotificationView do
       bclimit: notification.bclimit,
       lclimit: notification.lclimit,
       etlimit: notification.etlimit,
-      alert_sent: notification.alert_sent,
+      balert: notification.balert,
+      lalert: notification.lalert,
+      ealert: notification.ealert,
       user_id: render_one(notification.user, UserView, "user.json")}
   end
 end

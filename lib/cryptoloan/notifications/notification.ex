@@ -4,10 +4,12 @@ defmodule Cryptoloan.Notifications.Notification do
 
 
   schema "notifications" do
-    field :alert_sent, :boolean, default: false
     field :bclimit, :integer
     field :etlimit, :integer
     field :lclimit, :integer
+    field :balert, :boolean, default: false
+    field :lalert, :boolean, default: false
+    field :ealert, :boolean, default: false
     belongs_to :user, Cryptoloan.Users.User
 
     timestamps()
@@ -16,7 +18,7 @@ defmodule Cryptoloan.Notifications.Notification do
   @doc false
   def changeset(notification, attrs) do
     notification
-    |> cast(attrs, [:bclimit, :lclimit, :etlimit, :alert_sent, :user_id])
-    |> validate_required([:bclimit, :lclimit, :etlimit, :alert_sent, :user_id])
+    |> cast(attrs, [:bclimit, :lclimit, :etlimit, :user_id, :balert, :lalert, :ealert])
+    |> validate_required([:bclimit, :lclimit, :etlimit, :user_id, :balert, :lalert, :ealert])
   end
 end
