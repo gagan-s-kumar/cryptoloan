@@ -58,7 +58,7 @@ class TheServer {
       },
     });
   }
-  
+
   request_user_wallet(user_id) {
     $.ajax("/api/v1/wallets/user/" + user_id, {
       method: "get",
@@ -83,7 +83,7 @@ class TheServer {
       },
     });
   }
-  
+
   submit_login(data) {
     $.ajax("/api/v1/token", {
       method: "post",
@@ -151,7 +151,6 @@ class TheServer {
       dataType: "json",
       contentType: "application/json; charset=UTF-8",
       success: (resp) => {
-        console.log(resp.Data);
         store.dispatch({
           type: 'GRAPH',
           graph: {eth: resp.Data},
@@ -160,14 +159,13 @@ class TheServer {
     });
   }
 
-  
+
   get_btc_graph_data() {
     $.ajax("https://min-api.cryptocompare.com/data/histoday?fsym=BTC&tsym=USD&limit=20", {
       method: "get",
       dataType: "json",
       contentType: "application/json; charset=UTF-8",
       success: (resp) => {
-        console.log(resp.Data);
         store.dispatch({
           type: 'GRAPH',
           graph: {btc: resp.Data},
@@ -183,7 +181,6 @@ class TheServer {
       dataType: "json",
       contentType: "application/json; charset=UTF-8",
       success: (resp) => {
-        console.log(resp.Data);
         store.dispatch({
           type: 'GRAPH',
           graph: {ltc: resp.Data},
@@ -198,7 +195,6 @@ class TheServer {
       dataType: "json",
       contentType: "application/json; charset=UTF-8",
       success: (resp) => {
-        console.log(resp.data.amount);
         store.dispatch({
           type: 'BITCOIN',
           bitcoin: resp.data.amount,

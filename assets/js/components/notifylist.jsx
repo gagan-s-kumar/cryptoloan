@@ -24,7 +24,9 @@ function ShowNotifications(props) {
 
 
 export default function Notifylist(props) {
-  let notifyList = _.map(props.notify, (nn) => <ShowNotifications key={nn.id} note={nn} />);
+  console.log("props", props);
+  let mylist = _.filter(props.notify, function(kk){ return kk.user_id.id == props.token.user_id})
+  let notifyList = _.map(mylist, (nn) => <ShowNotifications key={nn.id} note={nn} />);
 
   return <div>
       <h2>Your Notifications</h2>

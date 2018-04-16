@@ -15,7 +15,6 @@ let empty_notify_form = {
   bclimit: "",
   lclimit: "",
   etlimit: "",
-  alert_sent: ""
 };
 
 function notify_form(state = empty_notify_form, action) {
@@ -112,7 +111,6 @@ function login(state = empty_login, action) {
 }
 
 function graph(state = [], action) {
-  console.log("IN STORE", action)
   switch (action.type) {
   case 'GRAPH':
     return [action.graph, ...state];

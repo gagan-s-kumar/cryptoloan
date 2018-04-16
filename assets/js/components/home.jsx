@@ -6,7 +6,6 @@ import { LineChart } from 'react-easy-chart';
 import {Tabs, TabList, Tab, TabPanel} from 'react-tabs';
 
 export default function HomePage(props) {
-  console.log("IN HOME JSX ..", window.location.href);
   let ltc, eth, btc;
 
   _.each(props.graph, function(obj){
@@ -92,7 +91,7 @@ export default function HomePage(props) {
 
 
     <div>
-      <Notifylist notify={props.notify} />
+      <Notifylist notify={props.notify} token={props.token} />
     </div>
   </div>;
 }
