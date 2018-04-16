@@ -3,11 +3,16 @@ defmodule CryptoloanWeb.NotificationController do
 
   alias Cryptoloan.Notifications
   alias Cryptoloan.Notifications.Notification
+  alias Cryptoloan.Email
+  alias Cryptoloan.Mailer
 
   action_fallback CryptoloanWeb.FallbackController
 
   def index(conn, _params) do
     notifications = Notifications.list_notifications()
+    render(conn, "index.json", notifications: notifications)
+    Cryptoloan.Email.welcome_text_email("naomi.m2101@gmail.com")
+    |> Mailer.deliver_now
     render(conn, "index.json", notifications: notifications)
   end
 

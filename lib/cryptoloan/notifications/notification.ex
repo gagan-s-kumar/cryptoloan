@@ -7,7 +7,7 @@ defmodule Cryptoloan.Notifications.Notification do
     field :alert_sent, :boolean, default: false
     field :bclimit, :integer
     field :etlimit, :integer
-    field :lclimit, :integer 
+    field :lclimit, :integer
     field :bitcoin, :boolean, default: false
     field :litecoin, :boolean, default: false
     field :ethereum, :boolean, default: false

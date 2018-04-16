@@ -2,9 +2,6 @@ import React from 'react';
 
 function ShowLoans(props) {
 
-//  return <div>
-//    <p>{props.loan.mini_balance}</p>
-//  </div>;
   return <div>
     <div className="row">
         <div className="col-md">

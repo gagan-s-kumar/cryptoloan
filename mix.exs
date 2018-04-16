@@ -20,7 +20,7 @@ defmodule Cryptoloan.Mixfile do
   def application do
     [
       mod: {Cryptoloan.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :bamboo]
     ]
   end
 
@@ -41,12 +41,14 @@ defmodule Cryptoloan.Mixfile do
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
-      {:httpoison, "~> 0.13"}, 
-      {:poison, "~> 3.1"},
+      {:httpoison, "~> 0.13", override: true},
+      {:poison, "~> 3.1", override: true},
       {:oauth2, "~> 0.9"},
-      {:json, "~> 1.2"}, 
+      {:json, "~> 1.2"},
       {:comeonin, "~> 4.0"},
       {:argon2_elixir, "~> 1.2"},
+      {:bamboo, "~> 0.7", override: true},
+      {:bamboo_smtp, "~> 1.2.1"}
     ]
   end
 

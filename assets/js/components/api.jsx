@@ -178,6 +178,41 @@ class TheServer {
     });
   }
 
+  get_bitcoin() {
+    $.ajax("https://api.coinbase.com/v2/prices/BTC-USD/spot", {
+      method: "get",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      success: (resp) => {
+        console.log(resp.data.amount);
+        store.dispatch({
+          type: 'BITCOIN',
+          bitcoin: resp.data.amount,
+        });
+      },
+    });
+  }
+
+
+  new_notification(data) {
+    $.ajax("/api/v1/notification", {
+      method: "post",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      data: JSON.stringify({ notification: data }),
+      success: (resp) => {
+        store.dispatch({
+          type: 'ADD_NOTIFICATION',
+          notification: resp.data,
+        });
+      },
+      error: (resp) => {
+        console.log(resp);
+      }
+    });
+  }
+
+
 }
 
 export default new TheServer();

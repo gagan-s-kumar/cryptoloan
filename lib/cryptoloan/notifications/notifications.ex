@@ -19,7 +19,7 @@ defmodule Cryptoloan.Notifications do
   """
   def list_notifications do
     Repo.all(Notification)
-    |> Repo.preload(:user)
+    |>Repo.preload(:user)
   end
 
   @doc """
@@ -36,7 +36,10 @@ defmodule Cryptoloan.Notifications do
       ** (Ecto.NoResultsError)
 
   """
-  def get_notification!(id), do: Repo.get!(Notification, id)
+  def get_notification!(id) do
+     Repo.get!(Notification, id)
+     |>Repo.preload(:user)
+  end
 
   @doc """
   Creates a notification.
@@ -51,9 +54,10 @@ defmodule Cryptoloan.Notifications do
 
   """
   def create_notification(attrs \\ %{}) do
-    %Notification{}
+    {:ok, notification} = %Notification{}
     |> Notification.changeset(attrs)
     |> Repo.insert()
+    {:ok, Repo.preload(notification, :user)}
   end
 
   @doc """

@@ -1,6 +1,7 @@
 defmodule CryptoloanWeb.NotificationView do
   use CryptoloanWeb, :view
   alias CryptoloanWeb.NotificationView
+  alias CryptoloanWeb.UserView
 
   def render("index.json", %{notifications: notifications}) do
     %{data: render_many(notifications, NotificationView, "notification.json")}
@@ -15,6 +16,7 @@ defmodule CryptoloanWeb.NotificationView do
       bclimit: notification.bclimit,
       lclimit: notification.lclimit,
       etlimit: notification.etlimit,
-      alert_sent: notification.alert_sent}
+      alert_sent: notification.alert_sent,
+      user_id: render_one(notification.user, UserView, "user.json")}
   end
 end

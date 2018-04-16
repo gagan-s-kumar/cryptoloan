@@ -16,6 +16,7 @@ import Notifylist from './notifylist';
 import Userlist from './userlist';
 import UserForm from './registration-form';
 
+
 export default function cryptoloan_init(store) {
   let root = document.getElementById('root');
   console.log("Cryptoloan jsx file", store);
@@ -30,7 +31,7 @@ let Cryptoloan = connect((state) => state)((props) => {
 
   console.log("cryptoloan.jsx-->", props);
   let cookies = new Cookies();
-  if(cookies.get('token')){  
+  if(cookies.get('token')){
   return (
     <Router>
       <div>
