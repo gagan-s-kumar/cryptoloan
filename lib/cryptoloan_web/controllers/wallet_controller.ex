@@ -4,6 +4,9 @@ defmodule CryptoloanWeb.WalletController do
   alias Cryptoloan.Wallets
   alias Cryptoloan.Wallets.Wallet
 
+  alias Cryptoloan.Users
+  alias Cryptoloan.Users.User
+
   action_fallback CryptoloanWeb.FallbackController
 
   def index(conn, _params) do
@@ -38,5 +41,18 @@ defmodule CryptoloanWeb.WalletController do
     with {:ok, %Wallet{}} <- Wallets.delete_wallet(wallet) do
       send_resp(conn, :no_content, "")
     end
+  end
+  
+  def by_user(conn, params) do
+    user = Users.get_user!(params["user_id"])
+    client = %{token: %{access_token: user.token}}
+    accounts = Coinbase.get_accounts(client)
+ 
+    Enum.each accounts["data"], fn(account) ->
+      acc = %{"user_id" => user.id, "balance" => String.to_float(account["balance"]["amount"]), "currency" => account["balance"]["currency"]}
+      Wallet.insert_or_update(acc)
+    end
+    wallet = Wallets.get_user_wallet(params["user_id"])
+    render(conn, "show.json", wallet: wallet)
   end
 end

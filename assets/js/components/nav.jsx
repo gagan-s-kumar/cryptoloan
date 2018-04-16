@@ -72,6 +72,7 @@ function Nav(props) {
     store.dispatch({type: 'SET_TOKEN', token: token}); 
   }
   if (token) {
+    api.request_user_wallet(token.user_id);
     session_info = <Session token={token} />;
   }
   else {

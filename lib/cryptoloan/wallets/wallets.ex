@@ -105,4 +105,9 @@ defmodule Cryptoloan.Wallets do
   def change_wallet(%Wallet{} = wallet) do
     Wallet.changeset(wallet, %{})
   end
+  
+  def get_user_wallet(user_id) do
+    wallet = Repo.get_by(Wallet, user_id: user_id)
+    get_wallet!(wallet.id)
+  end
 end

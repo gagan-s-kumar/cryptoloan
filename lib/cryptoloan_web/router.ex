@@ -27,18 +27,21 @@ defmodule CryptoloanWeb.Router do
     get "/requestedloans", PageController, :index
     get "/users/:id", PageController, :index
     get "/loans/:id", PageController, :index
-    get "/wallets/:id", PageController, :index
+    get "/wallets", PageController, :index
   end
 
   scope "/api/v1", CryptoloanWeb do
     pipe_through :api
     post "/token", TokenController, :create
+    
     resources "/users", UserController, except: [:new, :edit]
     resources "/notification", NotificationController, except: [:new, :edit]
     resources "/requestedloans", RequestedloanController, except: [:new, :edit]
     resources "/loans", LoanController, except: [:new, :edit]
     resources "/approvedloans", LoanController, except: [:new, :edit]
     resources "/wallets", WalletController, except: [:new, :edit]
+
+    get "/wallets/user/:user_id", WalletController, :by_user
   end
 
   scope "/auth", CryptoloanWeb do
