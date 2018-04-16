@@ -123,7 +123,7 @@ function errors(state="", action) {
 
 function root_reducer(state0, action) {
 
-  let reducer = combineReducers({loans, login, user_form, token, notifications, requestedloans, users, graph, errors});
+  let reducer = combineReducers({loans, login, user_form, token, notifications, requestedloans, users, graph, errors, notify_form});
 
   let state1 = reducer(state0, action);
 
