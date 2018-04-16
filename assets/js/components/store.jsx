@@ -40,10 +40,30 @@ function notifications(state = [], action) {
   }
 }
 
+let empty_requestedloans_form = {
+  user_id: "",
+  amount: "",
+  duration_requested: "",
+  granted: ""
+};
+
+function requestedloans_form(state = empty_requestedloans_form, action) {
+  switch (action.type) {
+    case 'UPDATE_REQUESTEDLOANS_FORM':
+      return Object.assign({}, state, action.data);
+    case 'CLEAR_REQUESTEDLOANS_FORM':
+      return empty_requestedloans_form;
+    default:
+      return state;
+  }
+}
+
 function requestedloans(state = [], action) {
   switch (action.type) {
   case 'REQ_LIST':
     return [...action.requestedloans];
+  case 'ADD_REQUESTEDLOANS':
+    return [action.requestedloan, ...state];
   default:
     return state;
   }
@@ -132,7 +152,7 @@ function errors(state="", action) {
 
 function root_reducer(state0, action) {
 
-  let reducer = combineReducers({loans, login, wallets,  user_form, token, notifications, requestedloans, users, graph, errors, notify_form});
+  let reducer = combineReducers({loans, login, wallets,  user_form, token, notifications, requestedloans, users, graph, errors, notify_form, requestedloans_form});
 
   let state1 = reducer(state0, action);
 
