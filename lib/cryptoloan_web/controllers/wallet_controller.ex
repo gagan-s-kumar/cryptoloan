@@ -53,9 +53,9 @@ defmodule CryptoloanWeb.WalletController do
       Enum.each accounts["data"], fn(account) ->
         acc = %{"user_id" => user.id, "balance" => String.to_float(account["balance"]["amount"]), "currency" => account["balance"]["currency"]}
         Wallet.insert_or_update(acc)
-        wallet = Wallets.get_user_wallet(params["user_id"])
-        render(conn, "show.json", wallet: wallet)
       end
+      wallet = Wallets.get_user_wallet(params["user_id"])
+      render(conn, "show.json", wallet: wallet)
     end
   end
 end
