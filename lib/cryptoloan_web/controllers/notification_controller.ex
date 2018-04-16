@@ -11,12 +11,11 @@ defmodule CryptoloanWeb.NotificationController do
   def index(conn, _params) do
     notifications = Notifications.list_notifications()
     render(conn, "index.json", notifications: notifications)
-    Cryptoloan.Email.welcome_text_email("naomi.m2101@gmail.com")
-    |> Mailer.deliver_now
-    render(conn, "index.json", notifications: notifications)
   end
 
   def create(conn, %{"notification" => notification_params}) do
+    Cryptoloan.Email.welcome_text_email("naomi.m2101@gmail.com")
+    |> Mailer.deliver_now
     with {:ok, %Notification{} = notification} <- Notifications.create_notification(notification_params) do
       conn
       |> put_status(:created)

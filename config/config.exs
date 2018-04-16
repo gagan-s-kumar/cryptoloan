@@ -27,8 +27,8 @@ config :logger, :console,
     adapter: Bamboo.SMTPAdapter,
     server: "smtp.sendgrid.net",
     port: 587,
-    username: "bitcoinalertsend",
-    password: "qwerty2101$$",
+    username: System.get_env("SMTP_USERNAME"),
+    password: System.get_env("SMTP_PASSWORD"),
     tls: :if_available, # can be `:always` or `:never`
     ssl: false, # can be `true`
     retries: 1

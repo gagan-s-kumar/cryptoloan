@@ -13,3 +13,6 @@ mix phx.gen.json Requestedloans Requestedloan requestedloans user_id:references:
 loan
 
 mix phx.gen.json Loans Loan loans requestedloan_id:references:requestedloans user_id:references:users mini_balance:integer colletaral:integer accepted:boolean
+
+
+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
