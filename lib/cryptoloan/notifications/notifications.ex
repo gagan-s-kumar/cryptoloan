@@ -107,9 +107,4 @@ defmodule Cryptoloan.Notifications do
     Notification.changeset(notification, %{})
   end
 
-  def get_spot_price() do
-    resp = HTTPoison.get!("https://api.coinbase.com/v2/prices/BTC-USD/spot")
-    body = Poison.decode!(resp.data)
-    body["data"]["amount"] 
-  end
 end

@@ -3,8 +3,6 @@ defmodule CryptoloanWeb.NotificationController do
 
   alias Cryptoloan.Notifications
   alias Cryptoloan.Notifications.Notification
-  alias Cryptoloan.Email
-  alias Cryptoloan.Mailer
 
   action_fallback CryptoloanWeb.FallbackController
 
@@ -14,8 +12,6 @@ defmodule CryptoloanWeb.NotificationController do
   end
 
   def create(conn, %{"notification" => notification_params}) do
-    Cryptoloan.Email.welcome_text_email("naomi.m2101@gmail.com")
-    |> Mailer.deliver_now
     with {:ok, %Notification{} = notification} <- Notifications.create_notification(notification_params) do
       conn
       |> put_status(:created)
