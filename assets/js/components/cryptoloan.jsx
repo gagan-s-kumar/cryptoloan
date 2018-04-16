@@ -28,13 +28,14 @@ export default function cryptoloan_init(store) {
 
 let Cryptoloan = connect((state) => state)((props) => {
 
-  console.log(props);
+  console.log("cryptoloan.jsx-->", props);
   let cookies = new Cookies();
   if(cookies.get('token')){  
   return (
     <Router>
       <div>
         <Nav/>
+	 {props.errors}
           <Route path="/" exact={true} render={() =>
             <div>
               <HomePage notify={props.notifications} graph={props.graph}/>
@@ -83,6 +84,7 @@ let Cryptoloan = connect((state) => state)((props) => {
     <Router>
       <div>
         <Nav/>
+        {props.errors}
         <UserForm />
       </div>
    </Router>

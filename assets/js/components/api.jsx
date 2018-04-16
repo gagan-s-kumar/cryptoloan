@@ -74,6 +74,13 @@ class TheServer {
           token: resp,
         });
       },
+      error: (resp) => {
+        console.log("error message", resp);
+	store.dispatch({
+	  type: 'ERROR',
+	  msg: 'Incorrect username and/or password',
+	});
+      }
     });
   }
 

@@ -19,11 +19,13 @@ function UserForm(params) {
 
   function submit(ev) {
     if(params.user_form.name=="" || params.user_form.email=="" || params.user_form.password=="")
-      alert("All fields are mandatory!");
+//      alert("All fields are mandatory!");
+      params.dispatch({type: 'ERROR', msg: 'All fields are mandatory'});
     else{
       console.log("Should create user.");
       api.submit_user(params.user_form);
       alert("User created successfully!");
+//      params.dispatch({type: 'ERROR', msg: 'User created successfully!'});
       clear("");
     }
   }

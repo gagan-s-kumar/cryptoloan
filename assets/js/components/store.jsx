@@ -91,11 +91,18 @@ function graph(state = [], action) {
   }
 }
 
-
+function errors(state="", action) {
+  switch (action.type) {
+    case 'ERROR':
+      return action.msg;
+    default:
+      return "";
+  }
+}
 
 function root_reducer(state0, action) {
 
-  let reducer = combineReducers({loans, login, user_form, token, notifications, requestedloans, users, graph});
+  let reducer = combineReducers({loans, login, user_form, token, notifications, requestedloans, users, graph, errors});
 
   let state1 = reducer(state0, action);
 
