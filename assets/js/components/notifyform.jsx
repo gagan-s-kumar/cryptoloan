@@ -23,7 +23,7 @@ function NotifyForm(props) {
     props.dispatch({type: 'CLEAR_NOTIFY_FORM'});
     api.request_notifications();
 }
-
+  console.log("props",props);
   let users = _.map(props.users, (uu) => <option key={uu.id} value={uu.id}>{uu.name}</option>);
 
   return <div style={{padding: "4ex"}}>

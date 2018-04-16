@@ -13,7 +13,7 @@
   def poll1 do
     receive do
     after
-      120_000 ->
+      86400_000 ->
         reset_alerts()
         poll1()
     end
@@ -22,7 +22,7 @@
   def poll() do
     receive do
     after
-      30_000 ->
+      90_000 ->
         get_price_bitcoin()
         get_price_litecoin()
         get_price_ethereum()
