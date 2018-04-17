@@ -1,10 +1,31 @@
 import { createStore, combineReducers } from 'redux';
 import deepFreeze from 'deep-freeze';
 
+let empty_loans_form = {
+  mini_balance: "",
+  colletaral: "",
+  accepted: "",
+  requestedloan_id: "",
+  user_id: ""
+};
+
+function loans_form(state = empty_loans_form, action) {
+  switch (action.type) {
+    case 'UPDATE_LOANS_FORM':
+      return Object.assign({}, state, action.data);
+    case 'CLEAR_LOANS_FORM':
+      return empty_loans_form;
+    default:
+      return state;
+  }
+}
+
 function loans(state = [], action) {
   switch (action.type) {
   case 'LOANS_LIST':
     return [...action.loans];
+  case 'ADD_LOANS':
+    return [action.loan, ...state];
   default:
     return state;
   }
@@ -152,7 +173,7 @@ function errors(state="", action) {
 
 function root_reducer(state0, action) {
 
-  let reducer = combineReducers({loans, login, wallets,  user_form, token, notifications, requestedloans, users, graph, errors, notify_form, requestedloans_form});
+  let reducer = combineReducers({loans, login, wallets,  user_form, token, notifications, requestedloans, users, graph, errors, notify_form, requestedloans_form, loans_form});
 
   let state1 = reducer(state0, action);
 
