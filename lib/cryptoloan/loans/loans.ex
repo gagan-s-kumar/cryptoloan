@@ -18,9 +18,11 @@ defmodule Cryptoloan.Loans do
 
   """
   def list_loans do
-    Repo.all(Loan)
+    a = Repo.all(Loan)
       |>Repo.preload(:user)
       |>Repo.preload([requestedloan: [:user]])
+    IO.inspect a
+    a
   end
 
   @doc """
@@ -40,7 +42,7 @@ defmodule Cryptoloan.Loans do
   def get_loan!(id) do
    Repo.get!(Loan, id)
     |> Repo.preload(:user)
-    |> Repo.preload(:requestedloan)
+    |> Repo.preload([requestedloan: [:user]])
   end
 
   @doc """
@@ -56,9 +58,12 @@ defmodule Cryptoloan.Loans do
 
   """
   def create_loan(attrs \\ %{}) do
-    %Loan{}
+    IO.inspect "in loas.ex create_loan()"
+    {:ok, loan} = %Loan{}
     |> Loan.changeset(attrs)
     |> Repo.insert()
+    loan2 = Repo.preload(loan, requestedloan: [:user])
+    {:ok, Repo.preload(loan2, :user)}
   end
 
   @doc """

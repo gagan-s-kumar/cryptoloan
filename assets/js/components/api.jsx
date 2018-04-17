@@ -252,6 +252,45 @@ class TheServer {
     });
   }
 
+  new_requestedloans(data) {
+    $.ajax("/api/v1/requestedloans", {
+      method: "post",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      data: JSON.stringify({ requestedloan: data }),
+      success: (resp) => {
+        store.dispatch({
+          type: 'ADD_REQUESTEDLOANS',
+          requestedloan: resp.data,
+        });
+      },
+      error: (resp) => {
+        console.log(resp);
+      }
+    });
+  }
+
+  new_loans(data) {
+    console.log("in new_loans");
+    $.ajax("/api/v1/loans", {
+      method: "post",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      data: JSON.stringify({ loan: data }),
+      success: (resp) => {
+        console.log("new_loans success");
+        store.dispatch({
+          type: 'ADD_LOANS',
+          loan: resp.data,
+        });
+      },
+      error: (resp) => {
+        console.log("new_loans failed");
+        console.log(resp);
+      }
+    });
+  }
+
 
 }
 

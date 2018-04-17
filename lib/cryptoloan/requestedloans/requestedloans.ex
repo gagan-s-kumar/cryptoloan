@@ -54,9 +54,10 @@ defmodule Cryptoloan.Requestedloans do
 
   """
   def create_requestedloan(attrs \\ %{}) do
-    %Requestedloan{}
+    {:ok, requestedloan} = %Requestedloan{}
     |> Requestedloan.changeset(attrs)
     |> Repo.insert()
+    {:ok, Repo.preload(requestedloan, :user)}
   end
 
   @doc """
