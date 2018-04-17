@@ -15,6 +15,7 @@ import OfferLoanForm from './offerloanform';
 import Notifylist from './notifylist';
 import Userlist from './userlist';
 import UserForm from './registration-form';
+import Nav2 from './nav2'
 
 
 export default function cryptoloan_init(store) {
@@ -34,6 +35,7 @@ let Cryptoloan = connect((state) => state)((props) => {
     <Router>
       <div>
         <Nav/>
+        <Nav2 />
 	 {props.errors}
           <Route path="/" exact={true} render={() =>
             <div>

@@ -101,9 +101,15 @@ class TheServer {
           type: 'SET_TOKEN',
           token: resp,
         });
+        store.dispatch({
+          type: 'CLEAR_LOGIN_FORM'
+        });
       },
       error: (resp) => {
         console.log("error message", resp);
+        store.dispatch({
+          type: 'CLEAR_LOGIN_FORM'
+        });
 	store.dispatch({
 	  type: 'ERROR',
 	  msg: 'Incorrect username and/or password',
@@ -113,6 +119,7 @@ class TheServer {
   }
 
   submit_user(data) {
+    let currentObj = this;
     $.ajax("/api/v1/users", {
       method: "post",
       dataType: "json",
@@ -123,8 +130,18 @@ class TheServer {
           type: 'ADD_USER',
           user: resp.data,
         });
+        console.log("data", data);
+        let data1={email: data.email, pass: data.password};
+        console.log("data1", data1);
+        this.submit_login(data1);
       },
-    });
+      error: (resp) => {
+          alert("PLEASE FILL ALL FIELDS AND TRY AGAIN!");
+          store.dispatch({
+            type: 'CLEAR_USER_FORM',
+          })
+        },
+  });
   }
 
   submit_logout() {

@@ -24,7 +24,7 @@ function UserForm(params) {
     else{
       console.log("Should create user.");
       api.submit_user(params.user_form);
-      alert("User created successfully!");
+      //alert("User created successfully!");
 //      params.dispatch({type: 'ERROR', msg: 'User created successfully!'});
       clear("");
     }

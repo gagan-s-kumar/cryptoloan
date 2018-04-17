@@ -148,6 +148,8 @@ function login(state = empty_login, action) {
   switch (action.type) {
     case 'UPDATE_LOGIN_FORM':
       return Object.assign({}, state, action.data);
+    case 'CLEAR_LOGIN_FORM':
+      return empty_login;
     default:
       return state;
   }
@@ -221,4 +223,3 @@ let reducer = combineReducers({loans, login, wallets, wallet,  user_form, token,
 
 let store = createStore(root_reducer);
 export default store
-
