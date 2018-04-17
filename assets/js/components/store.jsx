@@ -15,7 +15,6 @@ let empty_notify_form = {
   bclimit: "",
   lclimit: "",
   etlimit: "",
-  alert_sent: ""
 };
 
 function notify_form(state = empty_notify_form, action) {
@@ -112,7 +111,6 @@ function login(state = empty_login, action) {
 }
 
 function graph(state = [], action) {
-  console.log("IN STORE", action)
   switch (action.type) {
   case 'GRAPH':
     return [action.graph, ...state];
@@ -130,9 +128,36 @@ function errors(state="", action) {
   }
 }
 
+function bitcoin(state = [], action) {
+  switch (action.type) {
+  case 'BITCOIN':
+    return [action.bitcoin];
+  default:
+    return state;
+  }
+}
+
+function litecoin(state = [], action) {
+  switch (action.type) {
+  case 'LITECOIN':
+    return [action.litecoin];
+  default:
+    return state;
+  }
+}
+
+function ethereum(state = [], action) {
+  switch (action.type) {
+  case 'EHTEREUM':
+    return [action.ethereum];
+  default:
+    return state;
+  }
+}
+
 function root_reducer(state0, action) {
 
-  let reducer = combineReducers({loans, login, wallets,  user_form, token, notifications, requestedloans, users, graph, errors, notify_form});
+  let reducer = combineReducers({loans, login, wallets,  user_form, token, notifications, requestedloans, users, graph, errors, notify_form, bitcoin, litecoin, ethereum});
 
   let state1 = reducer(state0, action);
 

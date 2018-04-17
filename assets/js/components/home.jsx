@@ -6,7 +6,6 @@ import { LineChart } from 'react-easy-chart';
 import {Tabs, TabList, Tab, TabPanel} from 'react-tabs';
 
 export default function HomePage(props) {
-  console.log("IN HOME JSX ..", window.location.href);
   let ltc, eth, btc;
 
   _.each(props.graph, function(obj){
@@ -26,7 +25,43 @@ export default function HomePage(props) {
   let btc_gmap = _.map(btc,function (v){ let date = new Date(v.time * 1000);
                                   let a = date.getDate()+'-'+monthNames[date.getMonth()];
                                   return {x: a, y: v.open}});
+
+  setInterval(function() { api.get_bitcoin();
+                           api.get_litecoin();
+                           api.get_ethereum();
+                           console.log("after");
+                         }, 300 * 1000);
+
+  console.log("bitcoin", props.bitcoin);
+  console.log("litecoin", props.litecoin);
+  console.log("ethereum", props.ethereum);
+
   return <div>
+    <div>
+      <table className="live">
+        <tbody>
+          <tr>
+            <th colSpan="3">LIVE RATE UPDATES</th>
+          </tr>
+        <tr>
+          <th>BITCOIN</th>
+          <th>LITECOIN</th>
+          <th>ETHERIUM</th>
+        </tr>
+        <tr>
+          <td>
+            {props.bitcoin}
+          </td>
+          <td>
+            {props.litecoin}
+          </td>
+          <td>
+            {props.ethereum}
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
        <Tabs>
     <TabList className="nav nav-tabs">
       <Tab className="btn btn-info">Bitcoin</Tab>
@@ -92,7 +127,7 @@ export default function HomePage(props) {
 
 
     <div>
-      <Notifylist notify={props.notify} />
+      <Notifylist notify={props.notify} token={props.token} />
     </div>
   </div>;
 }

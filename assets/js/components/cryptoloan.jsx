@@ -19,7 +19,6 @@ import UserForm from './registration-form';
 
 export default function cryptoloan_init(store) {
   let root = document.getElementById('root');
-  console.log("Cryptoloan jsx file", store);
   ReactDOM.render(
     <Provider store={store}>
       <Cryptoloan />
@@ -29,7 +28,6 @@ export default function cryptoloan_init(store) {
 
 let Cryptoloan = connect((state) => state)((props) => {
 
-  console.log("cryptoloan.jsx-->", props);
   let cookies = new Cookies();
   if(cookies.get('token')){
   return (
@@ -39,7 +37,7 @@ let Cryptoloan = connect((state) => state)((props) => {
 	 {props.errors}
           <Route path="/" exact={true} render={() =>
             <div>
-              <HomePage notify={props.notifications} graph={props.graph}/>
+              <HomePage notify={props.notifications} graph={props.graph} token={props.token} bitcoin={props.bitcoin} litecoin={props.litecoin} ethereum={props.ethereum}/>
             </div>
           } />
 
@@ -51,8 +49,8 @@ let Cryptoloan = connect((state) => state)((props) => {
 
         <Route path="/notifications" exact={true} render={() =>
             <div>
-              <NotifyForm users={props.users}/>
-              <Notifylist notify={props.notifications} />
+              <NotifyForm users={props.users} token={props.token}/>
+              <Notifylist notify={props.notifications} token={props.token}/>
             </div>
           } />
 

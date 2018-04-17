@@ -19,20 +19,29 @@ function NotifyForm(props) {
   }
 
   function submit(ev) {
-    api.new_notification(props.notify_form);
+  let data = {
+      user_id: props.token.user_id,
+      bclimit: props.notify_form.bclimit,
+      lclimit: props.notify_form.lclimit,
+      etlimit: props.notify_form.etlimit
+    };
+    api.new_notification(data);
     props.dispatch({type: 'CLEAR_NOTIFY_FORM'});
     api.request_notifications();
 }
   console.log("props",props);
-  let users = _.map(props.users, (uu) => <option key={uu.id} value={uu.id}>{uu.name}</option>);
+  console.log("token user id",props.token.user_id);
+
+  let users = _.find(props.users, function (uu){
+      return uu.id == props.token.user_id;
+    });
+  console.log("users", users);
 
   return <div style={{padding: "4ex"}}>
     <h2>Subscribe to alerts:</h2>
     <FormGroup>
-      <Label for="user_id">Select User:</Label>
-      <Input type="select" name="user_id" value={props.notify_form.user_id} onChange={update}>
-        { users }
-      </Input>
+      <Label for="user_id">User:</Label>
+      <Input type="hidden" name="user_id" value={props.notify_form.user_id}></Input><span>{users.name}</span>
     </FormGroup>
     <FormGroup>
       <Label for="bclimit">BitCoin Alert Limit:</Label>
@@ -56,7 +65,7 @@ function NotifyForm(props) {
 
 function state2props(state) {
   return { notify_form: state.notify_form,
-           users: state.users,};
+           users: state.users};
 }
 
 export default connect(state2props)(NotifyForm);
