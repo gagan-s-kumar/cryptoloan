@@ -59,8 +59,17 @@ function reset_token(ev) {
 
 let Session = connect(({token}) => {return {token};})((props) => {
     return <div className="navbar-text">
-    <Button onClick={reset_token}>Logout</Button>
-    <Link className="btn btn-primary btn-xs" to={"/auth/coinbase"} onClick={auth}>Link your Wallet</Link>
+    <nav>
+    <NavItem>
+	<NavLink to="/users" href="#" className="nav-link"><FaUser size={40} /></NavLink>
+    </NavItem>
+    <NavItem>
+    	<Button onClick={reset_token}>Logout</Button>
+    </NavItem>
+    <NavItem>
+      <Link className="btn btn-primary btn-xs" to={"/auth/coinbase"} onClick={auth}>Link your Wallet</Link>
+    </NavItem>
+    </nav>
   </div>;
 });
 
