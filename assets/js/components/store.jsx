@@ -1,31 +1,10 @@
 import { createStore, combineReducers } from 'redux';
 import deepFreeze from 'deep-freeze';
 
-let empty_loans_form = {
-  mini_balance: "",
-  colletaral: "",
-  accepted: "",
-  requestedloan_id: "",
-  user_id: ""
-};
-
-function loans_form(state = empty_loans_form, action) {
-  switch (action.type) {
-    case 'UPDATE_LOANS_FORM':
-      return Object.assign({}, state, action.data);
-    case 'CLEAR_LOANS_FORM':
-      return empty_loans_form;
-    default:
-      return state;
-  }
-}
-
 function loans(state = [], action) {
   switch (action.type) {
   case 'LOANS_LIST':
     return [...action.loans];
-  case 'ADD_LOANS':
-    return [action.loan, ...state];
   default:
     return state;
   }
@@ -36,7 +15,6 @@ let empty_notify_form = {
   bclimit: "",
   lclimit: "",
   etlimit: "",
-  alert_sent: ""
 };
 
 function notify_form(state = empty_notify_form, action) {
@@ -61,30 +39,10 @@ function notifications(state = [], action) {
   }
 }
 
-let empty_requestedloans_form = {
-  user_id: "",
-  amount: "",
-  duration_requested: "",
-  granted: ""
-};
-
-function requestedloans_form(state = empty_requestedloans_form, action) {
-  switch (action.type) {
-    case 'UPDATE_REQUESTEDLOANS_FORM':
-      return Object.assign({}, state, action.data);
-    case 'CLEAR_REQUESTEDLOANS_FORM':
-      return empty_requestedloans_form;
-    default:
-      return state;
-  }
-}
-
 function requestedloans(state = [], action) {
   switch (action.type) {
   case 'REQ_LIST':
     return [...action.requestedloans];
-  case 'ADD_REQUESTEDLOANS':
-    return [action.requestedloan, ...state];
   default:
     return state;
   }
@@ -153,7 +111,6 @@ function login(state = empty_login, action) {
 }
 
 function graph(state = [], action) {
-  console.log("IN STORE", action)
   switch (action.type) {
   case 'GRAPH':
     return [action.graph, ...state];
@@ -171,9 +128,36 @@ function errors(state="", action) {
   }
 }
 
+function bitcoin(state = [], action) {
+  switch (action.type) {
+  case 'BITCOIN':
+    return [action.bitcoin];
+  default:
+    return state;
+  }
+}
+
+function litecoin(state = [], action) {
+  switch (action.type) {
+  case 'LITECOIN':
+    return [action.litecoin];
+  default:
+    return state;
+  }
+}
+
+function ethereum(state = [], action) {
+  switch (action.type) {
+  case 'EHTEREUM':
+    return [action.ethereum];
+  default:
+    return state;
+  }
+}
+
 function root_reducer(state0, action) {
 
-  let reducer = combineReducers({loans, login, wallets,  user_form, token, notifications, requestedloans, users, graph, errors, notify_form, bitcoin, litecoin, ethereum, requestedloans_form, loans_form});
+  let reducer = combineReducers({loans, login, wallets,  user_form, token, notifications, requestedloans, users, graph, errors, notify_form, bitcoin, litecoin, ethereum});
 
   let state1 = reducer(state0, action);
 
@@ -182,3 +166,4 @@ function root_reducer(state0, action) {
 
 let store = createStore(root_reducer);
 export default store
+
