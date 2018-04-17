@@ -1,49 +1,38 @@
 import React from 'react';
-import { Button, FormGroup, Label, Input } from 'reactstrap';
+import { Button, FormGroup, Label, Input, Card, CardTitle, CardBody, CardText, CardSubtitle } from 'reactstrap';
+import {Redirect} from 'react-router-dom';
 
-function ShowUsers(props) {
-
+export default function Userlist(props) { 
+  if(props.users==false)
+	return <Redirect to="/" />;   
+  
+  let user = _.find(props.users, (nn) => nn.id==props.token.user_id);
+  let wallet = _.find(props.wallets, (ww) => ww.user.id==props.token.user_id);
+  let credit, debit, wallet_info; 
+  credit=debit=wallet_info=0;
+  if(user.credit)
+    credit = user.credit;
+  if(user.debit)
+    debit = user.debit;
+  if(wallet)
+    wallet_info = wallet.balance;
   return <div>
-    <div className="row">
-        <div className="col-md">
-           {props.user.id}
-        </div>
-        <div className="col-md">
-           {props.user.name}
-        </div>
-        <div className="col-md">
-           {props.user.email}
-        </div>
-        <div className="col-md">
-           <Button onClick={() => alert("TODO: Submit Notification")}>Edit</Button>
-        </div>
-    </div>
-
-  </div>;
-
-}
-
-
-export default function Userlist(props) {
-  let userList = _.map(props.users, (nn) => <ShowUsers key={nn.id} user={nn} />);
-
-  return <div>
-      <h2>All Users</h2>
-      <div className="row">
-	<div className="col-md">
-	   User ID
-	</div>
-	<div className="col-md">
-	   Name
-	</div>
-	<div className="col-md">
-	   Email
-	</div>
-	<div className="col-md">
-	   Action
-	</div>
-      </div>
-      {userList}
-    </div>;
-
+	      <p>{user.name}</p>
+	      <p>{user.email}</p>
+	      <Card>
+		<CardBody>
+		  <CardTitle>Wallet Information</CardTitle>
+		  <CardText>Account Balance: BTC {wallet_info} </CardText>
+		</CardBody>
+	      </Card>
+              <Card>
+		<CardBody>
+		  <CardTitle>Loan Information</CardTitle>
+		  <CardText>Amount Borrowed</CardText>
+		  <CardText>${credit}</CardText>
+		  <CardText>Amount Lended</CardText>
+		  <CardText>${debit}</CardText>
+		</CardBody>
+	      </Card>
+	</div>;
 }

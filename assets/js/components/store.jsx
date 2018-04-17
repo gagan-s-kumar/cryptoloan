@@ -153,6 +153,18 @@ function login(state = empty_login, action) {
   }
 }
 
+function wallet(state=null, action) {
+  if(action.type=='WALLET_RESP'){
+    if(action.wallet){
+      return action.wallet;
+    }
+    else
+      return null;
+  }
+  else
+    return state;
+}
+
 function graph(state = [], action) {
   switch (action.type) {
   case 'GRAPH':
@@ -200,7 +212,7 @@ function ethereum(state = [], action) {
 
 function root_reducer(state0, action) {
 
-  let reducer = combineReducers({loans, login, wallets,  user_form, token, notifications, requestedloans, users, graph, errors, notify_form, bitcoin, litecoin, ethereum, requestedloans_form, loans_form});
+let reducer = combineReducers({loans, login, wallets, wallet,  user_form, token, notifications, requestedloans, users, graph, errors, notify_form, bitcoin, litecoin, ethereum, requestedloans_form, loans_form});
 
   let state1 = reducer(state0, action);
 
