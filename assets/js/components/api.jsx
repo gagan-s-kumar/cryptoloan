@@ -65,7 +65,10 @@ class TheServer {
       dataType: "json",
       contentType: "application/json; charset=UTF-8",
       success: (resp) => {
-        console.log("no wallet response", resp);
+        store.dispatch({
+	  type: 'WALLET_RESP',
+ 	  wallet: resp,
+	});
       },
     });
   }

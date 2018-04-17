@@ -6,13 +6,13 @@ import { connect } from 'react-redux';
 import api from './api';
 import Cookies from 'universal-cookie';
 import store from './store';
+import FaUser from 'react-icons/lib/fa/user'
 
 let LoginForm = connect(({login}) => {return {login};})((props) => {
   function update(ev) {
     let tgt = $(ev.target);
     let data = {};
     data[tgt.attr('name')] = tgt.val();
-    console.log("data in login form", tgt);
     props.dispatch({
       type: 'UPDATE_LOGIN_FORM',
       data: data,
@@ -21,7 +21,6 @@ let LoginForm = connect(({login}) => {return {login};})((props) => {
 
   function create_token(ev) {
     api.submit_login(props.login);
-    console.log(props.login);
   }
 
   return <div className="navbar-text">
@@ -42,9 +41,15 @@ let LoginForm = connect(({login}) => {return {login};})((props) => {
 
 function WalletInfo(params) {
   return <div className="navbar-text">
-    User id = { params.token.user_id }
-    <Button onClick={reset_token}>Logout</Button>
-    Wallet Balance: BTC {params.wallet.balance}
+	<nav>
+        <NavItem>
+          <NavLink to="/users" href="#" className="nav-link"><FaUser size={40} /></NavLink>
+        </NavItem>
+        <NavItem>
+          <Button onClick={reset_token}>Logout</Button>
+        </NavItem>
+	</nav>
+    Balance: BTC {params.wallet.balance}
     </div>;
 }
 
@@ -54,7 +59,6 @@ function reset_token(ev) {
 
 let Session = connect(({token}) => {return {token};})((props) => {
     return <div className="navbar-text">
-    User id = { props.token.user_id }
     <Button onClick={reset_token}>Logout</Button>
     <Link className="btn btn-primary btn-xs" to={"/auth/coinbase"} onClick={auth}>Link your Wallet</Link>
   </div>;
@@ -78,14 +82,15 @@ function Nav(props) {
     token = {token: c_token, user_id: c_user};
     store.dispatch({type: 'SET_TOKEN', token: token}); 
   }
+ 
   if (token) {
     wallet = _.find(props.wallets, function(w){ if(w.user.id==token.user_id) return w});
     if(wallet){
-      api.request_user_wallet(token.user_id);
       session_info = <WalletInfo token={token} wallet={wallet} />
     }
-    else
+    else{
       session_info = <Session token={token} />;
+    }
   }
   else {
     session_info = <LoginForm />
@@ -112,9 +117,6 @@ function Nav(props) {
         <NavItem>
           <NavLink to="/notifications" href="#" className="nav-link">Notifications</NavLink>
         </NavItem>
-        <NavItem>
-          <NavLink to="/users" href="#" className="nav-link">Profile</NavLink>
-        </NavItem>
 	<NavItem>
           <span className="navbar-text">
 	    { session_info }
@@ -129,6 +131,7 @@ function state2props(state) {
   return {
     token: state.token,
     wallets: state.wallets,
+    wallet: state.wallet,
   };
 }
 
