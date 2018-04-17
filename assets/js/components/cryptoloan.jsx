@@ -37,7 +37,7 @@ let Cryptoloan = connect((state) => state)((props) => {
 	 {props.errors}
           <Route path="/" exact={true} render={() =>
             <div>
-              <HomePage notify={props.notifications} graph={props.graph} token={props.token}/>
+              <HomePage notify={props.notifications} graph={props.graph} token={props.token} bitcoin={props.bitcoin} litecoin={props.litecoin} ethereum={props.ethereum}/>
             </div>
           } />
 

@@ -195,9 +195,39 @@ class TheServer {
       dataType: "json",
       contentType: "application/json; charset=UTF-8",
       success: (resp) => {
+        console.log("bitcoin amount", resp.data.amount);
         store.dispatch({
           type: 'BITCOIN',
           bitcoin: resp.data.amount,
+        });
+      },
+    });
+  }
+
+  get_litecoin() {
+    $.ajax("https://api.coinbase.com/v2/prices/LTC-USD/spot", {
+      method: "get",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      success: (resp) => {
+        console.log("litecoin amount", resp.data.amount);
+        store.dispatch({
+          type: 'LITECOIN',
+          litecoin: resp.data.amount,
+        });
+      },
+    });
+  }
+
+  get_ethereum() {
+    $.ajax("https://api.coinbase.com/v2/prices/ETH-USD/spot", {
+      method: "get",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      success: (resp) => {
+        store.dispatch({
+          type: 'EHTEREUM',
+          ethereum: resp.data.amount,
         });
       },
     });
