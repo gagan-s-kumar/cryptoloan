@@ -174,7 +174,7 @@ function errors(state="", action) {
 function root_reducer(state0, action) {
 
   //let reducer = combineReducers({loans, login, wallets,  user_form, token, notifications, requestedloans, users, graph, errors, notify_form, requestedloans_form, loans_form});
-  let reducer = combineReducers({loans, login, wallets,  user_form, token, notifications, requestedloans, users, graph, errors, notify_form});
+  let reducer = combineReducers({loans, login, wallets,  user_form, token, notifications, requestedloans, users, graph, errors, notify_form, bitcoin, litecoin, ethereum});
 
   let state1 = reducer(state0, action);
 
