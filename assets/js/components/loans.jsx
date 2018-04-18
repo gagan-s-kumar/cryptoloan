@@ -7,7 +7,7 @@ function ShowLoans(props) {
 
 function Actions(props) {
 
-  if(props.user_id == props.borrower_id) {
+  if(props.user_id == props.borrower_id && props.loan.accepted == false) {
     return <div>
              <Button onClick={submit}>Accept</Button>
              <Button onClick={delete_loan}>Decline</Button>
@@ -73,7 +73,7 @@ function Actions(props) {
            {props.loan.user_id.name}
         </div>
         <div className="col-md">
-           <Actions user_id={props.token.user_id} borrower_id={props.loan.requestedloan_id.user_id.id}/>
+           <Actions user_id={props.token.user_id} borrower_id={props.loan.requestedloan_id.user_id.id} loan={props.loan}/>
         </div>
     </div>
   </div>;

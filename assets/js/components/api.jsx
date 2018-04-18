@@ -350,6 +350,7 @@ class TheServer {
       data: JSON.stringify({ loan: data }),
       success: (resp) => {
 	console.log("accept_loan success");
+        this.request_loans();
         //store.dispatch({
         //  type: 'UPDATE_LOANS',
         //  loan: resp.loan,
