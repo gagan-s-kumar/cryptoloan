@@ -46,7 +46,7 @@ let Cryptoloan = connect((state) => state)((props) => {
 
         <Route path="/loans" exact={true} render={() =>
             <div>
-              <Loans loans={props.loans}/>
+              <Loans loans={props.loans} token={props.token}/>
             </div>
           } />
 
@@ -71,15 +71,15 @@ let Cryptoloan = connect((state) => state)((props) => {
 
         <Route path="/approvedloans" exact={true} render={() =>
               <div>
-                <ApprovedLoans loans={props.loans}/>
+                <ApprovedLoans loans={props.loans} token={props.token}/>
               </div>
             } />
 
         <Route path="/requestedloans" exact={true} render={() =>
               <div>
-                <RequestLoanForm users={props.users}/>
+                <RequestLoanForm users={props.users} token={props.token}/>
                 <OfferLoanForm requestedloans={props.requestedloans} token={props.token}/>
-                <Requestloans ln={props.requestedloans}/>
+                <Requestloans ln={props.requestedloans} token={props.token}/>
               </div>
             } />
 
