@@ -1,11 +1,10 @@
 import React from 'react';
 import { Button, FormGroup, Label, Input } from 'reactstrap';
-
+import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import api from './api';
 
 function NotifyForm(props) {
-
   function update(ev) {
     let tgt = $(ev.target);
 
@@ -29,8 +28,9 @@ function NotifyForm(props) {
     props.dispatch({type: 'CLEAR_NOTIFY_FORM'});
     api.request_notifications();
 }
-  console.log("props",props);
-  console.log("token user id",props.token.user_id);
+  
+  if (props.token==null)
+    return <Redirect to="/" />;
 
   let users = _.find(props.users, function (uu){
       return uu.id == props.token.user_id;

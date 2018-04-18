@@ -126,6 +126,7 @@ let empty_user_form = {
   name: "",
   email: "",
   password: "",
+  password_confirmation: "",
 };
 
 function user_form(state=empty_user_form, action) {

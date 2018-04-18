@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, Button } from 'reactstrap';
 import api from './api';
 import Notifylist from './notifylist';
-import { LineChart } from 'react-easy-chart';
+import { AreaChart } from 'react-easy-chart';
 import {Tabs, TabList, Tab, TabPanel} from 'react-tabs';
 
 export default function HomePage(props) {
@@ -37,31 +37,6 @@ export default function HomePage(props) {
   console.log("ethereum", props.ethereum);
 
   return <div>
-    <div>
-      <table className="live">
-        <tbody>
-          <tr>
-            <th colSpan="3">LIVE RATE UPDATES</th>
-          </tr>
-        <tr>
-          <th>BITCOIN</th>
-          <th>LITECOIN</th>
-          <th>ETHERIUM</th>
-        </tr>
-        <tr>
-          <td>
-            {props.bitcoin}
-          </td>
-          <td>
-            {props.litecoin}
-          </td>
-          <td>
-            {props.ethereum}
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
        <Tabs>
     <TabList className="nav nav-tabs">
       <Tab className="btn btn-info">Bitcoin</Tab>
@@ -71,15 +46,15 @@ export default function HomePage(props) {
 
     <TabPanel>
     <div>
-	BITCOIN
-    <LineChart
+	BITCOIN: ${props.bitcoin}
+    <AreaChart
     axes
     margin={{top: 10, right: 20, bottom: 50, left: 50}}
     grid
     verticalGrid
     xType={'text'}
     axisLabels = {{x: 'Date', y: 'Rate'}}
-    lineColors={['gold']}
+    areaColors={['gold']}
     width={1000}
     height={500}
     data={[btc_gmap]}
@@ -89,14 +64,14 @@ export default function HomePage(props) {
     </TabPanel>
     <TabPanel>
     <div>
-	ETHERIUM
-    <LineChart
+	ETHEREUM: ${props.ethereum}
+    <AreaChart
     axes
     margin={{top: 10, right: 20, bottom: 50, left: 50}}
     grid
     verticalGrid
     xType={'text'}
-    lineColors={['blue']}
+    areaColors={['blue']}
     axisLabels = {{x: 'Date', y: 'Rate'}}
     width={1000}
     height={500}
@@ -107,14 +82,14 @@ export default function HomePage(props) {
     </TabPanel>
     <TabPanel>
     <div>
-	LITECOIN
-    <LineChart
+	LITECOIN: ${props.litecoin}
+    <AreaChart
     axes
     margin={{top: 10, right: 20, bottom: 50, left: 50}}
     grid
     verticalGrid
     xType={'text'}
-    lineColors={['green']}
+    areaColors={['green']}
     axisLabels = {{x: 'Date', y: 'Rate'}}
     width={1000}
     height={500}

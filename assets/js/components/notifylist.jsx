@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router';
 
 function ShowNotifications(props) {
 
@@ -24,7 +25,10 @@ function ShowNotifications(props) {
 
 
 export default function Notifylist(props) {
-  console.log("props", props);
+
+  if(props.token==null) 
+	return <Redirect to="/" />;
+
   let mylist = _.filter(props.notify, function(kk){ return kk.user_id.id == props.token.user_id})
   let notifyList = _.map(mylist, (nn) => <ShowNotifications key={nn.id} note={nn} />);
 
