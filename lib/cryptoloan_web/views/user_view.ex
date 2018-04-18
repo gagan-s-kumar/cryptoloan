@@ -17,7 +17,8 @@ defmodule CryptoloanWeb.UserView do
       email: user.email,
       debit: user.debit,
       credit: user.credit,
-      wallet: user.wallet
+      wallet: user.wallet,
+      account_id: user.account_id
     }
   end
 end

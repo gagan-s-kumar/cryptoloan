@@ -10,6 +10,7 @@ defmodule Cryptoloan.Users.User do
     field :name, :string
     field :wallet, :integer
     field :token, :string
+    field :account_id, :string
     field :password, :string, virtual: true
     field :password_hash, :string
     field :password_confirmation, :string, virtual: true
@@ -20,7 +21,7 @@ defmodule Cryptoloan.Users.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:name, :email, :password, :password_hash, :password_confirmation, :wallet, :debit, :credit, :token])
+    |> cast(attrs, [:name, :email, :password, :password_hash, :password_confirmation, :wallet, :debit, :credit, :token, :account_id])
     |> validate_confirmation(:password)
     |> validate_password(:password)
     |> put_pass_hash()
@@ -61,5 +62,4 @@ defmodule Cryptoloan.Users.User do
   end
 
   def valid_password?(_), do: {:error, "The password is too short"}
-
 end

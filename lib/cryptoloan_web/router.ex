@@ -43,7 +43,8 @@ defmodule CryptoloanWeb.Router do
     resources "/approvedloans", LoanController, except: [:new, :edit]
     resources "/wallets", WalletController, except: [:new, :edit]
 
-    get "/wallets/user/:user_id", WalletController, :by_user
+    get  "/wallets/user/:user_id", WalletController, :by_user
+    post "/wallets/user/send", WalletController, :send_btc
   end
 
   scope "/auth", CryptoloanWeb do

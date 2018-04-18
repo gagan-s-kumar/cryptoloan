@@ -68,4 +68,32 @@ defmodule Coinbase do
       Poison.decode!(response.body)
     end
   end
+ 
+  def get_addresses(token, account_id) do
+    authorization = Enum.join(["Bearer", to_string(token)], " ")
+    url = Enum.join(["https://api.coinbase.com/v2/accounts", to_string(account_id)], "/")
+    url = Enum.join([url, "addresses"], "/")
+    {status, response} = HTTPoison.get(url, [{"Authorization", authorization}])
+    if response.status_code == 401 do
+      nil
+    else
+      Poison.decode!(response.body)
+    end
+  end
+
+  def post_transaction(token, sender_account, receiver_address, amount, currency) do
+    authorization = Enum.join(["Bearer", to_string(token)], " ")
+    url = Enum.join(["https://api.coinbase.com/v2/accounts", to_string(sender_account)], "/")
+    url = Enum.join([url, "transactions"], "/")
+    params_map = %{"type" => "send", "to" => receiver_address, "amount" => amount, "currency" => currency, "description" => "collatral resolved"}
+    headers = [{"Content-type", "application/json"}, {"Authorization", authorization}]
+    {status, response} = HTTPoison.post(url, JSON.encode!(params_map), headers, [])
+    IO.inspect response
+    if response.status_code == 201 || response.status_code == 200  do
+      IO.inspect response
+      Poison.decode!(response.body)
+    else
+      nil
+    end
+  end
 end

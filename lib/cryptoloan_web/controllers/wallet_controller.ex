@@ -58,4 +58,19 @@ defmodule CryptoloanWeb.WalletController do
       render(conn, "show.json", wallet: wallet)
     end
   end
-end
+  
+  def send_btc(conn, %{"sender_id" => sender_id, "receiver_id" => receiver_id, "amount" => amount}) do
+    sender_wallet = Wallets.get_user_wallet(sender_id)
+    receiver_wallet = Wallets.get_user_wallet(receiver_id)
+    addresses = Coinbase.get_addresses(receiver_wallet.user.token, receiver_wallet.account_id)
+    first_address = hd(addresses["data"])
+    transaction = Coinbase.post_transaction(sender_wallet.user.token, sender_wallet.account_id, first_address["address"], 0.80, "USD")
+    if transaction do
+      IO.inspect Wallets.update_wallet(sender_wallet, %{balance: sender_wallet.balance - amount})
+      IO.inspect Wallets.update_wallet(receiver_wallet, %{balance: receiver_wallet.balance + amount})
+      render(conn, "show.json", wallet: Wallets.get_wallet!(sender_wallet.id))
+    else
+      send_resp(conn, :no_content, "")
+    end
+  end
+end 

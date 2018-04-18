@@ -30,9 +30,10 @@ defmodule CryptoloanWeb.AuthController do
     client = get_token!(provider, code)
     # Request the user's data with the access token
     user = get_user!(provider, client)
+    account_id = user["data"]["id"]
     user = Map.put(user["data"], "token", client.token.access_token)
     app_user = User.find_or_empty(user["name"])
-    Users.update_user(app_user, %{token: user["token"]})
+    Users.update_user(app_user, %{token: user["token"], account_id: account_id})
     accounts = get_accounts!(provider, client)
     create_accounts!(provider, accounts["data"], app_user.id)
 
@@ -52,7 +53,7 @@ defmodule CryptoloanWeb.AuthController do
     |> redirect(to: "/")
   end
 
-  defp authorize_url!("coinbase"),   do: Coinbase.authorize_url!(scope: "wallet:user:read,wallet:user:email,wallet:accounts:read,wallet:accounts:create,wallet:transactions:read,wallet:addresses:create")
+  defp authorize_url!("coinbase"),   do: Coinbase.authorize_url!("meta[send_limit_amount]": 1, "meta[send_limit_currency]": "USD", "scope": "wallet:user:read,wallet:user:email,wallet:accounts:read,wallet:accounts:create,wallet:transactions:read,wallet:addresses:create,wallet:addresses:read,wallet:transactions:transfer,wallet:transactions:send")
 
   defp get_token!("coinbase", code),   do: Coinbase.get_token!(code: code)
 
@@ -66,7 +67,7 @@ defmodule CryptoloanWeb.AuthController do
 
   defp create_accounts!("coinbase", accounts, user_id) do
     Enum.each accounts, fn(account) ->
-      acc = %{"user_id" => user_id, "balance" => String.to_float(account["balance"]["amount"]), "currency" => account["balance"]["currency"]}
+      acc = %{"user_id" => user_id, "balance" => String.to_float(account["balance"]["amount"]), "currency" => account["balance"]["currency"], "account_id" => account["id"]}
       Wallet.insert_or_update(acc)
     end
   end
