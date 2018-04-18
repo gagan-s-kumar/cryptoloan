@@ -136,11 +136,18 @@ class TheServer {
         this.submit_login(data1);
       },
       error: (resp) => {
-          alert("PLEASE FILL ALL FIELDS AND TRY AGAIN!");
+          //alert("PLEASE FILL ALL FIELDS AND TRY AGAIN!");
           store.dispatch({
             type: 'CLEAR_USER_FORM',
-          })
-        },
+          });
+          //console.log("ERROR LOG", resp.responseJSON);
+          let msgs = Object.values(resp.responseJSON.errors);
+          let msg = msgs.join(". ");
+          store.dispatch({
+	    type: 'ERROR',
+	    msg: msg,
+	  });
+      },
   });
   }
 
@@ -215,7 +222,6 @@ class TheServer {
       dataType: "json",
       contentType: "application/json; charset=UTF-8",
       success: (resp) => {
-        console.log("bitcoin amount", resp.data.amount);
         store.dispatch({
           type: 'BITCOIN',
           bitcoin: resp.data.amount,
@@ -230,7 +236,6 @@ class TheServer {
       dataType: "json",
       contentType: "application/json; charset=UTF-8",
       success: (resp) => {
-        console.log("litecoin amount", resp.data.amount);
         store.dispatch({
           type: 'LITECOIN',
           litecoin: resp.data.amount,
@@ -265,9 +270,13 @@ class TheServer {
           type: 'ADD_NOTIFICATION',
           notification: resp.data,
         });
+        this.request_notifications();
       },
       error: (resp) => {
-        console.log(resp);
+        console.log("error",resp);
+        store.dispatch({
+          type: 'CLEAR_NOTIFY_FORM',
+        });
       }
     });
   }
@@ -311,64 +320,27 @@ class TheServer {
     });
   }
 
-  accept_loan(data, id) {
-    $.ajax("/api/v1/loans/" + id, {
-      method: "put",
-      dataType: "json",
-      contentType: "application/json; charset=UTF-8",
-      data: JSON.stringify({ loan: data }),
-      success: (resp) => {
-	console.log("accept_loan success");
-        //store.dispatch({
-        //  type: 'UPDATE_LOANS',
-        //  loan: resp.loan,
-        //});
-      },
-      error: (resp) => {
-	console.log("accept_loan failure");
-	console.log(resp);
-      }
-    });
-  }
-
-  grant_requestedloan(data, id) {
-    $.ajax("/api/v1/requestedloans/" + id, {
-      method: "put",
-      dataType: "json",
-      contentType: "application/json; charset=UTF-8",
-      data: JSON.stringify({ requestedloan: data }),
-      success: (resp) => {
-	console.log("accept_loan success");
-        //store.dispatch({
-        //  type: 'UPDATE_LOANS',
-        //  loan: resp.loan,
-        //});
-      },
-      error: (resp) => {
-	console.log("accept_loan failure");
-	console.log(resp);
-      }
-    });
-  }
-
-  delete_loan(id) {
-    $.ajax("/api/v1/loans/" + id, {
+  delete_notifications(data) {
+    $.ajax("/api/v1/notification/" + data, {
       method: "delete",
       dataType: "json",
       contentType: "application/json; charset=UTF-8",
       success: (resp) => {
-	console.log("delete_loan success");
-        //store.dispatch({
-        //  type: 'UPDATE_LOANS',
-        //  loan: resp.loan,
-        //});
       },
-      error: (resp) => {
-	console.log("delete_loan failure");
-      }
     });
   }
 
+  update_notification(data, id) {
+    $.ajax("/api/v1/notification/" + id, {
+      method: "put",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      data: JSON.stringify({ notification: data }),
+      success: (resp) => {
+        this.request_notifications();
+      },
+    });
+}
 
 
 }
