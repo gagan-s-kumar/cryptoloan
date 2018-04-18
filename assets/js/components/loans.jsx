@@ -25,9 +25,15 @@ function ShowLoans(props) {
     console.log("In ShowLoans");
     console.log(props.loan);
     console.log(data);
+ 
+    let req_loan_data = {
+			granted: true,
+			};
     //api.accept_loan(props.loan, props.loan.id);
+    api.grant_requestedloan(req_loan_data, props.loan.requestedloan_id.id);
     api.accept_loan(data, props.loan.id);
     //props.dispatch({type: 'CLEAR_ACCEPTEDLOANS_FORM'});
+    api.request_requestedloans();
     api.request_loans();
   }
 
