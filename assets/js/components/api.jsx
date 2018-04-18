@@ -215,7 +215,6 @@ class TheServer {
       dataType: "json",
       contentType: "application/json; charset=UTF-8",
       success: (resp) => {
-        console.log("bitcoin amount", resp.data.amount);
         store.dispatch({
           type: 'BITCOIN',
           bitcoin: resp.data.amount,
@@ -230,7 +229,6 @@ class TheServer {
       dataType: "json",
       contentType: "application/json; charset=UTF-8",
       success: (resp) => {
-        console.log("litecoin amount", resp.data.amount);
         store.dispatch({
           type: 'LITECOIN',
           litecoin: resp.data.amount,
@@ -265,9 +263,13 @@ class TheServer {
           type: 'ADD_NOTIFICATION',
           notification: resp.data,
         });
+        this.request_notifications();
       },
       error: (resp) => {
-        console.log(resp);
+        console.log("error",resp);
+        store.dispatch({
+          type: 'CLEAR_NOTIFY_FORM',
+        });
       }
     });
   }
@@ -310,6 +312,28 @@ class TheServer {
       }
     });
   }
+
+  delete_notifications(data) {
+    $.ajax("/api/v1/notification/" + data, {
+      method: "delete",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      success: (resp) => {
+      },
+    });
+  }
+
+  update_notification(data, id) {
+    $.ajax("/api/v1/notification/" + id, {
+      method: "put",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      data: JSON.stringify({ notification: data }),
+      success: (resp) => {
+        this.request_notifications();
+      },
+    });
+}
 
 
 }

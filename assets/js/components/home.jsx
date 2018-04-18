@@ -32,10 +32,6 @@ export default function HomePage(props) {
                            console.log("after");
                          }, 300 * 1000);
 
-  console.log("bitcoin", props.bitcoin);
-  console.log("litecoin", props.litecoin);
-  console.log("ethereum", props.ethereum);
-
   return <div>
     <div>
       <table className="live">
@@ -124,10 +120,5 @@ export default function HomePage(props) {
     </div>
    </TabPanel>
   </Tabs>
-
-
-    <div>
-      <Notifylist notify={props.notify} token={props.token} />
-    </div>
   </div>;
 }

@@ -25,6 +25,7 @@ defmodule CryptoloanWeb.Router do
     get "/approvedloans", PageController, :index
     get "/notification", PageController, :index
     get "/notifications", PageController, :index
+    get "/editnotifications/:id", PageController, :index
     get "/requestedloans", PageController, :index
     get "/users/:id", PageController, :index
     get "/loans/:id", PageController, :index
@@ -34,7 +35,7 @@ defmodule CryptoloanWeb.Router do
   scope "/api/v1", CryptoloanWeb do
     pipe_through :api
     post "/token", TokenController, :create
-    
+
     resources "/users", UserController, except: [:new, :edit]
     resources "/notification", NotificationController, except: [:new, :edit]
     resources "/requestedloans", RequestedloanController, except: [:new, :edit]

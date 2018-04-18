@@ -51,7 +51,6 @@ function UserForm(params) {
       <Input type="password" name="password" value={params.user_form.password} onChange={update} />
     </FormGroup>
     <Button onClick={submit} color="primary">Create</Button>
-    <Button onClick={clear} >Clear</Button>
   </div>;
 }
 

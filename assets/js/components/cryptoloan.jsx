@@ -10,6 +10,7 @@ import Loans from './loans';
 import ApprovedLoans from './approvedloans';
 import Requestloans from './requested-loans';
 import NotifyForm from './notifyform';
+import EditNotifyForm from './edit-notify-form';
 import RequestLoanForm from './requestloanform';
 import OfferLoanForm from './offerloanform';
 import Notifylist from './notifylist';
@@ -30,12 +31,14 @@ export default function cryptoloan_init(store) {
 let Cryptoloan = connect((state) => state)((props) => {
 
   let cookies = new Cookies();
+  console.log("error", props.errors);
   if(cookies.get('token')){
   return (
     <Router>
       <div>
         <Nav/>
         <Nav2 />
+
 	 {props.errors}
           <Route path="/" exact={true} render={() =>
             <div>
@@ -55,6 +58,12 @@ let Cryptoloan = connect((state) => state)((props) => {
               <Notifylist notify={props.notifications} token={props.token}/>
             </div>
           } />
+
+        <Route path="/editnotifications/:id" exact={true} render={({match}) =>
+              <div>
+                <EditNotifyForm users={props.users} token={props.token} task={_.find(props.notifications, (pp) => match.params.id == pp.id )}/>
+              </div>
+            } />
 
         <Route path="/users" exact={true} render={() =>
             <div>
