@@ -136,11 +136,18 @@ class TheServer {
         this.submit_login(data1);
       },
       error: (resp) => {
-          alert("PLEASE FILL ALL FIELDS AND TRY AGAIN!");
+          //alert("PLEASE FILL ALL FIELDS AND TRY AGAIN!");
           store.dispatch({
             type: 'CLEAR_USER_FORM',
-          })
-        },
+          });
+          //console.log("ERROR LOG", resp.responseJSON);
+          let msgs = Object.values(resp.responseJSON.errors);
+          let msg = msgs.join(". ");
+          store.dispatch({
+	    type: 'ERROR',
+	    msg: msg,
+	  });
+      },
   });
   }
 
