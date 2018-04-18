@@ -118,10 +118,10 @@ function Nav2(props) {
           <NavLink to="/requestedloans" href="#" className="nav-link">All Requested Loans</NavLink>
         </NavItem>
         <NavItem>
-          <NavLink to="/loans" href="#" className="nav-link">All Loans</NavLink>
+          <NavLink to="/loans" href="#" className="nav-link">Offered Loans</NavLink>
         </NavItem>
         <NavItem>
-          <NavLink to="/approvedloans" href="#" className="nav-link">My Loans</NavLink>
+          <NavLink to="/approvedloans" href="#" className="nav-link">Accepted Loans</NavLink>
         </NavItem>
         <NavItem>
           <NavLink to="/notifications" href="#" className="nav-link">Notifications</NavLink>
