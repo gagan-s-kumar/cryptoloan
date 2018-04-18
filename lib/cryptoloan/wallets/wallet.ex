@@ -6,6 +6,7 @@ defmodule Cryptoloan.Wallets.Wallet do
   schema "wallets" do
     field :balance, :float
     field :currency, :string
+    field :account_id, :string
     belongs_to :user, Cryptoloan.Users.User
 
     timestamps()
@@ -14,7 +15,7 @@ defmodule Cryptoloan.Wallets.Wallet do
   @doc false
   def changeset(wallet, attrs) do
     wallet
-    |> cast(attrs, [:currency, :balance, :user_id])
+    |> cast(attrs, [:currency, :balance, :user_id, :account_id])
     |> validate_required([:currency, :balance, :user_id])
   end
    
@@ -29,7 +30,6 @@ defmodule Cryptoloan.Wallets.Wallet do
   
   def insert_or_update(params) do
     wallet = find_or_empty(params["user_id"], params["currency"], params["balance"])
-    IO.inspect wallet
     Repo.insert_or_update!(changeset(wallet, params))
   end
 end

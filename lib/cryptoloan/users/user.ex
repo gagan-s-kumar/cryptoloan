@@ -10,6 +10,7 @@ defmodule Cryptoloan.Users.User do
     field :name, :string
     field :wallet, :integer
     field :token, :string
+    field :account_id, :string
     field :password, :string, virtual: true
     field :password_hash, :string
     timestamps()
@@ -18,7 +19,7 @@ defmodule Cryptoloan.Users.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:name, :email,:password, :password_hash, :wallet, :debit, :credit, :token])
+    |> cast(attrs, [:name, :email,:password, :password_hash, :wallet, :debit, :credit, :token, :account_id])
     |> validate_required([:name, :email])
   end
 
@@ -29,10 +30,5 @@ defmodule Cryptoloan.Users.User do
     else
       %Cryptoloan.Users.User{name: name}
     end
-  end
-  
-  def insert_or_update(params) do
-    user = find_or_empty(params["name"])
-    #Repo.insert_or_update!(changeset(user, params))
   end
 end
