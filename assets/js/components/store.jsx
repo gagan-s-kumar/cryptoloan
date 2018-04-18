@@ -34,9 +34,15 @@ function loans(state = [], action) {
 
 let empty_notify_form = {
   user_id: "",
-  bclimit: "",
-  lclimit: "",
-  etlimit: "",
+  bclimit: "0",
+  lclimit: "0",
+  etlimit: "0",
+};
+
+let empty_clear_notify_form = {
+  bclimit: "0",
+  lclimit: "0",
+  etlimit: "0",
 };
 
 function notify_form(state = empty_notify_form, action) {
@@ -45,6 +51,8 @@ function notify_form(state = empty_notify_form, action) {
       return Object.assign({}, state, action.data);
     case 'CLEAR_NOTIFY_FORM':
       return empty_notify_form;
+    case 'CLEAR_EDIT_NOTIFY_FORM':
+      return empty_clear_notify_form;
     default:
       return state;
   }
