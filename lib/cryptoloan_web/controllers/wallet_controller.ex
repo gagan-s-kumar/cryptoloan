@@ -50,10 +50,6 @@ defmodule CryptoloanWeb.WalletController do
     if !accounts do
       send_resp(conn, :no_content, "")
     else
-      Enum.each accounts["data"], fn(account) ->
-        acc = %{"user_id" => user.id, "balance" => String.to_float(account["balance"]["amount"]), "currency" => account["balance"]["currency"]}
-        Wallet.insert_or_update(acc)
-      end
       wallet = Wallets.get_user_wallet(params["user_id"])
       render(conn, "show.json", wallet: wallet)
     end
@@ -63,13 +59,19 @@ defmodule CryptoloanWeb.WalletController do
     sender_wallet = Wallets.get_user_wallet(sender_id)
     receiver_wallet = Wallets.get_user_wallet(receiver_id)
     addresses = Coinbase.get_addresses(receiver_wallet.user.token, receiver_wallet.account_id)
-    first_address = hd(addresses["data"])
-    transaction = Coinbase.post_transaction(sender_wallet.user.token, sender_wallet.account_id, first_address["address"], 0.80, "USD")
-    if transaction do
-      IO.inspect Wallets.update_wallet(sender_wallet, %{balance: sender_wallet.balance - amount})
-      IO.inspect Wallets.update_wallet(receiver_wallet, %{balance: receiver_wallet.balance + amount})
-      render(conn, "show.json", wallet: Wallets.get_wallet!(sender_wallet.id))
+    if addresses do
+      first_address = hd(addresses["data"])
+      transaction = Coinbase.post_transaction(sender_wallet.user.token, sender_wallet.account_id, first_address["address"], amount, "BTC")
+      if transaction do
+        IO.inspect Wallets.update_wallet(sender_wallet, %{balance: sender_wallet.balance - amount})
+        IO.inspect Wallets.update_wallet(receiver_wallet, %{balance: receiver_wallet.balance + amount})
+        render(conn, "show.json", wallet: Wallets.get_wallet!(sender_wallet.id))
+      else
+        Wallets.delete_wallet(sender_wallet)
+        send_resp(conn, :no_content, "")
+      end
     else
+      Wallets.delete_wallet(receiver_wallet)
       send_resp(conn, :no_content, "")
     end
   end
