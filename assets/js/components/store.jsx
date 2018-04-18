@@ -20,13 +20,18 @@ function loans_form(state = empty_loans_form, action) {
   }
 }
 
-
 function loans(state = [], action) {
   switch (action.type) {
   case 'LOANS_LIST':
     return [...action.loans];
   case 'ADD_LOANS':
     return [action.loan, ...state];
+  case 'UPDATE_LOANS':
+    return [action.loan, ...state];
+  case 'UPDATE_ACCEPTEDLOANS_FORM':
+    return Object.assign({}, state, action.data);
+  case 'CLEAR_ACCEPTEDLOANS_FORM':
+    return empty_loans_form;
   default:
     return state;
   }

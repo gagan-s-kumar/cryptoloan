@@ -2,7 +2,6 @@ import React from 'react';
 
 function ShowLoans(props) {
 
-  if(props.loan.accepted) {
   return <div>
     <div className="row">
         <div className="col-md">
@@ -22,9 +21,6 @@ function ShowLoans(props) {
         </div>
     </div>
   </div>;
-  } else {
-    return <div></div>;
-  }
 
 }
 

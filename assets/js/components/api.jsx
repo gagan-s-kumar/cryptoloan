@@ -311,6 +311,45 @@ class TheServer {
     });
   }
 
+  accept_loan(data, id) {
+    $.ajax("/api/v1/loans/" + id, {
+      method: "put",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      data: JSON.stringify({ loan: data }),
+      success: (resp) => {
+	console.log("accept_loan success");
+        //store.dispatch({
+        //  type: 'UPDATE_LOANS',
+        //  loan: resp.loan,
+        //});
+      },
+      error: (resp) => {
+	console.log("accept_loan failure");
+	console.log(resp);
+      }
+    });
+  }
+
+  delete_loan(id) {
+    $.ajax("/api/v1/loans/" + id, {
+      method: "delete",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      success: (resp) => {
+	console.log("delete_loan success");
+        //store.dispatch({
+        //  type: 'UPDATE_LOANS',
+        //  loan: resp.loan,
+        //});
+      },
+      error: (resp) => {
+	console.log("delete_loan failure");
+      }
+    });
+  }
+
+
 
 }
 
