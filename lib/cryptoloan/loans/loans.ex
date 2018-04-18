@@ -21,7 +21,6 @@ defmodule Cryptoloan.Loans do
     a = Repo.all(Loan)
       |>Repo.preload(:user)
       |>Repo.preload([requestedloan: [:user]])
-    IO.inspect a
     a
   end
 
@@ -58,7 +57,6 @@ defmodule Cryptoloan.Loans do
 
   """
   def create_loan(attrs \\ %{}) do
-    IO.inspect "in loas.ex create_loan()"
     {:ok, loan} = %Loan{}
     |> Loan.changeset(attrs)
     |> Repo.insert()

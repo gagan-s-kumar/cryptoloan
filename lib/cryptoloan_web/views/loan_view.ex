@@ -13,7 +13,6 @@ defmodule CryptoloanWeb.LoanView do
   end
 
   def render("loan.json", %{loan: loan}) do
-    IO.inspect "in loans_view.ex"
     %{id: loan.id,
       mini_balance: loan.mini_balance,
       colletaral: loan.colletaral,
