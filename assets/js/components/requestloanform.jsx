@@ -21,8 +21,8 @@ function RequestLoanForm(props) {
   function submit(ev) {
     let data = {
     		user_id: props.token.user_id,
-		amount: props.requestedloans_form.amount,
-		duration_requested: "2017-03-03T12:00:00Z",
+		    amount: props.requestedloans_form.amount,
+		duration_requested: props.requestedloans_form.duration_requested,
 		granted: false
 	       };
     //console.log("In RequestLoanForm");
@@ -44,8 +44,8 @@ function RequestLoanForm(props) {
       <Input type="number" name="amount" value={props.requestedloans_form.amount} onChange={update}/>
     </FormGroup>
     <FormGroup>
-      <Label for="duration_requested">Duration to request</Label>
-      <Input type="datetime" name="duration_requested" value={props.requestedloans_form.duration_requested} onChange={update}/>
+      <Label for="duration_requested">Duration to request(Number of days)</Label>
+      <Input type="number" name="duration_requested" value={props.requestedloans_form.duration_requested} onChange={update}/>
     </FormGroup>
 
     <Button onClick={submit}>Request Loan</Button>

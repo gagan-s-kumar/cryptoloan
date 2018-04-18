@@ -5,7 +5,7 @@ defmodule Cryptoloan.Requestedloans.Requestedloan do
 
   schema "requestedloans" do
     field :amount, :integer
-    field :duration_requested, :naive_datetime
+    field :duration_requested, :integer
     field :granted, :boolean, default: false
     belongs_to :user, Cryptoloan.Users.User
 
