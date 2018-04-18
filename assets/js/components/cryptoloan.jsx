@@ -36,9 +36,7 @@ let Cryptoloan = connect((state) => state)((props) => {
   return (
     <Router>
       <div>
-        <Nav/>
         <Nav2 />
-
 	 {props.errors}
           <Route path="/" exact={true} render={() =>
             <div>

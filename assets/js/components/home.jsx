@@ -32,7 +32,7 @@ export default function HomePage(props) {
                            console.log("after");
                          }, 300 * 1000);
 
-  return <div>
+  return <div className="col-md">
        <Tabs>
     <TabList className="nav nav-tabs">
       <Tab className="btn btn-info">Bitcoin</Tab>

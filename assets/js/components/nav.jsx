@@ -23,7 +23,7 @@ let LoginForm = connect(({login}) => {return {login};})((props) => {
     api.submit_login(props.login);
   }
 
-  return <div className="navbar-text">
+  return <div className="navbar-text log">
     <Form inline>
       <FormGroup>
         <Input type="text" name="email" placeholder="email"
@@ -39,71 +39,10 @@ let LoginForm = connect(({login}) => {return {login};})((props) => {
 });
 
 
-function WalletInfo(params) {
-  return <div className="navbar-text">
-	<nav>
-        <NavItem>
-          <NavLink to="/users" href="#" className="nav-link"><FaUser size={40} /></NavLink>
-        </NavItem>
-        <NavItem>
-          <Button onClick={reset_token}>Logout</Button>
-        </NavItem>
-	</nav>
-    Balance: BTC {params.wallet.balance}
-    </div>;
-}
 
-function reset_token(ev) {
-    api.submit_logout();
-}
-
-let Session = connect(({token}) => {return {token};})((props) => {
-    return <div className="navbar-text">
-    <nav>
-    <NavItem>
-	<NavLink to="/users" href="#" className="nav-link"><FaUser size={40} /></NavLink>
-    </NavItem>
-    <NavItem>
-    	<Link to={"/"}><Button onClick={reset_token}>Logout</Button></Link>
-    </NavItem>
-    <NavItem>
-      <Link className="btn btn-primary btn-xs" to={"/auth/coinbase"} onClick={auth}>Link your Wallet</Link>
-    </NavItem>
-    </nav>
-  </div>;
-});
-
-function auth(ev) {
-  window.location.href("/auth/coinbase");
-}
 function Nav(props) {
 
-  let wallet;
-  let session_info;
-  let token;
-  let cookie = new Cookies();
-  if (props.token) {
-    token = props.token;
-  }
-  else if(cookie.get('token')){
-    let c_token = cookie.get('token');
-    let c_user = cookie.get('user_id');
-    token = {token: c_token, user_id: c_user};
-    store.dispatch({type: 'SET_TOKEN', token: token});
-  }
-
-  if (token) {
-    wallet = _.find(props.wallets, function(w){ if(w.user.id==token.user_id) return w});
-    if(wallet){
-      session_info = <WalletInfo token={token} wallet={wallet} />
-    }
-    else{
-      session_info = <Session token={token} />;
-    }
-  }
-  else {
-    session_info = <LoginForm />
-  }
+  let  session_info = <LoginForm />
 
   return (
     <nav className="navbar navbar-dark bg-dark navbar-expand">
@@ -124,8 +63,6 @@ function Nav(props) {
 function state2props(state) {
   return {
     token: state.token,
-    wallets: state.wallets,
-    wallet: state.wallet,
   };
 }
 

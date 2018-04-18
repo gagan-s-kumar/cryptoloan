@@ -1,7 +1,12 @@
 @import "bootstrap";
 
-body { font-size: 20pt; }
 
+.user { text-align: right;}
 .live{
   padding: 20px;
+}
+.log{
+  position: absolute;
+  right: 0px;
+  top: 0px;
 }
