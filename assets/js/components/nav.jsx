@@ -64,7 +64,7 @@ let Session = connect(({token}) => {return {token};})((props) => {
 	<NavLink to="/users" href="#" className="nav-link"><FaUser size={40} /></NavLink>
     </NavItem>
     <NavItem>
-    	<Button onClick={reset_token}>Logout</Button>
+    	<Link to={"/"}><Button onClick={reset_token}>Logout</Button></Link>
     </NavItem>
     <NavItem>
       <Link className="btn btn-primary btn-xs" to={"/auth/coinbase"} onClick={auth}>Link your Wallet</Link>
