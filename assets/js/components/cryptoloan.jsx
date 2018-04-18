@@ -45,7 +45,7 @@ let Cryptoloan = connect((state) => state)((props) => {
 
         <Route path="/loans" exact={true} render={() =>
             <div>
-              <Loans loans={props.loans}/>
+              <Loans loans={props.loans} token={props.token}/>
             </div>
           } />
 

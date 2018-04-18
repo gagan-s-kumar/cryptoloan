@@ -5,6 +5,18 @@ import api from './api';
 
 function ShowLoans(props) {
 
+function Actions(props) {
+
+  if(props.user_id == props.borrower_id) {
+    return <div>
+             <Button onClick={submit}>Accept</Button>
+             <Button onClick={delete_loan}>Decline</Button>
+          </div>;
+  } else {
+    return <div></div>;
+  }
+}
+
 
   function update(ev) {
     let tgt = $(ev.target);
@@ -45,6 +57,7 @@ function ShowLoans(props) {
 //  return <div>
 //    <p>{props.loan.mini_balance}</p>
 //  </div>;
+  if(props.loan.requestedloan_id.user_id.id == props.token.user_id || props.loan.user_id.id == props.token.user_id) {
   return <div>
     <div className="row">
         <div className="col-md">
@@ -60,18 +73,20 @@ function ShowLoans(props) {
            {props.loan.user_id.name}
         </div>
         <div className="col-md">
-           <Button onClick={submit}>Accept</Button>
-           <Button onClick={delete_loan}>Decline</Button>
+           <Actions user_id={props.token.user_id} borrower_id={props.loan.requestedloan_id.user_id.id}/>
         </div>
     </div>
   </div>;
+  } else {
+   return <div></div>;
+  }
 
 }
 
 
 function Loans(props) {
 
-  let loanList = _.map(props.loans, (nn) => <ShowLoans key={nn.id} loan={nn} />);
+  let loanList = _.map(props.loans, (nn) => <ShowLoans key={nn.id} loan={nn} token={props.token}/>);
 
   return <div>
     <div className="row">
