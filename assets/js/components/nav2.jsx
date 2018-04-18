@@ -147,4 +147,3 @@ function state2props(state) {
 }
 
 export default connect(state2props)(Nav2);
-
