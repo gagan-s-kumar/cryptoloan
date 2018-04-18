@@ -33,5 +33,8 @@ $(function() {
   api.get_eth_graph_data();
   api.get_btc_graph_data();
   api.get_ltc_graph_data();
+  api.get_bitcoin();
+  api.get_litecoin();
+  api.get_ethereum();
   cryptoloan_init(store);
 });

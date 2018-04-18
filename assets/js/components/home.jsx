@@ -2,11 +2,10 @@ import React from 'react';
 import { Link, Button } from 'reactstrap';
 import api from './api';
 import Notifylist from './notifylist';
-import { LineChart } from 'react-easy-chart';
+import { AreaChart } from 'react-easy-chart';
 import {Tabs, TabList, Tab, TabPanel} from 'react-tabs';
 
 export default function HomePage(props) {
-  console.log("IN HOME JSX ..", window.location.href);
   let ltc, eth, btc;
 
   _.each(props.graph, function(obj){
@@ -26,7 +25,14 @@ export default function HomePage(props) {
   let btc_gmap = _.map(btc,function (v){ let date = new Date(v.time * 1000);
                                   let a = date.getDate()+'-'+monthNames[date.getMonth()];
                                   return {x: a, y: v.open}});
-  return <div>
+
+  setInterval(function() { api.get_bitcoin();
+                           api.get_litecoin();
+                           api.get_ethereum();
+                           console.log("after");
+                         }, 300 * 1000);
+
+  return <div className="col-md">
        <Tabs>
     <TabList className="nav nav-tabs">
       <Tab className="btn btn-info">Bitcoin</Tab>
@@ -36,15 +42,15 @@ export default function HomePage(props) {
 
     <TabPanel>
     <div>
-	BITCOIN
-    <LineChart
+	BITCOIN: ${props.bitcoin}
+    <AreaChart
     axes
     margin={{top: 10, right: 20, bottom: 50, left: 50}}
     grid
     verticalGrid
     xType={'text'}
     axisLabels = {{x: 'Date', y: 'Rate'}}
-    lineColors={['gold']}
+    areaColors={['gold']}
     width={1000}
     height={500}
     data={[btc_gmap]}
@@ -54,14 +60,14 @@ export default function HomePage(props) {
     </TabPanel>
     <TabPanel>
     <div>
-	ETHERIUM
-    <LineChart
+	ETHEREUM: ${props.ethereum}
+    <AreaChart
     axes
     margin={{top: 10, right: 20, bottom: 50, left: 50}}
     grid
     verticalGrid
     xType={'text'}
-    lineColors={['blue']}
+    areaColors={['blue']}
     axisLabels = {{x: 'Date', y: 'Rate'}}
     width={1000}
     height={500}
@@ -72,14 +78,14 @@ export default function HomePage(props) {
     </TabPanel>
     <TabPanel>
     <div>
-	LITECOIN
-    <LineChart
+	LITECOIN: ${props.litecoin}
+    <AreaChart
     axes
     margin={{top: 10, right: 20, bottom: 50, left: 50}}
     grid
     verticalGrid
     xType={'text'}
-    lineColors={['green']}
+    areaColors={['green']}
     axisLabels = {{x: 'Date', y: 'Rate'}}
     width={1000}
     height={500}
@@ -89,10 +95,5 @@ export default function HomePage(props) {
     </div>
    </TabPanel>
   </Tabs>
-
-
-    <div>
-      <Notifylist notify={props.notify} />
-    </div>
   </div>;
 }

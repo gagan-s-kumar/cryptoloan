@@ -24,7 +24,7 @@ function UserForm(params) {
     else{
       console.log("Should create user.");
       api.submit_user(params.user_form);
-      alert("User created successfully!");
+      //alert("User created successfully!");
 //      params.dispatch({type: 'ERROR', msg: 'User created successfully!'});
       clear("");
     }
@@ -50,8 +50,11 @@ function UserForm(params) {
       <Label for="password">Password</Label>
       <Input type="password" name="password" value={params.user_form.password} onChange={update} />
     </FormGroup>
+    <FormGroup>
+      <Label for="password_confirmation">Confirm Password</Label>
+      <Input type="password" name="password_confirmation" value={params.user_form.password_confirmation} onChange={update} />
+    </FormGroup>
     <Button onClick={submit} color="primary">Create</Button>
-    <Button onClick={clear} >Clear</Button>
   </div>;
 }
 
