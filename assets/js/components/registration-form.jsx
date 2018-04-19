@@ -13,7 +13,6 @@ function UserForm(params) {
       type: 'UPDATE_USER_FORM',
       data: data,
     };
-    console.log(action);
     params.dispatch(action);
   }
 

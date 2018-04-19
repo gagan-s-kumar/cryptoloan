@@ -8,12 +8,7 @@ export default function Userlist(props) {
   
   let user = _.find(props.users, (nn) => nn.id==props.token.user_id);
   let wallet = _.find(props.wallets, (ww) => ww.user.id==props.token.user_id);
-  let credit, debit, wallet_info; 
-  credit=debit=wallet_info=0;
-  if(user.credit)
-    credit = user.credit;
-  if(user.debit)
-    debit = user.debit;
+  let wallet_info=0;
   if(wallet)
     wallet_info = wallet.balance;
   return <div>
@@ -29,9 +24,9 @@ export default function Userlist(props) {
 		<CardBody>
 		  <CardTitle>Loan Information</CardTitle>
 		  <CardText>Amount Borrowed</CardText>
-		  <CardText>${credit}</CardText>
+		  <CardText>${user.credit}</CardText>
 		  <CardText>Amount Lended</CardText>
-		  <CardText>${debit}</CardText>
+		  <CardText>${user.debit}</CardText>
 		</CardBody>
 	      </Card>
 	</div>;

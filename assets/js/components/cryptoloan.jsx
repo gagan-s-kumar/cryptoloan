@@ -17,7 +17,7 @@ import Notifylist from './notifylist';
 import Userlist from './userlist';
 import UserForm from './registration-form';
 import Nav2 from './nav2'
-
+import api from './api';
 
 export default function cryptoloan_init(store) {
   let root = document.getElementById('root');
@@ -28,6 +28,14 @@ export default function cryptoloan_init(store) {
       root);
 }
 
+function request_loans(){
+  api.request_loans();
+}
+
+function requested_loans(){
+  api.request_requestedloans();
+}
+
 let Cryptoloan = connect((state) => state)((props) => {
 
   let cookies = new Cookies();
@@ -36,7 +44,7 @@ let Cryptoloan = connect((state) => state)((props) => {
     <Router>
       <div>
         <Nav2 />
-	 {props.errors}
+	 <div className="errors">{props.errors}</div>
           <Route path="/" exact={true} render={() =>
             <div>
               <HomePage notify={props.notifications} graph={props.graph} token={props.token} bitcoin={props.bitcoin} litecoin={props.litecoin} ethereum={props.ethereum}/>
@@ -45,7 +53,7 @@ let Cryptoloan = connect((state) => state)((props) => {
 
         <Route path="/loans" exact={true} render={() =>
             <div>
-              <Loans loans={props.loans} token={props.token}/>
+              <Loans loans={props.loans} token={props.token} onClick={requested_loans}/>
             </div>
           } />
 
@@ -64,7 +72,7 @@ let Cryptoloan = connect((state) => state)((props) => {
 
       <Route path="/offeredloan/:id" exact={true} render={({match}) =>
                 <div>
-                  <OfferLoanForm requestedloans={props.requestedloans} token={props.token} re1={_.find(props.requestedloans, (yy) => match.params.id == yy.id)}/>
+                  <OfferLoanForm requestedloans={props.requestedloans} token={props.token} re1={_.find(props.requestedloans, (yy) => match.params.id == yy.id)} onClick={request_loansd}/>
                   </div>
                 } />
 
@@ -96,7 +104,7 @@ let Cryptoloan = connect((state) => state)((props) => {
     <Router>
       <div>
         <Nav/>
-        {props.errors}
+        <div className="errors">{props.errors}</div>
         <UserForm />
       </div>
    </Router>
