@@ -17,3 +17,21 @@
   justify-content: center;
   padding-top: 50pt;
 }
+
+.navbar {
+    color: #FFFFFF;
+    background-color: #2B71B1 !important;
+}
+
+.navbar .navbar-nav > li > a {
+   color: #E0FFFF !important;
+}
+
+.navbar .navbar-nav > li > a:hover {
+   color: #2B71B1 !important;
+   background-color: white !important;
+}
+
+ .user {
+   color: white !important;
+}
