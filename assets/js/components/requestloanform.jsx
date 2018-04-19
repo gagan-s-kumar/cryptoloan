@@ -26,12 +26,18 @@ function RequestLoanForm(props) {
 		duration_requested: date2,
 		granted: false
 	       };
-
+    
     let k = parseInt(props.requestedloans_form.amount);
 
     if(isNaN(k)){
       console.log("inside error dispatch");
       props.dispatch({type: 'ERROR', msg: 'Please enter valid numbers!'});
+    }
+    else if(!props.wallet) {
+      props.dispatch({type: 'ERROR', msg: 'Please link your Coinbase Wallet'});
+    }
+    else if((props.wallet.data.balance * props.bitcoin) <= parseInt(props.requestedloans_form.amount)) {
+      props.dispatch({type: 'ERROR', msg: 'You do not have enough balance to request this loan.'});
     }
     else {
     api.new_requestedloans(data);
@@ -59,7 +65,8 @@ function RequestLoanForm(props) {
 
 function state2props(state) {
   return { requestedloans_form: state.requestedloans_form,
-           users: state.users,};
+           users: state.users,
+	   wallet: state.wallet,};
 }
 
 export default connect(state2props)(RequestLoanForm);
