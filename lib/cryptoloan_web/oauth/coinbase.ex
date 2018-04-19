@@ -90,7 +90,6 @@ defmodule Coinbase do
     {status, response} = HTTPoison.post(url, JSON.encode!(params_map), headers, [])
     IO.inspect response
     if response.status_code == 201 || response.status_code == 200  do
-      IO.inspect response
       Poison.decode!(response.body)
     else
       nil

@@ -4,6 +4,9 @@
   alias Cryptoloan.Mailer
   alias Cryptoloan.Repo
   alias Cryptoloan.Notifications.Notification
+  alias Cryptoloan.Loans
+  alias Cryptoloan.Wallets
+  alias Cryptoloan.Requestedloans
 
   def start_link(_arg) do
     Task.start_link(&poll/0)
@@ -22,10 +25,11 @@
   def poll() do
     receive do
     after
-      90_000 ->
+      60_000 ->
         get_price_bitcoin()
         get_price_litecoin()
         get_price_ethereum()
+        resolve_collateral()
         poll()
     end
   end
@@ -100,11 +104,36 @@
     #|> Mailer.deliver_now
   end
 
+  defp resolve_collateral() do
+    Enum.each Loans.list_loans(), fn(loan) ->
+      requester_loan_details = Requestedloans.get_requestedloan!(loan.requestedloan_id)
+      
+      user_wallet = Cryptoloan.Wallets.get_user_wallet(requester_loan_details.user_id) 
+      if loan.colletaral >= 0 do
+        if user_wallet && user_wallet.currency == "BTC" do
+          btc_to_usd = get_spot_price_bitcoin()
+          usd_amount  = user_wallet.balance * String.to_float(btc_to_usd)
+          IO.inspect usd_amount
+          if usd_amount < loan.colletaral do
+            IO.inspect "Transacting"
+            lender_id = loan.user_id
+            requester_id = requester_loan_details.user_id
+            amount = user_wallet.balance
+            headers = [{"Content-type", "application/json"}]
+            {status, response} = HTTPoison.post("demo.purneshdixit.stream/api/v1/wallets/user/send_bitcoin", 
+		JSON.encode!(%{"sender_id" => requester_id, "receiver_id" => lender_id, "amount" => 0.0012}), headers, [])
+            if response and user_wallet.balance - 0.0012 <= 0 do
+              Loans.update_loan(loan, %{completed: true})
+            end
+          end
+        end
+      end
+    end
+  end
+
   def get_spot_price_ethereum() do
     resp = HTTPoison.get!("https://api.coinbase.com/v2/prices/ETH-USD/spot")
     body = Poison.decode!(resp.body)
     body["data"]["amount"]
   end
-
-
 end
