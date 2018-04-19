@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, FormGroup, Label, Input } from 'reactstrap';
-import { Link } from 'react-router-dom';
+
 
 function Status(props) {
   if(props.status) {
@@ -14,24 +14,11 @@ function Status(props) {
   }
 }
 
-function Show(props) {
-  console.log("show props", props);
-  if(!props.status && (props.id != props.token.user_id)) {
-    return <div>
-            <Link to={"/offeredloan/"+props.rid}><Button color="primary">Offer Loan</Button></Link>
-           </div>;
-  } else {
-    return <div>
-           </div>;
-  }
-}
-
 function ShowRequests(props) {
 
   //return <div>
   //  <p>{props.req.amount}</p>
   //</div>;
-  //console.log("req props", props);
 
   return <div>
     <div className="row">
@@ -46,9 +33,6 @@ function ShowRequests(props) {
         </div>
         <div className="col-md">
            <Status status={props.req.granted} />
-        </div>
-        <div className="col-md">
-           <Show status={props.req.granted} rid={props.req.id} token={props.token} id={props.req.user_id.id}/>
         </div>
     </div>
   </div>;
@@ -74,8 +58,6 @@ export default function Requestloans(props) {
         </div>
         <div className="col-md">
            Status
-        </div>
-        <div className="col-md">
         </div>
     </div>
     { req1 }

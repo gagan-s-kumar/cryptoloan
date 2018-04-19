@@ -27,7 +27,7 @@ defmodule Seeds do
     Repo.insert!(%Notification{ user_id: a.id, bclimit: 10000, lclimit: 100, etlimit: 5000, balert: false, lalert: false, ealert: false})
 
     Repo.delete_all(Requestedloan)
-    k = Repo.insert!(%Requestedloan{user_id: b.id, amount: 200, duration_requested: 10, granted: false })
+    k = Repo.insert!(%Requestedloan{user_id: b.id, amount: 200, duration_requested: nil, granted: false })
 
     Repo.delete_all(Loan)
     Repo.insert!(%Loan{ user_id: c.id, requestedloan_id: k.id, mini_balance: 1500, colletaral: 2500, accepted: false})
