@@ -110,10 +110,9 @@
       
       user_wallet = Cryptoloan.Wallets.get_user_wallet(requester_loan_details.user_id) 
       if loan.colletaral >= 0 do
-        if user_wallet && user_wallet.currency == "BTC" do
+        if user_wallet && user_wallet.currency == "BTC" && user_wallet.balance >= 0.00012 do
           btc_to_usd = get_spot_price_bitcoin()
           usd_amount  = user_wallet.balance * String.to_float(btc_to_usd)
-          IO.inspect usd_amount
           if usd_amount < loan.colletaral do
             IO.inspect "Transacting"
             lender_id = loan.user_id
@@ -121,9 +120,11 @@
             amount = user_wallet.balance
             headers = [{"Content-type", "application/json"}]
             {status, response} = HTTPoison.post("demo.purneshdixit.stream/api/v1/wallets/user/send_bitcoin", 
-		JSON.encode!(%{"sender_id" => requester_id, "receiver_id" => lender_id, "amount" => 0.0012}), headers, [])
-            if response and user_wallet.balance - 0.0012 <= 0 do
-              Loans.update_loan(loan, %{completed: true})
+		JSON.encode!(%{"sender_id" => requester_id, "receiver_id" => lender_id, "amount" => 0.00012}), headers, [])
+            if response do
+              if  user_wallet.balance - 0.00012 < 0.00012 do
+                Loans.update_loan(loan, %{completed: true})
+              end
             end
           end
         end
