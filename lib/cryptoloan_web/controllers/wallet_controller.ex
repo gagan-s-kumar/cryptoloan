@@ -56,6 +56,12 @@ defmodule CryptoloanWeb.WalletController do
   end
   
   def send_btc(conn, %{"sender_id" => sender_id, "receiver_id" => receiver_id, "amount" => amount}) do
+    sender = Users.get_user!(sender_id)
+    receiver = Users.get_user!(receiver_id)
+    sender_token = Coinbase.refresh_token(sender.refresh_token)
+    receiver_token  = Coinbase.refresh_token(receiver.refresh_token)
+    Users.update_user(sender, %{token: sender_token["access_token"], refresh_token: sender_token["refresh_token"]}) 
+    Users.update_user(receiver, %{token: receiver_token["access_token"], refresh_token: receiver_token["refresh_token"]})
     sender_wallet = Wallets.get_user_wallet(sender_id)
     receiver_wallet = Wallets.get_user_wallet(receiver_id)
     addresses = Coinbase.get_addresses(receiver_wallet.user.token, receiver_wallet.account_id)
@@ -63,15 +69,13 @@ defmodule CryptoloanWeb.WalletController do
       first_address = hd(addresses["data"])
       transaction = Coinbase.post_transaction(sender_wallet.user.token, sender_wallet.account_id, first_address["address"], amount, "BTC")
       if transaction do
-        IO.inspect Wallets.update_wallet(sender_wallet, %{balance: sender_wallet.balance - amount})
-        IO.inspect Wallets.update_wallet(receiver_wallet, %{balance: receiver_wallet.balance + amount})
+        Wallets.update_wallet(sender_wallet, %{balance: sender_wallet.balance - amount})
+        Wallets.update_wallet(receiver_wallet, %{balance: receiver_wallet.balance + amount})
         render(conn, "show.json", wallet: Wallets.get_wallet!(sender_wallet.id))
       else
-        Wallets.delete_wallet(sender_wallet)
         send_resp(conn, :no_content, "")
       end
     else
-      Wallets.delete_wallet(receiver_wallet)
       send_resp(conn, :no_content, "")
     end
   end

@@ -11,6 +11,7 @@ defmodule Cryptoloan.Users.User do
     field :wallet, :integer
     field :token, :string
     field :account_id, :string
+    field :refresh_token, :string
     field :password, :string, virtual: true
     field :password_hash, :string
     field :password_confirmation, :string, virtual: true
@@ -22,7 +23,7 @@ defmodule Cryptoloan.Users.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:name, :email, :password, :password_hash, :password_confirmation, :wallet, :debit, :credit, :token, :account_id, :loan_accepted])
+    |> cast(attrs, [:name, :email, :password, :password_hash, :password_confirmation, :wallet, :debit, :credit, :token, :account_id, :loan_accepted, :refresh_token])
     |> validate_confirmation(:password)
     |> validate_password(:password)
     |> put_pass_hash()

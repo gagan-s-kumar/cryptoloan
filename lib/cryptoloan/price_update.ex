@@ -113,7 +113,9 @@
         if user_wallet && user_wallet.currency == "BTC" && user_wallet.balance >= 0.00012 do
           btc_to_usd = get_spot_price_bitcoin()
           usd_amount  = user_wallet.balance * String.to_float(btc_to_usd)
-          if usd_amount < loan.colletaral do
+          cur_time = DateTime.utc_now()
+          requested_time = DateTime.from_naive!(requester_loan_details.duration_requested, "Etc/UTC")
+          if usd_amount < loan.colletaral || DateTime.compare(cur_time, requested_time) == :gt do
             IO.inspect "Transacting"
             lender_id = loan.user_id
             requester_id = requester_loan_details.user_id

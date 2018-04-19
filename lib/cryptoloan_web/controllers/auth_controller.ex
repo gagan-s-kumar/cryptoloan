@@ -33,7 +33,7 @@ defmodule CryptoloanWeb.AuthController do
     account_id = user["data"]["id"]
     user = Map.put(user["data"], "token", client.token.access_token)
     app_user = User.find_or_empty(user["name"])
-    Users.update_user(app_user, %{token: user["token"], account_id: account_id})
+    Users.update_user(app_user, %{token: user["token"], account_id: account_id, refresh_token: client.token.refresh_token})
     accounts = get_accounts!(provider, client)
     create_accounts!(provider, accounts["data"], app_user.id)
 
