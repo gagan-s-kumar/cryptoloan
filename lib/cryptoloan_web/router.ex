@@ -27,6 +27,7 @@ defmodule CryptoloanWeb.Router do
     get "/notifications", PageController, :index
     get "/editnotifications/:id", PageController, :index
     get "/requestedloans", PageController, :index
+    get "/offeredloan/:id", PageController, :index
     get "/users/:id", PageController, :index
     get "/loans/:id", PageController, :index
     get "/wallets", PageController, :index
