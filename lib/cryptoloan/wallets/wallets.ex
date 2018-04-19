@@ -108,6 +108,10 @@ defmodule Cryptoloan.Wallets do
   
   def get_user_wallet(user_id) do
     wallet = Repo.get_by(Wallet, user_id: user_id)
-    get_wallet!(wallet.id)
+    if wallet do
+      get_wallet!(wallet.id)
+    else
+      nil
+    end
   end
 end
