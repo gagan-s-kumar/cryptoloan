@@ -31,7 +31,6 @@ export default function cryptoloan_init(store) {
 let Cryptoloan = connect((state) => state)((props) => {
 
   let cookies = new Cookies();
-  console.log("error", props.errors);
   if(cookies.get('token')){
   return (
     <Router>
@@ -63,6 +62,12 @@ let Cryptoloan = connect((state) => state)((props) => {
               </div>
             } />
 
+      <Route path="/offeredloan/:id" exact={true} render={({match}) =>
+                <div>
+                  <OfferLoanForm requestedloans={props.requestedloans} token={props.token} re1={_.find(props.requestedloans, (yy) => match.params.id == yy.id)}/>
+                  </div>
+                } />
+
         <Route path="/users" exact={true} render={() =>
             <div>
               <Userlist users={props.users} token={props.token} wallets={props.wallets} />
@@ -78,7 +83,6 @@ let Cryptoloan = connect((state) => state)((props) => {
         <Route path="/requestedloans" exact={true} render={() =>
               <div>
                 <RequestLoanForm users={props.users} token={props.token}/>
-                <OfferLoanForm requestedloans={props.requestedloans} token={props.token}/>
                 <Requestloans ln={props.requestedloans} token={props.token}/>
               </div>
             } />
