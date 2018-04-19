@@ -44,13 +44,13 @@ export default function ApprovedLoans(props) {
   return <div>
     <div className="row">
         <div className="col-md">
-           Application Number
+           Request Number
         </div>
         <div className="col-md">
            Loan Amount
         </div>
         <div className="col-md">
-           Minimum Balance
+           Return Amount
         </div>
         <div className="col-md">
            Colletaral

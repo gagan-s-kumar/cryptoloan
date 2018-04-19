@@ -77,7 +77,7 @@ function notifications(state = [], action) {
 let empty_requestedloans_form = {
   user_id: "",
   amount: "",
-  duration_requested: "",
+  loan_date: "",
   granted: ""
 };
 

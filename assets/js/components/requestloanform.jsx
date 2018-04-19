@@ -19,16 +19,13 @@ function RequestLoanForm(props) {
   }
 
   function submit(ev) {
+    let date2 = props.requestedloans_form.loan_date.toString() + "T12:00:00Z";
     let data = {
     		user_id: props.token.user_id,
 		amount: props.requestedloans_form.amount,
-		duration_requested: "2017-03-03T12:00:00Z",
+		duration_requested: date2,
 		granted: false
 	       };
-    //console.log("In RequestLoanForm");
-    //console.log(props.requestedloans_form);
-    //console.log(data);
-    //api.new_requestedloans(props.requestedloans_form);
     api.new_requestedloans(data);
     props.dispatch({type: 'CLEAR_REQUESTEDLOANS_FORM'});
     api.request_requestedloans();
@@ -44,8 +41,8 @@ function RequestLoanForm(props) {
       <Input type="number" name="amount" value={props.requestedloans_form.amount} onChange={update}/>
     </FormGroup>
     <FormGroup>
-      <Label for="duration_requested">Duration to request</Label>
-      <Input type="datetime" name="duration_requested" value={props.requestedloans_form.duration_requested} onChange={update}/>
+      <Label for="loan_date">Expected Repay Date:</Label>
+      <Input type="date" name="loan_date" value={props.requestedloans_form.loan_date} onChange={update}/>
     </FormGroup>
 
     <Button onClick={submit}>Request Loan</Button>

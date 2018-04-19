@@ -59,6 +59,26 @@ class TheServer {
     });
   }
 
+  update_user_details(data, id) {
+    $.ajax("/api/v1/users/" + id, {
+      method: "put",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      data: JSON.stringify({ user: data }),
+      success: (resp) => {
+        this.request_users();
+        //store.dispatch({
+        //  type: 'UPDATE_LOANS',
+        //  loan: resp.loan,
+        //});
+      },
+      error: (resp) => {
+	console.log("update_user_details failure");
+	console.log(resp);
+      }
+    });
+  }
+
   request_user_wallet(user_id) {
     $.ajax("/api/v1/wallets/user/" + user_id, {
       method: "get",
@@ -350,6 +370,7 @@ class TheServer {
       data: JSON.stringify({ loan: data }),
       success: (resp) => {
 	console.log("accept_loan success");
+        this.request_loans();
         //store.dispatch({
         //  type: 'UPDATE_LOANS',
         //  loan: resp.loan,
@@ -370,6 +391,7 @@ class TheServer {
       data: JSON.stringify({ requestedloan: data }),
       success: (resp) => {
 	console.log("accept_loan success");
+        this.request_requestedloans();
         //store.dispatch({
         //  type: 'UPDATE_LOANS',
         //  loan: resp.loan,

@@ -7,7 +7,7 @@ function ShowLoans(props) {
 
 function Actions(props) {
 
-  if(props.user_id == props.borrower_id) {
+  if(props.user_id == props.borrower_id && props.loan.accepted == false) {
     return <div>
              <Button onClick={submit}>Accept</Button>
              <Button onClick={delete_loan}>Decline</Button>
@@ -41,12 +41,21 @@ function Actions(props) {
     let req_loan_data = {
 			granted: true,
 			};
+
+    let borrower_data = {
+			credit: props.loan.requestedloan_id.amount,
+                        };
+    let lender_data = {
+			debit: props.loan.requestedloan_id.amount,
+                      };
     //api.accept_loan(props.loan, props.loan.id);
     api.grant_requestedloan(req_loan_data, props.loan.requestedloan_id.id);
     api.accept_loan(data, props.loan.id);
     //props.dispatch({type: 'CLEAR_ACCEPTEDLOANS_FORM'});
-    api.request_requestedloans();
-    api.request_loans();
+    //Update Borrower's Credit
+    api.update_user_details(borrower_data, props.loan.requestedloan_id.user_id.id);
+    //Update Lender's Debit
+    api.update_user_details(lender_data, props.loan.user_id.id);
   }
 
   function delete_loan(ev) {
@@ -73,7 +82,7 @@ function Actions(props) {
            {props.loan.user_id.name}
         </div>
         <div className="col-md">
-           <Actions user_id={props.token.user_id} borrower_id={props.loan.requestedloan_id.user_id.id}/>
+           <Actions user_id={props.token.user_id} borrower_id={props.loan.requestedloan_id.user_id.id} loan={props.loan}/>
         </div>
     </div>
   </div>;
@@ -94,7 +103,7 @@ function Loans(props) {
            Request Number
         </div>
         <div className="col-md">
-           Minimum Balance
+           Return Amount
         </div>
         <div className="col-md">
            Colletaral
