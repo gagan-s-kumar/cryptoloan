@@ -54,7 +54,7 @@ function UserForm(params) {
       <Label for="password_confirmation">Confirm Password</Label>
       <Input type="password" name="password_confirmation" value={params.user_form.password_confirmation} onChange={update} />
     </FormGroup>
-    <Button onClick={submit} color="primary">Create</Button>
+    <Button onClick={submit} color="primary">Register</Button>
   </div>;
 }
 

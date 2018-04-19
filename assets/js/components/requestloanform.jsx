@@ -26,13 +26,19 @@ function RequestLoanForm(props) {
 		duration_requested: date2,
 		granted: false
 	       };
+
+    let k = parseInt(props.requestedloans_form.amount);
+
+    if(isNaN(k)){
+      console.log("inside error dispatch");
+      props.dispatch({type: 'ERROR', msg: 'Please enter valid numbers!'});
+    }
+    else {
     api.new_requestedloans(data);
     props.dispatch({type: 'CLEAR_REQUESTEDLOANS_FORM'});
     api.request_requestedloans();
   }
-
-
-  let users = _.map(props.users, (uu) => <option key={uu.id} value={uu.id}>{uu.name}</option>);
+}
 
   return <div style={{padding: "4ex"}}>
     <h2>Request A New Loan</h2>
