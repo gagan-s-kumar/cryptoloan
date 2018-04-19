@@ -72,7 +72,7 @@ let Cryptoloan = connect((state) => state)((props) => {
 
       <Route path="/offeredloan/:id" exact={true} render={({match}) =>
                 <div>
-                  <OfferLoanForm requestedloans={props.requestedloans} token={props.token} re1={_.find(props.requestedloans, (yy) => match.params.id == yy.id)} onClick={request_loansd}/>
+                  <OfferLoanForm requestedloans={props.requestedloans} token={props.token} re1={_.find(props.requestedloans, (yy) => match.params.id == yy.id)} onClick={request_loans}/>
                   </div>
                 } />
 

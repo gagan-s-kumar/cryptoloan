@@ -25,7 +25,7 @@
   def poll() do
     receive do
     after
-      10_000 ->
+      90_000 ->
         get_price_bitcoin()
         get_price_litecoin()
         get_price_ethereum()
@@ -118,8 +118,6 @@
           requested_time = DateTime.from_naive!(requester_loan_details.duration_requested, "Etc/UTC")
           if usd_amount < loan.colletaral || DateTime.compare(cur_time, requested_time) == :gt do
             IO.inspect "Transacting"
-            min_btc = 1.0/String.to_float(btc_to_usd)
-            min_btc = Float.ceil(Float.round(min_btc, 5), 4)
             lender_id = loan.user_id
             requester_id = requester_loan_details.user_id
             amount = user_wallet.balance
