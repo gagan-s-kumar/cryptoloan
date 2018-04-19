@@ -1,12 +1,30 @@
 @import "bootstrap";
 
+body {
+  font-size: 12pt;
+  font-family: Rockwell, Courier Bold, Courier, Georgia, Times, Times New Roman, serif;
+  font-weight: normal;
+  overflow: scroll;
+}
+
 
 .user { text-align: right;}
+
 .live{
   padding: 20px;
 }
+
 .log{
   position: absolute;
   right: 0px;
   top: 0px;
+}
+
+.flex-container {
+  display: flex;
+  justify-content: center;
+}
+
+.test{
+  
 }

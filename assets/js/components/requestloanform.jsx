@@ -22,9 +22,9 @@ function RequestLoanForm(props) {
     let data = {
     		user_id: props.token.user_id,
 		    amount: props.requestedloans_form.amount,
-		duration_requested: props.requestedloans_form.duration_requested,
-		granted: false
-	       };
+		    duration_requested: props.requestedloans_form.duration_requested,
+		    granted: false
+	      };
     //console.log("In RequestLoanForm");
     //console.log(props.requestedloans_form);
     //console.log(data);
