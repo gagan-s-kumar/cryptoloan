@@ -30,7 +30,7 @@ defmodule Seeds do
     k = Repo.insert!(%Requestedloan{user_id: b.id, amount: 200, duration_requested: nil, granted: false })
 
     Repo.delete_all(Loan)
-    Repo.insert!(%Loan{ user_id: c.id, requestedloan_id: k.id, mini_balance: 1500, colletaral: 2500, accepted: false})
+    Repo.insert!(%Loan{ user_id: c.id, requestedloan_id: k.id, mini_balance: 1500, colletaral: 2500, accepted: false, completed: false})
 
   end
 end

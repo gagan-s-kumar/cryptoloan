@@ -23,6 +23,7 @@ function OfferLoanForm(props) {
        mini_balance: props.loans_form.mini_balance,
    colletaral: props.loans_form.colletaral,
    accepted: false,
+   completed: false,
    requestedloan_id: props.re1.id,
    user_id: props.token.user_id
         };
