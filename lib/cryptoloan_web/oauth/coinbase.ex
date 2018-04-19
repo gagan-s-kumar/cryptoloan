@@ -41,6 +41,12 @@ defmodule Coinbase do
     |> Map.put(:token, OAuth2.AccessToken.new(response_map))
   end
 
+  def refresh_token(refresh_token) do
+    headers = [{"Content-type", "application/json"}]
+    params_map = %{"grant_type" => "refresh_token", "client_id" => client().client_id, "client_secret" => client().client_secret, "refresh_token" => refresh_token}
+    {status, response} = HTTPoison.post("https://api.coinbase.com/oauth/token", JSON.encode!(params_map), headers, [])
+    Poison.decode!(response.body)
+  end
   # Strategy Callbacks
 
   def authorize_url(client, params) do

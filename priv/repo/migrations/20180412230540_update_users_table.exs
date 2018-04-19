@@ -10,5 +10,7 @@ defmodule Cryptoloan.Repo.Migrations.UpdateUsersTable do
     execute "ALTER TABLE users ADD COLUMN token varchar(250)"
     execute "ALTER TABLE users DROP COLUMN IF EXISTS account_id"
     execute "ALTER TABLE users ADD COLUMN account_id varchar(250)"
+    execute "ALTER TABLE users DROP COLUMN IF EXISTS refresh_token"
+    execute "ALTER TABLE users ADD COLUMN refresh_token varchar(250)"
   end
 end
