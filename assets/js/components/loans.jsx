@@ -46,9 +46,6 @@ function Actions(props) {
 			credit: props.loan.requestedloan_id.user_id.credit + props.loan.mini_balance,
                         debit: props.loan.requestedloan_id.user_id.debit - props.loan.mini_balance,
                         };
-    let lender_data = {
-			debit: props.loan.user_id.debit - props.loan.requestedloan_id.amount,
-                      };
     //api.accept_loan(props.loan, props.loan.id);
     api.grant_requestedloan(req_loan_data, props.loan.requestedloan_id.id);
     api.accept_loan(data, props.loan.id);
