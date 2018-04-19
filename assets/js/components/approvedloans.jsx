@@ -32,19 +32,19 @@ function ShowLoans(props) {
 	       };
  
     let borrower_data = {
-			credit: props.loan.requestedloan_id.amount,
+			credit: props.loan.requestedloan_id.user_id.credit - props.loan.mini_balance,
                         };
     let lender_data = {
-			debit: props.loan.requestedloan_id.amount,
+			debit: props.loan.user_id.debit + props.loan.mini_balance,
                       };
     //api.accept_loan(props.loan, props.loan.id);
     //api.grant_requestedloan(req_loan_data, props.loan.requestedloan_id.id);
     api.accept_loan(data, props.loan.id);
     //props.dispatch({type: 'CLEAR_ACCEPTEDLOANS_FORM'});
     //Update Borrower's Credit
-    //api.update_user_details(borrower_data, props.loan.requestedloan_id.user_id.id);
+    api.update_user_details(borrower_data, props.loan.requestedloan_id.user_id.id);
     //Update Lender's Debit
-    //api.update_user_details(lender_data, props.loan.user_id.id);
+    api.update_user_details(lender_data, props.loan.user_id.id);
   }
 
   if(props.loan.accepted == true && (props.loan.requestedloan_id.user_id.id == props.token.user_id || props.loan.user_id.id == props.token.user_id)) {
