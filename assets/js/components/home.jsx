@@ -29,7 +29,6 @@ export default function HomePage(props) {
   setInterval(function() { api.get_bitcoin();
                            api.get_litecoin();
                            api.get_ethereum();
-                           console.log("after");
                          }, 300 * 1000);
 
   return <div className="col-md flex-container">

@@ -4,6 +4,7 @@ import Cookies from 'universal-cookie';
 class TheServer {
 
   request_loans() {
+    console.log("in request loan");
     $.ajax("/api/v1/loans", {
       method: "get",
       dataType: "json",
@@ -150,9 +151,8 @@ class TheServer {
           type: 'ADD_USER',
           user: resp.data,
         });
-        console.log("data", data);
+        this.request_users();
         let data1={email: data.email, pass: data.password};
-        console.log("data1", data1);
         this.submit_login(data1);
       },
       error: (resp) => {

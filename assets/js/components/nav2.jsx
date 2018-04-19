@@ -12,7 +12,7 @@ function WalletInfo(params) {
   return <div className="navbar-text">
 	<nav>
         <NavItem>
-          <NavLink to="/users" href="#" className="nav-link"><FaUser size={40} />Profile</NavLink>
+          <NavLink to="/users" href="#" className="nav-link user"><FaUser size={40} />Profile</NavLink>
         </NavItem>
         <NavItem>
           <Button onClick={reset_token}>Logout</Button>
