@@ -32,8 +32,7 @@ export default function HomePage(props) {
                            console.log("after");
                          }, 300 * 1000);
 
-  return <div className="row-sm">
-  <div className="flex-container">
+  return <div className="col-md">
        <Tabs>
     <TabList className="nav nav-tabs">
       <Tab className="btn btn-info">Bitcoin</Tab>
@@ -52,8 +51,8 @@ export default function HomePage(props) {
     xType={'text'}
     axisLabels = {{x: 'Date', y: 'Rate'}}
     areaColors={['gold']}
-    width={1500}
-    height={750}
+    width={1000}
+    height={500}
     data={[btc_gmap]}
     />
 
@@ -70,8 +69,8 @@ export default function HomePage(props) {
     xType={'text'}
     areaColors={['blue']}
     axisLabels = {{x: 'Date', y: 'Rate'}}
-    width={1500}
-    height={750}
+    width={1000}
+    height={500}
     data={[eth_gmap]}
     />
 
@@ -88,14 +87,13 @@ export default function HomePage(props) {
     xType={'text'}
     areaColors={['green']}
     axisLabels = {{x: 'Date', y: 'Rate'}}
-    width={1500}
-    height={750}
+    width={1000}
+    height={500}
     data={[ltc_gmap]}
     />
 
     </div>
    </TabPanel>
   </Tabs>
-  </div>
-</div>;
+  </div>;
 }
