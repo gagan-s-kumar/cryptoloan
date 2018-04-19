@@ -103,7 +103,7 @@ function Loans(props) {
            Request Number
         </div>
         <div className="col-md">
-           Minimum Balance
+           Return Amount
         </div>
         <div className="col-md">
            Colletaral

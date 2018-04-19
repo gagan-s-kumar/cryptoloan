@@ -43,7 +43,7 @@ function OfferLoanForm(props) {
       </Input>
     </FormGroup>
     <FormGroup>
-      <Label for="mini_balance">Minimum Balance:</Label>
+      <Label for="mini_balance">Return Amount:</Label>
       <Input type="number" name="mini_balance" value={props.loans_form.mini_balance} onChange={update}/>
     </FormGroup>
     <FormGroup>

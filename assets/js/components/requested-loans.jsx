@@ -48,7 +48,7 @@ export default function Requestloans(props) {
     <h2>All Requested Loans</h2>
     <div className="row">
         <div className="col-md">
-           Application ID
+           Request Number
         </div>
         <div className="col-md">
            Amount
