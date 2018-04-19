@@ -32,12 +32,12 @@ export default function HomePage(props) {
                            console.log("after");
                          }, 300 * 1000);
 
-  return <div className="col-md">
+  return <div className="col-md flex-container">
        <Tabs>
     <TabList className="nav nav-tabs">
-      <Tab className="btn btn-info">Bitcoin</Tab>
-      <Tab className="btn btn-info">Ethereum</Tab>
-      <Tab className="btn btn-info">Litecoin</Tab>
+      <Tab className="btn btn-primary">Bitcoin</Tab>
+      <Tab className="btn btn-primary">Ethereum</Tab>
+      <Tab className="btn btn-primary">Litecoin</Tab>
     </TabList>
 
     <TabPanel>
@@ -97,4 +97,3 @@ export default function HomePage(props) {
   </Tabs>
   </div>;
 }
-

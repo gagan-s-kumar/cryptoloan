@@ -315,6 +315,11 @@ class TheServer {
       },
       error: (resp) => {
         console.log(resp);
+        store.dispatch({
+          type: 'ERROR',
+          msg: "Please fill all fields!",
+        });
+        alert("Please fill all fields!");
       }
     });
   }

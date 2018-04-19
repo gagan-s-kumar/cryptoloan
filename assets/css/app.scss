@@ -2,6 +2,7 @@
 
 
 .user { text-align: right;}
+
 .live{
   padding: 20px;
 }
@@ -9,4 +10,10 @@
   position: absolute;
   right: 0px;
   top: 0px;
+}
+
+.flex-container {
+  display: flex;
+  justify-content: center;
+  padding-top: 50pt;
 }
