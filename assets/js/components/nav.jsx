@@ -1,12 +1,9 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 import { Form, FormGroup, NavItem, Input, Button } from 'reactstrap';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import api from './api';
 import Cookies from 'universal-cookie';
 import store from './store';
-import FaUser from 'react-icons/lib/fa/user'
 
 let LoginForm = connect(({login}) => {return {login};})((props) => {
   function update(ev) {
@@ -21,6 +18,9 @@ let LoginForm = connect(({login}) => {return {login};})((props) => {
 
   function create_token(ev) {
     api.submit_login(props.login);
+    props.dispatch({
+	type: 'CLEAR_USER_FORM',
+	});
   }
 
   return <div className="navbar-text log">

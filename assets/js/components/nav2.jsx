@@ -8,42 +8,11 @@ import Cookies from 'universal-cookie';
 import store from './store';
 import FaUser from 'react-icons/lib/fa/user'
 
-let LoginForm = connect(({login}) => {return {login};})((props) => {
-  function update(ev) {
-    let tgt = $(ev.target);
-    let data = {};
-    data[tgt.attr('name')] = tgt.val();
-    props.dispatch({
-      type: 'UPDATE_LOGIN_FORM',
-      data: data,
-    });
-  }
-
-  function create_token(ev) {
-    api.submit_login(props.login);
-  }
-
-  return <div className="navbar-text">
-    <Form inline>
-      <FormGroup>
-        <Input type="text" name="email" placeholder="email"
-               value={props.login.email} onChange={update} />
-      </FormGroup>
-      <FormGroup>
-        <Input type="password" name="pass" placeholder="password"
-               value={props.login.pass} onChange={update} />
-      </FormGroup>
-      <Button onClick={create_token}>Log In</Button>
-    </Form>
-  </div>;
-});
-
-
 function WalletInfo(params) {
   return <div className="navbar-text">
 	<nav>
         <NavItem>
-          <NavLink to="/users" href="#" className="nav-link"><FaUser size={40} /></NavLink>
+          <NavLink to="/users" href="#" className="nav-link"><FaUser size={40} />Profile</NavLink>
         </NavItem>
         <NavItem>
           <Button onClick={reset_token}>Logout</Button>
@@ -61,7 +30,7 @@ let Session = connect(({token}) => {return {token};})((props) => {
     return <div className="navbar-text ">
     <nav>
     <NavItem className="user">
-	<NavLink to="/users" href="#" className="nav-link navbar-center"><FaUser size={40} /></NavLink>
+	<NavLink to="/users" href="#" className="nav-link navbar-center"><FaUser size={40} />Profile</NavLink>
     </NavItem>
     <NavItem>
       <Link className="btn btn-primary btn-xs" to={"/auth/coinbase"} onClick={auth}>Link your Wallet</Link>
@@ -90,20 +59,17 @@ function Nav2(props) {
     store.dispatch({type: 'SET_TOKEN', token: token});
   }
 
-  if (token) {
     wallet = _.find(props.wallets, function(w){ if(w.user.id==token.user_id) return w});
-    if(wallet){
+    if(wallet && props.wallet) {
       session_info = <WalletInfo token={token} wallet={wallet} />
     }
-    else{
+    else if(wallet && !props.wallet){
+      console.log("Wallet");
+      api.request_user_wallet(props.token.user_id);
       session_info = <Session token={token} />;
     }
-  }
-  else {
-    session_info = <LoginForm />
-  }
-
-
+    else
+      session_info = <Session token={token} />;
 
   return(
 	    <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
