@@ -43,6 +43,15 @@ let Session = connect(({token}) => {return {token};})((props) => {
 function auth(ev) {
   window.location.href("/auth/coinbase");
 }
+
+function requested_loans(){
+  api.request_requestedloans();
+}
+
+function request_loans(){
+  api.request_loans();
+}
+
 function Nav2(props) {
 
   let wallet;
@@ -81,13 +90,13 @@ function Nav2(props) {
           <NavLink to="/" exact={true} activeClassName="active" className="nav-link">Home</NavLink>
         </NavItem>
         <NavItem>
-          <NavLink to="/requestedloans" href="#" className="nav-link">All Requested Loans</NavLink>
+          <NavLink to="/requestedloans" href="#" className="nav-link" onClick={requested_loans}>All Requested Loans</NavLink>
         </NavItem>
         <NavItem>
-          <NavLink to="/loans" href="#" className="nav-link">Offered Loans</NavLink>
+          <NavLink to="/loans" href="#" className="nav-link" onClick={request_loans}>Offered Loans</NavLink>
         </NavItem>
         <NavItem>
-          <NavLink to="/approvedloans" href="#" className="nav-link">Accepted Loans</NavLink>
+          <NavLink to="/approvedloans" href="#" className="nav-link" onClick={request_loans}>Accepted Loans</NavLink>
         </NavItem>
         <NavItem>
           <NavLink to="/notifications" href="#" className="nav-link">Notifications</NavLink>

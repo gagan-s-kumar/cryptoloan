@@ -16,8 +16,10 @@ function Status(props) {
 
 function Show(props) {
   if(!props.status && (props.id != props.token.user_id)) {
+    if(props.user.debit < props.req.amount)
+      return <div>Low Balance</div>;
     return <div>
-            <Link to={"/offeredloan/"+props.rid}><Button color="primary">Offer Loan</Button></Link>
+            <Link to={"/offeredloan/"+props.req.id}><Button color="primary">Offer Loan</Button></Link>
            </div>;
   } else {
     return <div>
@@ -47,7 +49,7 @@ function ShowRequests(props) {
            <Status status={props.req.granted} />
         </div>
         <div className="col-md">
-           <Show status={props.req.granted} rid={props.req.id} token={props.token} id={props.req.user_id.id}/>
+           <Show status={props.req.granted} req={props.req} token={props.token} id={props.req.user_id.id} user={props.user}/>
          </div>
     </div>
   </div>;
@@ -57,8 +59,7 @@ function ShowRequests(props) {
 
 export default function Requestloans(props) {
 
-  let req1 = _.map(props.ln, (nn) => <ShowRequests key={nn.id} req={nn} token={props.token}/>);
-
+  let req1 = _.map(props.ln, (nn) => <ShowRequests key={nn.id} req={nn} token={props.token} user={props.user} />);
   return <div>
     <h2>All Requested Loans</h2>
     <div className="row">

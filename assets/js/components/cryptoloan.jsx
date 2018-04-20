@@ -28,14 +28,6 @@ export default function cryptoloan_init(store) {
       root);
 }
 
-function request_loans(){
-  api.request_loans();
-}
-
-function requested_loans(){
-  api.request_requestedloans();
-}
-
 let Cryptoloan = connect((state) => state)((props) => {
 
   let cookies = new Cookies();
@@ -53,7 +45,7 @@ let Cryptoloan = connect((state) => state)((props) => {
 
         <Route path="/loans" exact={true} render={() =>
             <div>
-              <Loans loans={props.loans} token={props.token} onClick={requested_loans}/>
+              <Loans loans={props.loans} token={props.token} wallet={props.wallet} bitcoin={props.bitcoin}/>
             </div>
           } />
 
@@ -72,7 +64,7 @@ let Cryptoloan = connect((state) => state)((props) => {
 
       <Route path="/offeredloan/:id" exact={true} render={({match}) =>
                 <div>
-                  <OfferLoanForm requestedloans={props.requestedloans} token={props.token} re1={_.find(props.requestedloans, (yy) => match.params.id == yy.id)} onClick={request_loansd}/>
+                  <OfferLoanForm requestedloans={props.requestedloans} token={props.token} re1={_.find(props.requestedloans, (yy) => match.params.id == yy.id)}/>
                   </div>
                 } />
 
@@ -91,7 +83,7 @@ let Cryptoloan = connect((state) => state)((props) => {
         <Route path="/requestedloans" exact={true} render={() =>
               <div>
                 <RequestLoanForm users={props.users} token={props.token} wallet={props.wallet} bitcoin={props.bitcoin} />
-                <Requestloans ln={props.requestedloans} token={props.token}/>
+                <Requestloans ln={props.requestedloans} token={props.token} user={_.find(props.users, (uu) => uu.id==props.token.user_id )}/>
               </div>
             } />
 
