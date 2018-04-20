@@ -14,15 +14,15 @@ function ShowLoans(props) {
   console.log(props.loan);
 
   if(props.user_id == props.borrower_id && props.loan.completed == false) {
-    return <div>
+    return <td>
              <Button onClick={submit}>Pay Loan</Button>
-          </div>;
+          </td>;
   } else if(props.user_id == props.loan.user_id.id && props.loan.completed == false) {
-    return <div>
+    return <td>
             Loan Active
-           </div>
+          </td>
   } else {
-    return <div>Loan Cleared</div>;
+    return <td>Loan Cleared</td>;
   }
   }
 
@@ -30,7 +30,7 @@ function ShowLoans(props) {
    let data = {
 		completed: true,
 	       };
- 
+
     let borrower_data = {
 			credit: props.loan.requestedloan_id.user_id.credit - props.loan.mini_balance,
                         debit: props.loan.requestedloan_id.user_id.debit + props.loan.requestedloan_id.amount,
@@ -50,37 +50,33 @@ function ShowLoans(props) {
 
   if(props.loan.accepted == true && (props.loan.requestedloan_id.user_id.id == props.token.user_id || props.loan.user_id.id == props.token.user_id)) {
 
-  return <div>
-    <div className="row">
-        <div className="col-md">
+  return <tr>
+        <td>
            {props.loan.requestedloan_id.id}
-        </div>
-        <div className="col-md">
+        </td>
+        <td>
            {props.loan.requestedloan_id.amount}
-        </div>
-        <div className="col-md">
+        </td>
+        <td>
            {props.loan.mini_balance}
-        </div>
-        <div className="col-md">
+        </td>
+        <td>
            {props.loan.colletaral}
-        </div>
-        <div className="col-md">
+        </td>
+        <td>
            {props.loan.requestedloan_id.duration_requested}
-        </div>
-        <div className="col-md">
+        </td>
+        <td>
            {props.loan.requestedloan_id.user_id.name}
-        </div>
-        <div className="col-md">
+        </td>
+        <td>
            {props.loan.user_id.name}
-        </div>
-        <div className="col-md">
+        </td>
            <Actions user_id={props.token.user_id} borrower_id={props.loan.requestedloan_id.user_id.id} loan={props.loan}/>
-        </div>
-    </div>
-  </div>;
+  </tr>;
 
   } else {
-    return <div></div>;
+    return <tr></tr>;
   }
 
 }
@@ -91,33 +87,38 @@ function ApprovedLoans(props) {
   let loanList = _.map(props.loans, (nn) => <ShowLoans key={nn.id} loan={nn} token={props.token}/>);
 
   return <div>
-    <div className="row">
-        <div className="col-md">
-           Request Number
-        </div>
-        <div className="col-md">
+    <h2>Loan offers for your request</h2>
+    <table className="data">
+      <tbody>
+      <tr>
+        <th>
+           Request ID
+        </th>
+        <th>
            Loan Amount
-        </div>
-        <div className="col-md">
+        </th>
+        <th>
            Return Amount
-        </div>
-        <div className="col-md">
+        </th>
+        <th>
            Colletaral
-        </div>
-        <div className="col-md">
+        </th>
+        <th>
            Duration
-        </div>
-        <div className="col-md">
+        </th>
+        <th>
            Borrower Name
-        </div>
-        <div className="col-md">
+        </th>
+        <th>
            Lender Name
-        </div>
-        <div className="col-md">
+        </th>
+        <th>
            Actions
-        </div>
-    </div>
+        </th>
+    </tr>
     { loanList }
+    </tbody>
+    </table>
     </div>;
 
 

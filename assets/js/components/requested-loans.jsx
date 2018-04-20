@@ -4,24 +4,24 @@ import { Link } from 'react-router-dom';
 
 function Status(props) {
   if(props.status) {
-    return <div>
+    return <td>
              Granted
-           </div>;
+           </td>;
   } else {
-    return <div>
+    return <td>
             Pending
-           </div>;
+          </td>;
   }
 }
 
 function Show(props) {
   if(!props.status && (props.id != props.token.user_id)) {
-    return <div>
+    return <td>
             <Link to={"/offeredloan/"+props.rid}><Button color="primary">Offer Loan</Button></Link>
-           </div>;
+           </td>;
   } else {
-    return <div>
-           </div>;
+    return <td>
+          </td>;
   }
 }
 
@@ -32,25 +32,19 @@ function ShowRequests(props) {
   //  <p>{props.req.amount}</p>
   //</div>;
 
-  return <div>
-    <div className="row">
-        <div className="col-md">
+  return <tr>
+        <td>
            {props.req.id}
-        </div>
-        <div className="col-md">
+        </td>
+        <td>
            {props.req.amount}
-        </div>
-        <div className="col-md">
+        </td>
+        <td>
            {props.req.duration_requested}
-        </div>
-        <div className="col-md">
+        </td>
            <Status status={props.req.granted} />
-        </div>
-        <div className="col-md">
            <Show status={props.req.granted} rid={props.req.id} token={props.token} id={props.req.user_id.id}/>
-         </div>
-    </div>
-  </div>;
+  </tr>;
 
 }
 
@@ -61,23 +55,28 @@ export default function Requestloans(props) {
 
   return <div>
     <h2>All Requested Loans</h2>
-    <div className="row">
-        <div className="col-md">
-           Request Number
-        </div>
-        <div className="col-md">
-           Amount
-        </div>
-        <div className="col-md">
-           Duration Requested
-        </div>
-        <div className="col-md">
-           Status
-        </div>
-        <div className="col-md">
-        </div>
-    </div>
-    { req1 }
+            <table className="data">
+              <tbody>
+              <tr>
+                <th>
+                 Request ID
+               </th>
+              <th>
+                 Amount
+              </th>
+              <th>
+                 Duration Requested
+              </th>
+              <th>
+                 Status
+              </th>
+              <th>
+                Action
+              </th>
+            </tr>
+            { req1 }
+        </tbody>
+      </table>
     </div>;
 
 }
