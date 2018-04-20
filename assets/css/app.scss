@@ -40,3 +40,26 @@
   background-color: pink;
   opacity: 0.9;
 }
+
+.data {
+    border-collapse: collapse;
+    width: 100%;
+    text-align: center;
+}
+
+.data td, .data th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.data tr:nth-child(even){background-color: #f2f2f2;}
+
+.data tr:hover {background-color: #ddd;}
+
+.data th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: #2B71B1;
+    color: white;
+}

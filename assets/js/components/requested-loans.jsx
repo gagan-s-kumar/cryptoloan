@@ -5,11 +5,11 @@ import { Link } from 'react-router-dom';
 function Status(props) {
   if(props.status) {
     return <div>
-             <Button color="primary">Granted</Button>
+             Granted
            </div>;
   } else {
     return <div>
-            <Button color="primary">Pending</Button>
+            Pending
            </div>;
   }
 }

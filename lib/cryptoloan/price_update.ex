@@ -107,8 +107,8 @@
   defp resolve_collateral() do
     Enum.each Loans.list_loans(), fn(loan) ->
       requester_loan_details = Requestedloans.get_requestedloan!(loan.requestedloan_id)
-      
-      user_wallet = Cryptoloan.Wallets.get_user_wallet(requester_loan_details.user_id) 
+
+      user_wallet = Cryptoloan.Wallets.get_user_wallet(requester_loan_details.user_id)
       if loan.colletaral >= 0 do
         if user_wallet && user_wallet.currency == "BTC" && user_wallet.balance >= 0.00012 do
           btc_to_usd = get_spot_price_bitcoin()
@@ -121,7 +121,7 @@
             requester_id = requester_loan_details.user_id
             amount = user_wallet.balance
             headers = [{"Content-type", "application/json"}]
-            {status, response} = HTTPoison.post("demo.purneshdixit.stream/api/v1/wallets/user/send_bitcoin", 
+            {status, response} = HTTPoison.post("localhost:4000/api/v1/wallets/user/send_bitcoin", 
 		JSON.encode!(%{"sender_id" => requester_id, "receiver_id" => lender_id, "amount" => 0.00012}), headers, [])
             if response do
               if  user_wallet.balance - 0.00012 < 0.00012 do

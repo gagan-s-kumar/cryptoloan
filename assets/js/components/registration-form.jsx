@@ -39,19 +39,19 @@ function UserForm(params) {
     <h2>Register User</h2>
     <FormGroup>
       <Label for="name">Name</Label>
-      <Input type="text" name="name" value={params.user_form.name} onChange={update} />
+      <Input type="text" name="name" value={params.user_form.name} onChange={update} placeholder="Name"/>
     </FormGroup>
     <FormGroup>
     <Label for="email">Email</Label>
-      <Input type="text" name="email" value={params.user_form.email} onChange={update} />
+      <Input type="text" name="email" value={params.user_form.email} onChange={update} placeholder="Email"/>
     </FormGroup>
     <FormGroup>
       <Label for="password">Password</Label>
-      <Input type="password" name="password" value={params.user_form.password} onChange={update} />
+      <Input type="password" name="password" value={params.user_form.password} onChange={update} placeholder="Password"/>
     </FormGroup>
     <FormGroup>
       <Label for="password_confirmation">Confirm Password</Label>
-      <Input type="password" name="password_confirmation" value={params.user_form.password_confirmation} onChange={update} />
+      <Input type="password" name="password_confirmation" value={params.user_form.password_confirmation} onChange={update} placeholder="Confirm Password" />
     </FormGroup>
     <Button onClick={submit} color="primary">Register</Button>
   </div>;

@@ -56,8 +56,10 @@ function OfferLoanForm(props) {
       <Input type="number" name="colletaral" value={props.loans_form.colletaral} onChange={update}/>
     </FormGroup>
 
-    <Button onClick={submit}>Offer Loan</Button>
-    <Link to={"/loans"}>Offered Loans</Link>
+    <Button onClick={submit} color="primary">Offer Loan</Button>
+    <div>
+      <Link to={"/loans"}>Offered Loans</Link>
+    </div>
 </div>;
 
 

@@ -77,8 +77,10 @@ function EditNotifyForm(props) {
       <Label for="etlimit">Ethereum Alert Limit:</Label>
       <Input type="number" name="etlimit" value={props.notify_form.etlimit} onChange={update} min="0"/>
     </FormGroup>
-    <Button onClick={submit}>Update</Button>
-    <Link to={"/notifications"}>Back to Notifications</Link>
+    <Button color="primary" onClick={submit}>Update</Button>
+    <div>
+      <Link to={"/notifications"}>Back to Notifications</Link>
+    </div>
 </div>;
 
 
