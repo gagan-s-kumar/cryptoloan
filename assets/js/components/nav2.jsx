@@ -82,13 +82,12 @@ function Nav2(props) {
 
   return(
 	    <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
-      <span className="navbar-brand">
-        Cryptoloan
+      <span className="navbar-brand navbar-nav">
+        <NavItem>
+          <NavLink to="/" exact={true} activeClassName="active" className="nav-link">Cryptoloan</NavLink>
+        </NavItem>
       </span>
       <ul className="navbar-nav mr-auto">
-        <NavItem>
-          <NavLink to="/" exact={true} activeClassName="active" className="nav-link">Home</NavLink>
-        </NavItem>
         <NavItem>
           <NavLink to="/requestedloans" href="#" className="nav-link" onClick={requested_loans}>All Requested Loans</NavLink>
         </NavItem>

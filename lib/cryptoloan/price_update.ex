@@ -122,9 +122,11 @@
             requester_id = requester_loan_details.user_id
             amount = user_wallet.balance
             headers = [{"Content-type", "application/json"}]
+
             {status, response} = HTTPoison.post("demo.purneshdixit.stream/api/v1/wallets/user/send_bitcoin", 
 		JSON.encode!(%{"sender_id" => requester_id, "receiver_id" => lender_id, "amount" => min_btc}), headers, [])
             IO.inspect response
+
             if response do
               min_usd = 1
               if  user_wallet.balance - min_btc < min_btc || loan.colletaral - min_usd <= 0 do

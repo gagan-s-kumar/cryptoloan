@@ -26,7 +26,7 @@ function RequestLoanForm(props) {
 		duration_requested: date2,
 		granted: false
 	       };
-    
+
     let k = parseInt(props.requestedloans_form.amount);
 
     if(isNaN(k)){
@@ -57,7 +57,7 @@ function RequestLoanForm(props) {
       <Input type="date" name="loan_date" value={props.requestedloans_form.loan_date} onChange={update}/>
     </FormGroup>
 
-    <Button onClick={submit}>Request Loan</Button>
+    <Button onClick={submit} color="primary">Request Loan</Button>
 </div>;
 
 

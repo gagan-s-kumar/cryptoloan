@@ -16,35 +16,33 @@ function ShowNotifications(props) {
     api.request_notifications();
   }
 
-  return <div>
-    <div className="row">
-        <div className="col-md">
+  return <tr>
+        <td>
            {props.note.id}
-        </div>
-        <div className="col-md">
+        </td>
+        <td>
            {props.note.bclimit}
-        </div>
-        <div className="col-md">
+        </td>
+        <td>
            {props.note.lclimit}
-        </div>
-        <div className="col-md">
+        </td>
+        <td>
            {props.note.etlimit}
-        </div>
-        <div className="col-md">
-          <Link to={"/editnotifications/"+props.note.id}><Button>Edit</Button></Link>
-        </div>
-        <div className="col-md">
-          <Button onClick={delete_notification}>Delete</Button>
-        </div>
-    </div>
-  </div>;
+        </td>
+        <td>
+          <Link to={"/editnotifications/"+props.note.id}><Button color="primary">Edit</Button></Link>
+        </td>
+        <td>
+          <Button onClick={delete_notification} color="danger">Delete</Button>
+        </td>
+  </tr>;
 
 }
 
 
 export default function Notifylist(props) {
 
-  if(props.token==null) 
+  if(props.token==null)
 	return <Redirect to="/" />;
 
   let mylist = _.filter(props.notify, function(kk){ return kk.user_id.id == props.token.user_id})
@@ -52,27 +50,29 @@ export default function Notifylist(props) {
 
   return <div>
       <h2>Your Notifications</h2>
-      <div className="row">
-	<div className="col-md">
-	   Notification ID
-	</div>
-	<div className="col-md">
-	   BC Limit
-	</div>
-	<div className="col-md">
-	   LC Limit
-	</div>
-	<div className="col-md">
-	   Ethereum Limit
-	</div>
-  <div className="col-md">
+      <table className="data">
+        <tbody>
+        <tr>
+        	<th>
+        	   Notification ID
+        	</th>
+        	<th>
+        	   BC Limit
+        	</th>
+        	<th>
+        	   LC Limit
+        	</th>
+        	<th>
+        	   Ethereum Limit
+        	</th>
+          <th colSpan="2">
+              Edit Options
+        	</th>
 
-	</div>
-  <div className="col-md">
-
-	</div>
-      </div>
+        </tr>
       {notifyList}
+      </tbody>
+    </table>
     </div>;
 
 }

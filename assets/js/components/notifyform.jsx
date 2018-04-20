@@ -40,7 +40,7 @@ function NotifyForm(props) {
       props.dispatch({type: 'CLEAR_NOTIFY_FORM'});
     }
 }
-  
+
   if (props.token==null)
     return <Redirect to="/" />;
 
@@ -63,7 +63,7 @@ function NotifyForm(props) {
       <Label for="etlimit">Ethereum Alert Limit:</Label>
       <Input type="number" name="etlimit" value={props.notify_form.etlimit} onChange={update} min="0"/>
     </FormGroup>
-    <Button onClick={submit}>Submit</Button>
+    <Button color="primary" onClick={submit}>Submit</Button>
 </div>;
 
 

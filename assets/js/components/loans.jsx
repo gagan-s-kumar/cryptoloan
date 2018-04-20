@@ -9,18 +9,20 @@ function ShowLoans(props) {
 function Actions(props) {
 
   if(props.user_id == props.borrower_id && props.loan.accepted == false) {
-    if(!props.wallet){
-      return <div>Link your wallet</div>
+    
+   if(!props.wallet){
+      return <td>Link your wallet</td>
     }
     if(props.loan.mini_balance > (props.wallet.data.balance * props.bitcoin)){
-      return <div>Low Bitcoin balance</div>
+      return <td>Low Bitcoin balance</td>
     }
-    return <div>
+    
+    return <td>
              <Button onClick={submit}>Accept</Button>
              <Button onClick={delete_loan}>Decline</Button>
-          </div>;
+          </td>;
   } else {
-    return <div></div>;
+    return <td></td>;
   }
 }
 
@@ -44,7 +46,7 @@ function Actions(props) {
     console.log("In ShowLoans");
     console.log(props.loan);
     console.log(data);
- 
+
     let req_loan_data = {
 			granted: true,
 			};
@@ -72,30 +74,27 @@ function Actions(props) {
 //    <p>{props.loan.mini_balance}</p>
 //  </div>;
   if(props.loan.requestedloan_id.user_id.id == props.token.user_id || props.loan.user_id.id == props.token.user_id) {
-  return <div>
-    <div className="row">
-        <div className="col-md">
+  return <tr>
+        <td>
            {props.loan.requestedloan_id.id}
-        </div>
-        <div className="col-md">
+        </td>
+        <td>
            {props.loan.mini_balance}
-        </div>
-        <div className="col-md">
+        </td>
+        <td>
            {props.loan.colletaral}
-        </div>
-        <div className="col-md">
+        </td>
+        <td>
            {props.loan.user_id.name}
-        </div>
-        <div className="col-md">
+
+        </td>
+    <td>
            {props.loan.requestedloan_id.user_id.name}
-        </div>
-        <div className="col-md">
+        </td>
            <Actions user_id={props.token.user_id} bitcoin={props.bitcoin} wallet={props.wallet} borrower_id={props.loan.requestedloan_id.user_id.id} loan={props.loan}/>
-        </div>
-    </div>
-  </div>;
+  </tr>;
   } else {
-   return <div></div>;
+   return <tr></tr>;
   }
 
 }
@@ -107,27 +106,32 @@ function Loans(props) {
     return <Redirect to="/" />;
   let loanList = _.map(props.loans, (nn) => <ShowLoans key={nn.id} loan={nn} bitcoin={props.bitcoin} wallet={props.wallet} token={props.token}/>);
   return <div>
-    <div className="row">
-        <div className="col-md">
-           Request Number
-        </div>
-        <div className="col-md">
+    <h2>Loan offers for your request</h2>
+    <table className="data">
+      <tbody>
+      <tr>
+        <th>
+           Request ID
+        </th>
+        <th>
            Return Amount
-        </div>
-        <div className="col-md">
-           Colletaral
-        </div>
-        <div className="col-md">
+        </th>
+        <th>
+           Collateral
+        </th>
+        <th>
            Lender name
-        </div>
-        <div className="col-md">
-           Requester name
-        </div>
-        <div className="col-md">
+        </th>
+        <th>
+            Requested Name
+          </th>
+        <th>
            Actions
-        </div>
-    </div>
+        </th>
+    </tr>
     { loanList }
+  </tbody>
+  </table>
     </div>;
 
 

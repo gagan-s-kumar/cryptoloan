@@ -4,26 +4,27 @@ import { Link } from 'react-router-dom';
 
 function Status(props) {
   if(props.status) {
-    return <div>
-             <Button color="primary">Granted</Button>
-           </div>;
+    return <td>
+             Granted
+           </td>;
   } else {
-    return <div>
-            <Button color="primary">Pending</Button>
-           </div>;
+    return <td>
+            Pending
+          </td>;
   }
 }
 
 function Show(props) {
   if(!props.status && (props.id != props.token.user_id)) {
-    if(props.user.debit < props.req.amount)
-      return <div>Low Balance</div>;
-    return <div>
+    
+     if(props.user.debit < props.req.amount)
+      return <td>Low Balance</td>;
+    return <td>
             <Link to={"/offeredloan/"+props.req.id}><Button color="primary">Offer Loan</Button></Link>
-           </div>;
+           </td>;
   } else {
-    return <div>
-           </div>;
+    return <td>
+          </td>;
   }
 }
 
@@ -34,25 +35,19 @@ function ShowRequests(props) {
   //  <p>{props.req.amount}</p>
   //</div>;
 
-  return <div>
-    <div className="row">
-        <div className="col-md">
+  return <tr>
+        <td>
            {props.req.id}
-        </div>
-        <div className="col-md">
+        </td>
+        <td>
            {props.req.amount}
-        </div>
-        <div className="col-md">
+        </td>
+        <td>
            {props.req.duration_requested}
-        </div>
-        <div className="col-md">
+        </td>
            <Status status={props.req.granted} />
-        </div>
-        <div className="col-md">
            <Show status={props.req.granted} req={props.req} token={props.token} id={props.req.user_id.id} user={props.user}/>
-         </div>
-    </div>
-  </div>;
+  </tr>;
 
 }
 
@@ -62,23 +57,28 @@ export default function Requestloans(props) {
   let req1 = _.map(props.ln, (nn) => <ShowRequests key={nn.id} req={nn} token={props.token} user={props.user} />);
   return <div>
     <h2>All Requested Loans</h2>
-    <div className="row">
-        <div className="col-md">
-           Request Number
-        </div>
-        <div className="col-md">
-           Amount
-        </div>
-        <div className="col-md">
-           Duration Requested
-        </div>
-        <div className="col-md">
-           Status
-        </div>
-        <div className="col-md">
-        </div>
-    </div>
-    { req1 }
+            <table className="data">
+              <tbody>
+              <tr>
+                <th>
+                 Request ID
+               </th>
+              <th>
+                 Amount
+              </th>
+              <th>
+                 Duration Requested
+              </th>
+              <th>
+                 Status
+              </th>
+              <th>
+                Action
+              </th>
+            </tr>
+            { req1 }
+        </tbody>
+      </table>
     </div>;
 
 }
