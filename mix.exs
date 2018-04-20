@@ -48,7 +48,8 @@ defmodule Cryptoloan.Mixfile do
       {:comeonin, "~> 4.0"},
       {:argon2_elixir, "~> 1.2"},
       {:bamboo, "~> 0.7", override: true},
-      {:bamboo_smtp, "~> 1.2.1"}
+      {:bamboo_smtp, "~> 1.2.1"},
+      {:decimal, "~> 1.0"}
     ]
   end
 
