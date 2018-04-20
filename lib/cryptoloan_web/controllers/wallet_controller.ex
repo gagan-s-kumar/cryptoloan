@@ -69,8 +69,10 @@ defmodule CryptoloanWeb.WalletController do
       first_address = hd(addresses["data"])
       transaction = Coinbase.post_transaction(sender_wallet.user.token, sender_wallet.account_id, first_address["address"], amount, "BTC")
       if transaction do
-        Wallets.update_wallet(sender_wallet, %{balance: sender_wallet.balance - amount})
-        Wallets.update_wallet(receiver_wallet, %{balance: receiver_wallet.balance + amount})
+        if (sender_wallet.balance - amount >= 0) do
+          Wallets.update_wallet(sender_wallet, %{balance: sender_wallet.balance - amount})
+          Wallets.update_wallet(receiver_wallet, %{balance: receiver_wallet.balance + amount})
+        end
         render(conn, "show.json", wallet: Wallets.get_wallet!(sender_wallet.id))
       else
         send_resp(conn, :no_content, "")

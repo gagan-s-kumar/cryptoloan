@@ -2,12 +2,21 @@ import React from 'react';
 import { Button, FormGroup, Label, Input } from 'reactstrap';
 import { connect } from 'react-redux';
 import api from './api';
+import { Redirect } from 'react-router-dom';
 
 function ShowLoans(props) {
 
 function Actions(props) {
 
   if(props.user_id == props.borrower_id && props.loan.accepted == false) {
+    
+   if(!props.wallet){
+      return <td>Link your wallet</td>
+    }
+    if(props.loan.mini_balance > (props.wallet.data.balance * props.bitcoin)){
+      return <td>Low Bitcoin balance</td>
+    }
+    
     return <td>
              <Button onClick={submit}>Accept</Button>
              <Button onClick={delete_loan}>Decline</Button>
@@ -77,8 +86,12 @@ function Actions(props) {
         </td>
         <td>
            {props.loan.user_id.name}
+
         </td>
-           <Actions user_id={props.token.user_id} borrower_id={props.loan.requestedloan_id.user_id.id} loan={props.loan}/>
+    <td>
+           {props.loan.requestedloan_id.user_id.name}
+        </td>
+           <Actions user_id={props.token.user_id} bitcoin={props.bitcoin} wallet={props.wallet} borrower_id={props.loan.requestedloan_id.user_id.id} loan={props.loan}/>
   </tr>;
   } else {
    return <tr></tr>;
@@ -89,8 +102,9 @@ function Actions(props) {
 
 function Loans(props) {
 
-  let loanList = _.map(props.loans, (nn) => <ShowLoans key={nn.id} loan={nn} token={props.token}/>);
-
+  if(!props.token)
+    return <Redirect to="/" />;
+  let loanList = _.map(props.loans, (nn) => <ShowLoans key={nn.id} loan={nn} bitcoin={props.bitcoin} wallet={props.wallet} token={props.token}/>);
   return <div>
     <h2>Loan offers for your request</h2>
     <table className="data">
@@ -109,6 +123,9 @@ function Loans(props) {
            Lender name
         </th>
         <th>
+            Requested Name
+          </th>
+        <th>
            Actions
         </th>
     </tr>
@@ -122,7 +139,9 @@ function Loans(props) {
 
 function state2props(state) {
   return { loans: state.loans,
-           users: state.users,};
+           users: state.users,
+	   wallet: state.wallet,
+	   bitcoin: state.bitcoin,};
 }
 
 export default connect(state2props)(Loans);

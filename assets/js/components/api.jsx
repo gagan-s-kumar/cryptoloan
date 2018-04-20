@@ -325,7 +325,6 @@ class TheServer {
   }
 
   new_loans(data) {
-    console.log("in new_loans");
     $.ajax("/api/v1/loans", {
       method: "post",
       dataType: "json",
@@ -337,6 +336,10 @@ class TheServer {
           type: 'ADD_LOANS',
           loan: resp.data,
         });
+        store.dispatch({
+	  type: 'ERROR',
+	  msg: 'Loan Offered!',
+	});
       },
       error: (resp) => {
         console.log("new_loans failed");

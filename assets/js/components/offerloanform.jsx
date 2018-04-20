@@ -36,11 +36,10 @@ function OfferLoanForm(props) {
           props.dispatch({type: 'ERROR', msg: 'Please enter valid numbers!'});
         }
         else {
-   console.log("in submit", data);
    api.new_loans(data);
+   //api.request_loans();
    props.dispatch({type: 'CLEAR_LOANS_FORM'});
-   api.request_loans();
-   alert("SUCCESS!!!")
+   //props.dispatch({type: 'ERROR', msg: 'Loan Offered!'});
   }
   }
 
