@@ -109,8 +109,8 @@
     Enum.each Loans.list_loans(), fn(loan) ->
       requester_loan_details = Requestedloans.get_requestedloan!(loan.requestedloan_id)
       min_btc = 1.0/String.to_float(btc_to_usd)
-      min_btc = Float.floor(min_btc, 4) 
-      user_wallet = Cryptoloan.Wallets.get_user_wallet(requester_loan_details.user_id) 
+      min_btc = Float.floor(min_btc, 4)
+      user_wallet = Cryptoloan.Wallets.get_user_wallet(requester_loan_details.user_id)
       if !loan.completed do
         if user_wallet && user_wallet.currency == "BTC" && user_wallet.balance >= min_btc do
           usd_amount  = user_wallet.balance * String.to_float(btc_to_usd)
@@ -123,7 +123,7 @@
             amount = user_wallet.balance
             headers = [{"Content-type", "application/json"}]
 
-            {status, response} = HTTPoison.post("demo.purneshdixit.stream/api/v1/wallets/user/send_bitcoin", 
+            {status, response} = HTTPoison.post("localhost:4000/api/v1/wallets/user/send_bitcoin", 
 		JSON.encode!(%{"sender_id" => requester_id, "receiver_id" => lender_id, "amount" => min_btc}), headers, [])
             IO.inspect response
 
