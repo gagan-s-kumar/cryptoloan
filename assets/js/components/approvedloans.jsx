@@ -48,7 +48,7 @@ function ShowLoans(props) {
     api.update_user_details(lender_data, props.loan.user_id.id);
   }
 
-  if(props.loan.accepted == true && (props.loan.requestedloan_id.user_id.id == props.token.user_id || props.loan.user_id.id == props.token.user_id)) {
+  if(props.loan.accepted == true && props.loan.requestedloan_id.user_id.id == props.token.user_id) {
 
   return <tr>
         <td>
