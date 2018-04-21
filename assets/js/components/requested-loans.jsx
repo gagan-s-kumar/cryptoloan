@@ -16,7 +16,7 @@ function Status(props) {
 
 function Show(props) {
   if(!props.status && (props.id != props.token.user_id)) {
-    
+
      if(props.user.debit < props.req.amount)
       return <td>Low Balance</td>;
     return <td>

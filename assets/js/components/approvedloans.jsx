@@ -15,7 +15,7 @@ function ShowLoans(props) {
 
   if(props.user_id == props.borrower_id && props.loan.completed == false) {
     return <td>
-             <Button onClick={submit}>Pay Loan</Button>
+             <Button onClick={submit} color="primary">Pay Loan</Button>
           </td>;
   } else if(props.user_id == props.loan.user_id.id && props.loan.completed == false) {
     return <td>
@@ -87,7 +87,7 @@ function ApprovedLoans(props) {
   let loanList = _.map(props.loans, (nn) => <ShowLoans key={nn.id} loan={nn} token={props.token}/>);
 
   return <div>
-    <h2>Loan offers for your request</h2>
+    <h2>Status of your Loans</h2>
     <table className="data">
       <tbody>
       <tr>
@@ -101,7 +101,7 @@ function ApprovedLoans(props) {
            Return Amount
         </th>
         <th>
-           Colletaral
+           Collateral
         </th>
         <th>
            Duration

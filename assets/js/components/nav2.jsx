@@ -85,6 +85,7 @@ function Nav2(props) {
     else
       session_info = <Session token={token} />;
 
+
   return(
 	    <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
       <span className="navbar-brand navbar-nav">
@@ -92,15 +93,9 @@ function Nav2(props) {
           <NavLink to="/" exact={true} activeClassName="active" className="nav-link">Cryptoloan</NavLink>
         </NavItem>
       </span>
-      <ul className="navbar-nav mr-auto">
+      <ul className="navbar-nav mr-auto" role="navigation">
         <NavItem>
-          <NavLink to="/requestedloans" href="#" className="nav-link" onClick={requested_loans}>All Requested Loans</NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink to="/loans" href="#" className="nav-link" onClick={request_loans}>Offered Loans</NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink to="/approvedloans" href="#" className="nav-link" onClick={request_loans}>Accepted Loans</NavLink>
+          <NavLink to="/requestedloans" href="#" className="nav-link" onClick={requested_loans}>Loans</NavLink>
         </NavItem>
         <NavItem>
           <NavLink to="/notifications" href="#" className="nav-link">Notifications</NavLink>
