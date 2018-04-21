@@ -7,6 +7,7 @@
   alias Cryptoloan.Loans
   alias Cryptoloan.Wallets
   alias Cryptoloan.Requestedloans
+  alias Cryptoloan.Users
 
   def start_link(_arg) do
     Task.start_link(&poll/0)
@@ -25,7 +26,7 @@
   def poll() do
     receive do
     after
-      90_000 ->
+      10_000 ->
         get_price_bitcoin()
         get_price_litecoin()
         get_price_ethereum()
@@ -111,7 +112,7 @@
       min_btc = 1.0/String.to_float(btc_to_usd)
       min_btc = Float.floor(min_btc, 4)
       user_wallet = Cryptoloan.Wallets.get_user_wallet(requester_loan_details.user_id)
-      if !loan.completed do
+      if !loan.completed && loan.accepted do
         if user_wallet && user_wallet.currency == "BTC" && user_wallet.balance >= min_btc do
           usd_amount  = user_wallet.balance * String.to_float(btc_to_usd)
           cur_time = DateTime.utc_now()
@@ -126,13 +127,31 @@
             {status, response} = HTTPoison.post("localhost:4000/api/v1/wallets/user/send_bitcoin", 
 		JSON.encode!(%{"sender_id" => requester_id, "receiver_id" => lender_id, "amount" => min_btc}), headers, [])
             IO.inspect response
-
-            if response do
+           #response=%{body: "123"}
+           if response do
               min_usd = 1
               if  user_wallet.balance - min_btc < min_btc || loan.colletaral - min_usd <= 0 do
-                Loans.update_loan(loan, %{completed: true, colletaral: 0})
+                if response.body != "" do
+                  lender = Users.get_user!(loan.user_id)
+                  borrower = Users.get_user!(requester_loan_details.user_id)
+                  #Loans.update_loan(loan, %{completed: true, colletaral: 0})
+                  #Users.update_user(lender, %{debit: lender.debit + min_usd})
+                  #Users.update_user(borrower, %{credit: borrower.credit - min_usd})
+                  #Users.update_user(borrower, %{debit: borrower.debit + min_usd})
+                  Loans.update_loan(loan, %{completed: true, colletaral: 0})
+                  #Users.update_user(lender, %{debit: lender.debit + (loan.mini_balance - loan.requestedloan_id.amount)})
+                 # Users.update_user(borrower, %{credit: 0})
+                  #Users.update_user(borrower, %{debit: borrower.debit + loan.mini_balance})
+                end
               else
-                Loans.update_loan(loan, %{colletaral: loan.colletaral - min_usd})
+                if response.body != "" do
+                  Loans.update_loan(loan, %{colletaral: loan.colletaral - min_usd})
+                  #lender = Users.get_user(loan.user_id.id)
+                  #borrower = Users.get_user(loan.requestedloan_id.user_id.id)
+                  #Users.update_user(lender, %{debit: lender.debit + min_usd})
+                  #Users.update_user(borrower, %{credit: borrower.credit - min_usd})
+                  #Users.update_user(borrower, %{debit: borrower.debit + min_usd})
+                end
               end
             end
           end
