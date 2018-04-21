@@ -15,7 +15,7 @@ function ShowLoans(props) {
 
   if(props.user_id == props.borrower_id && props.loan.completed == false) {
     return <td>
-             <Button onClick={submit}>Pay Loan</Button>
+             <Button onClick={submit} color="primary">Pay Loan</Button>
           </td>;
   } else if(props.user_id == props.loan.user_id.id && props.loan.completed == false) {
     return <td>
@@ -101,7 +101,7 @@ function ApprovedLoans(props) {
            Return Amount
         </th>
         <th>
-           Colletaral
+           Collateral
         </th>
         <th>
            Duration

@@ -9,7 +9,7 @@ function ShowLoans(props) {
 function Actions(props) {
 
   if(props.user_id == props.borrower_id && props.loan.accepted == false) {
-    
+
    if(!props.wallet){
       return <td>Link your wallet</td>;
     }
@@ -18,10 +18,10 @@ function Actions(props) {
     } else if(props.loan.requestedloan_id.granted) {
       return <td>Other offer Accepted</td>;
     }
-    
+
     return <td>
-             <Button onClick={submit}>Accept</Button>
-             <Button onClick={delete_loan}>Decline</Button>
+             <Button onClick={submit} color="primary">Accept</Button>
+             <Button onClick={delete_loan} color="danger">Decline</Button>
           </td>;
   } else if (props.user_id == props.lender_id){
     if(props.loan.accepted == false) {

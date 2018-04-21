@@ -54,7 +54,10 @@ function EditNotifyForm(props) {
           user_id: props.token.user_id,
           bclimit: props.task.bclimit,
           lclimit: props.task.lclimit,
-          etlimit: props.task.etlimit
+          etlimit: props.task.etlimit,
+          balert: false,
+          lalert: false,
+          ealert: false
         };
         let action = {
           type: 'UPDATE_NOTIFY_FORM',
@@ -64,7 +67,7 @@ function EditNotifyForm(props) {
     }
 
   return <div style={{padding: "4ex"}}>
-    <h2>Update alerts:</h2>
+    <h2>Reset alerts:</h2>
     <FormGroup>
       <Label for="bclimit">BitCoin Alert Limit:</Label>
       <Input type="number" name="bclimit" value={props.notify_form.bclimit} onChange={update} min="0" />
@@ -77,7 +80,7 @@ function EditNotifyForm(props) {
       <Label for="etlimit">Ethereum Alert Limit:</Label>
       <Input type="number" name="etlimit" value={props.notify_form.etlimit} onChange={update} min="0"/>
     </FormGroup>
-    <Button color="primary" onClick={submit}>Update</Button>
+    <Button color="primary" onClick={submit}>Reset</Button>
     <div>
       <Link to={"/notifications"}>Back to Notifications</Link>
     </div>
