@@ -87,7 +87,7 @@ function ApprovedLoans(props) {
   let loanList = _.map(props.loans, (nn) => <ShowLoans key={nn.id} loan={nn} token={props.token}/>);
 
   return <div>
-    <h2>Loan offers for your request</h2>
+    <h2>Status of your Loans</h2>
     <table className="data">
       <tbody>
       <tr>

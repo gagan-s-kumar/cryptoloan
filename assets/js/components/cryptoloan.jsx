@@ -18,6 +18,7 @@ import Userlist from './userlist';
 import UserForm from './registration-form';
 import Nav2 from './nav2'
 import api from './api';
+import LoansNav from './loan-nav';
 
 export default function cryptoloan_init(store) {
   let root = document.getElementById('root');
@@ -45,6 +46,7 @@ let Cryptoloan = connect((state) => state)((props) => {
 
         <Route path="/loans" exact={true} render={() =>
             <div>
+              <LoansNav />
               <Loans loans={props.loans} token={props.token} wallet={props.wallet} bitcoin={props.bitcoin}/>
             </div>
           } />
@@ -64,7 +66,7 @@ let Cryptoloan = connect((state) => state)((props) => {
 
       <Route path="/offeredloan/:id" exact={true} render={({match}) =>
                 <div>
-
+                  <LoansNav />
                   <OfferLoanForm requestedloans={props.requestedloans} token={props.token} re1={_.find(props.requestedloans, (yy) => match.params.id == yy.id)} />
                   </div>
                 } />
@@ -77,12 +79,14 @@ let Cryptoloan = connect((state) => state)((props) => {
 
         <Route path="/approvedloans" exact={true} render={() =>
               <div>
+                <LoansNav />
                 <ApprovedLoans loans={props.loans} token={props.token}/>
               </div>
             } />
 
         <Route path="/requestedloans" exact={true} render={() =>
               <div>
+                <LoansNav />
                 <RequestLoanForm users={props.users} token={props.token} wallet={props.wallet} bitcoin={props.bitcoin} />
                 <Requestloans ln={props.requestedloans} token={props.token} user={_.find(props.users, (uu) => uu.id==props.token.user_id )}/>
               </div>
