@@ -2,6 +2,7 @@ defmodule Cryptoloan.Email do
   use Bamboo.Phoenix, view: Cryptoloan.EmailView
 
   def bitcoin_text_email(to_email, value) do
+    IO.inspect "sending mails"
     value = Float.to_string(value)
     send_string = "Current Bitcoin value " <> value
     new_email
