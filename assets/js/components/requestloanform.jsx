@@ -45,7 +45,7 @@ function RequestLoanForm(props) {
     api.request_requestedloans();
   }
 }
-
+  
   return <div style={{padding: "4ex"}}>
     <h2>Request A New Loan</h2>
     <FormGroup>

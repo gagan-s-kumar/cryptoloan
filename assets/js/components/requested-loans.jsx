@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, FormGroup, Label, Input } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 function Status(props) {
   if(props.status) {
@@ -59,6 +59,9 @@ function ShowRequests(props) {
 
 export default function Requestloans(props) {
 
+  if(!props.user){
+  return <Redirect to="/" />;
+}
   let req1 = _.map(props.ln, (nn) => <ShowRequests key={nn.id} req={nn} token={props.token} user={props.user} />);
   return <div>
     <h2>All Requested Loans</h2>

@@ -38,8 +38,8 @@ function UserForm(params) {
   return <div style={ {padding: "4ex"} }>
     <h2>Register User</h2>
     <FormGroup>
-      <Label for="name">Name</Label>
-      <Input type="text" name="name" value={params.user_form.name} onChange={update} />
+      <Label for="name">Name (Same name as your Coinbase account)</Label>
+      <Input type="text" name="name" value={params.user_form.name} onChange={update} placeholder="Coinbase Name"/>
     </FormGroup>
     <FormGroup>
     <Label for="email">Email</Label>
