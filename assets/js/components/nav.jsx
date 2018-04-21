@@ -47,7 +47,7 @@ function Nav(props) {
   return (
     <nav className="navbar navbar-dark bg-dark navbar-expand">
       <span className="navbar-brand">
-        Cryptoloan
+        <h2>Cryptoloan</h2>
       </span>
       <ul className="navbar-nav mr-auto">
 	<NavItem>
