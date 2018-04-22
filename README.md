@@ -18,3 +18,11 @@ Ready to run in production? Please [check our deployment guides](http://www.phoe
   * Docs: https://hexdocs.pm/phoenix
   * Mailing list: http://groups.google.com/group/phoenix-talk
   * Source: https://github.com/phoenixframework/phoenix
+
+## Cryptoloan Details
+
+  * Cryptoloan is used to get loan using BTC as colletaral
+  * Cryptoloan is used to get notifications on price alter
+
+  * Document of the Project is present in Report.pdf
+  * Demo and Coinbase accounts can be found in Demo.pdf
