@@ -118,13 +118,17 @@
                 if response.body != "" do
                   lender = Users.get_user!(loan.user_id)
                   borrower = Users.get_user!(requester_loan_details.user_id)
+                  Users.update_user(borrower, %{loan_accepted: false})
+                  Loans.update_loan(loan, %{completed: true, colletaral: 0})
+                  Users.update_user(borrower, %{credit: 0})
+                  Users.update_user(borrower, %{debit: (borrower.debit + requester_loan_details.amount)})
+                  Users.update_user(lender, %{debit: (lender.debit + (loan.mini_balance - requester_loan_details.amount))})
                   #Loans.update_loan(loan, %{completed: true, colletaral: 0})
                   #Users.update_user(lender, %{debit: lender.debit + min_usd})
                   #Users.update_user(borrower, %{credit: borrower.credit - min_usd})
                   #Users.update_user(borrower, %{debit: borrower.debit + min_usd})
-                  Loans.update_loan(loan, %{completed: true, colletaral: 0})
                   #Users.update_user(lender, %{debit: lender.debit + (loan.mini_balance - loan.requestedloan_id.amount)})
-                 # Users.update_user(borrower, %{credit: 0})
+                  #Users.update_user(borrower, %{credit: 0})
                   #Users.update_user(borrower, %{debit: borrower.debit + loan.mini_balance})
                 end
               else
