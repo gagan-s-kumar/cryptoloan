@@ -7,12 +7,6 @@ function ShowLoans(props) {
 
   function Actions(props) {
 
-  console.log("=====");
-  console.log(props.user_id);
-  console.log(props.borrower_id);
-  console.log(props.loan.completed);
-  console.log(props.loan);
-
   if(props.user_id == props.borrower_id && props.loan.completed == false) {
     return <td>
              <Button onClick={submit} color="primary">Pay Loan</Button>
@@ -34,6 +28,7 @@ function ShowLoans(props) {
     let borrower_data = {
 			credit: props.loan.requestedloan_id.user_id.credit - props.loan.mini_balance,
                         debit: props.loan.requestedloan_id.user_id.debit + props.loan.requestedloan_id.amount,
+			loan_accepted: false,
                         };
     let lender_data = {
 			debit: props.loan.user_id.debit + (props.loan.mini_balance - props.loan.requestedloan_id.amount),

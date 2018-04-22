@@ -4,7 +4,6 @@ import Cookies from 'universal-cookie';
 class TheServer {
 
   request_loans() {
-    console.log("in request loan");
     $.ajax("/api/v1/loans", {
       method: "get",
       dataType: "json",
@@ -79,6 +78,23 @@ class TheServer {
       }
     });
   }
+
+//  toggle_user_loan_accepted(data, id) {
+//    $.ajax("/api/v1/users/" + id, {
+//      method: "put",
+//      dataType: "json",
+//      contentType: "application/json; charset=UTF-8",
+//      data: JSON.stringify({ user: data }),
+//      success: (resp) => {
+//        this.request_users();
+//      },
+//      error: (resp) => {
+//        console.log("update_user_details failure");
+//        console.log(resp);
+//      }
+//    });
+//  }
+
 
   request_user_wallet(user_id) {
     $.ajax("/api/v1/wallets/user/" + user_id, {
@@ -321,6 +337,18 @@ class TheServer {
         });
         alert("Please fill all fields!");
       }
+    });
+  }
+
+  delete_requestedloan(user, id) {
+    $.ajax("/api/v1/requestedloans/" + id, {
+      method: "delete",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      success: (resp) => {
+        this.update_user_details({loan_accepted: false}, user);
+        this.request_requestedloans();
+      },
     });
   }
 

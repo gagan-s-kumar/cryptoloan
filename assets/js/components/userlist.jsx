@@ -7,10 +7,11 @@ export default function Userlist(props) {
 	return <Redirect to="/" />;
 
   let user = _.find(props.users, (nn) => nn.id==props.token.user_id);
-  let wallet = _.find(props.wallets, (ww) => ww.user.id==props.token.user_id);
+ // let wallet = _.find(props.wallets, (ww) => ww.user.id==props.token.user_id);
+  let wallet = props.wallet;
   let wallet_info=0;
   if(wallet)
-    wallet_info = wallet.balance;
+    wallet_info = wallet.data.balance;
   return <div>
 	      <p>Name: {user.name}</p>
 	      <p>Email: {user.email}</p>

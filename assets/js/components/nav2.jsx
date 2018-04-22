@@ -8,8 +8,13 @@ import Cookies from 'universal-cookie';
 import store from './store';
 import FaUser from 'react-icons/lib/fa/user'
 
-function refresh_wallet(id){
-    api.request_user_wallet(id);
+function refresh_wallet(wallet, u_id){
+   if(!wallet){
+      console.log("Link your wallet");
+   }
+   else {
+     api.request_user_wallet(u_id);
+   }
 }
 
 function WalletInfo(params) {
@@ -17,7 +22,7 @@ function WalletInfo(params) {
   return <div className="navbar-text">
 	<nav>
         <NavItem>
-          <NavLink to="/users" href="#" className="nav-link user" onClick={refresh_wallet(params.token.user_id)}><FaUser size={40} />Profile</NavLink>
+          <NavLink to="/users" href="#" className="nav-link user" onClick={() => refresh_wallet(params.wallet, params.token.user_id)}><FaUser size={40} />Profile</NavLink>
         </NavItem>
         <NavItem>
           <Button onClick={reset_token}>Logout</Button>
@@ -35,7 +40,7 @@ let Session = connect(({token}) => {return {token};})((props) => {
     return <div className="navbar-text ">
     <nav>
     <NavItem className="user">
-	<NavLink to="/users" href="#" className="nav-link navbar-center user" onClick={refresh_wallet}><FaUser size={40} />Profile</NavLink>
+	<NavLink to="/users" href="#" className="nav-link navbar-center user" onClick={() => refresh_wallet(props.wallet, props.token.user_id)}><FaUser size={40} />Profile</NavLink>
     </NavItem>
     <NavItem>
       <Link className="btn btn-primary btn-xs" to={"/auth/coinbase"} onClick={auth}>Link your Wallet</Link>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, FormGroup, Label, Input } from 'reactstrap';
 import { Link, Redirect } from 'react-router-dom';
+import api from './api';
 
 function Status(props) {
   if(props.status) {
@@ -14,6 +15,10 @@ function Status(props) {
   }
 }
 
+function delete_request(user, req_id){
+   api.delete_requestedloan(user, req_id);  
+}
+
 function Show(props) {
   if(!props.status && (props.id != props.token.user_id)) {
 
@@ -22,9 +27,13 @@ function Show(props) {
     return <td>
             <Link to={"/offeredloan/"+props.req.id}><Button color="primary">Offer Loan</Button></Link>
            </td>;
-  } else {
+  } else if(!props.status){
     return <td>
+	    <Button color="danger" onClick={() => delete_request(props.user.id, props.req.id)}>Delete</Button>
           </td>;
+  }
+  else {
+    return <td></td>;
   }
 }
 
@@ -38,6 +47,9 @@ function ShowRequests(props) {
   return <tr>
         <td>
            {props.req.id}
+        </td>
+        <td>
+           {props.req.user_id.name}
         </td>
         <td>
            {props.req.amount}
@@ -65,6 +77,9 @@ export default function Requestloans(props) {
               <tr>
                 <th>
                  Request ID
+               </th>
+                <th>
+                 Requester Name
                </th>
               <th>
                  Amount
