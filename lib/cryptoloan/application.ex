@@ -14,7 +14,7 @@ defmodule Cryptoloan.Application do
       supervisor(CryptoloanWeb.Endpoint, []),
       # Start your own worker by calling: Cryptoloan.Worker.start_link(arg1, arg2, arg3)
       # worker(Cryptoloan.Worker, [arg1, arg2, arg3]),
-      Cryptoloan.BitcoinPriceUpdater,
+      Cryptoloan.SpotPrice,
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

@@ -37,9 +37,9 @@ let Cryptoloan = connect((state) => state)((props) => {
     <Router>
       <div>
         <Nav2 />
-	 <div className="errors">{props.errors}</div>
           <Route path="/" exact={true} render={() =>
             <div>
+              <div className="errors">{props.errors}</div>
               <HomePage notify={props.notifications} graph={props.graph} token={props.token} bitcoin={props.bitcoin} litecoin={props.litecoin} ethereum={props.ethereum}/>
             </div>
           } />
@@ -47,12 +47,14 @@ let Cryptoloan = connect((state) => state)((props) => {
         <Route path="/loans" exact={true} render={() =>
             <div>
               <LoansNav />
+              <div className="errors">{props.errors}</div>
               <Loans loans={props.loans} token={props.token} wallet={props.wallet} bitcoin={props.bitcoin}/>
             </div>
           } />
 
         <Route path="/notifications" exact={true} render={() =>
             <div>
+              <div className="errors">{props.errors}</div>
               <NotifyForm users={props.users} token={props.token}/>
               <Notifylist notify={props.notifications} token={props.token}/>
             </div>
@@ -60,20 +62,22 @@ let Cryptoloan = connect((state) => state)((props) => {
 
         <Route path="/editnotifications/:id" exact={true} render={({match}) =>
               <div>
+                <div className="errors">{props.errors}</div>
                 <EditNotifyForm users={props.users} token={props.token} task={_.find(props.notifications, (pp) => match.params.id == pp.id )}/>
               </div>
             } />
 
       <Route path="/offeredloan/:id" exact={true} render={({match}) =>
                 <div>
-
                   <LoansNav />
+                  <div className="errors">{props.errors}</div>
                   <OfferLoanForm requestedloans={props.requestedloans} token={props.token} re1={_.find(props.requestedloans, (yy) => match.params.id == yy.id)} wallet={props.wallet} />
                   </div>
                 } />
 
         <Route path="/users" exact={true} render={() =>
             <div>
+              <div className="errors">{props.errors}</div>
               <Userlist users={props.users} token={props.token} wallets={props.wallets} />
             </div>
           } />
@@ -81,6 +85,7 @@ let Cryptoloan = connect((state) => state)((props) => {
         <Route path="/approvedloans" exact={true} render={() =>
               <div>
                 <LoansNav />
+                <div className="errors">{props.errors}</div>
                 <ApprovedLoans loans={props.loans} token={props.token}/>
               </div>
             } />
@@ -88,6 +93,7 @@ let Cryptoloan = connect((state) => state)((props) => {
         <Route path="/requestedloans" exact={true} render={() =>
               <div>
                 <LoansNav />
+                <div className="errors">{props.errors}</div>
                 <RequestLoanForm users={props.users} token={props.token} wallet={props.wallet} bitcoin={props.bitcoin} />
                 <Requestloans ln={props.requestedloans} token={props.token} user={_.find(props.users, (uu) => uu.id==props.token.user_id )}/>
               </div>

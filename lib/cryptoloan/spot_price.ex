@@ -1,4 +1,4 @@
-  defmodule Cryptoloan.BitcoinPriceUpdater do
+  defmodule Cryptoloan.SpotPrice do
   use Task
   alias Cryptoloan.Email
   alias Cryptoloan.Mailer
@@ -26,7 +26,7 @@
   def poll() do
     receive do
     after
-      10_000 ->
+      60_000 ->
         get_price_bitcoin()
         get_price_litecoin()
         get_price_ethereum()
@@ -42,20 +42,13 @@
   end
 
   defp get_price_bitcoin() do
-    # Call API & Persist
     resp = get_spot_price_bitcoin()
     resp = String.to_float(resp)
-    #IO.puts "Bitcoin amount:"
-    #IO.inspect resp
     list = Cryptoloan.Notifications.list_notifications
-    #IO.inspect list
     lst = Enum.filter(list, fn(z) -> z.balert == false end)
     list1 = Enum.filter(lst, fn(x) -> x.bclimit > resp end)
-    #IO.inspect list1
     set1 = Enum.map(list1, fn(a) -> Cryptoloan.Notifications.update_notification(a, %{balert: true}) end)
     mail1 = Enum.map(list1, fn(y) -> Cryptoloan.Email.bitcoin_text_email(y.user.email, resp)|> Mailer.deliver_now end)
-    #Cryptoloan.Email.welcome_text_email("naomimachado21@gmail.com", resp)
-    #|> Mailer.deliver_now
   end
 
   def get_spot_price_bitcoin() do
@@ -65,21 +58,13 @@
   end
 
   defp get_price_litecoin() do
-    # Call API & Persist
     resp = get_spot_price_litecoin()
     resp = String.to_float(resp)
-    #IO.puts "Litecoin amount:"
-    #IO.inspect resp
     list = Cryptoloan.Notifications.list_notifications
     lst = Enum.filter(list, fn(z) -> z.lalert == false end)
-    #IO.inspect lst
-    #IO.inspect "after filter"
     list1 = Enum.filter(lst, fn(x) -> x.lclimit > resp end)
-    #IO.inspect list1
     set1 = Enum.map(list1, fn(a) -> Cryptoloan.Notifications.update_notification(a, %{lalert: true}) end)
     mail1 = Enum.map(list1, fn(y) -> Cryptoloan.Email.litecoin_text_email(y.user.email, resp)|> Mailer.deliver_now end)
-    #Cryptoloan.Email.welcome_text_email("naomimachado21@gmail.com", resp)
-    #|> Mailer.deliver_now
   end
 
   def get_spot_price_litecoin() do
@@ -89,20 +74,19 @@
   end
 
   defp get_price_ethereum() do
-    # Call API & Persist
     resp = get_spot_price_ethereum()
     resp = String.to_float(resp)
-    #IO.puts "Ethereum amount:"
-    #IO.inspect resp
     list = Cryptoloan.Notifications.list_notifications
-    #IO.inspect list
     lst = Enum.filter(list, fn(z) -> z.ealert == false end)
     list1 = Enum.filter(lst, fn(x) -> x.etlimit > resp end)
-    #IO.inspect list1
     set1 = Enum.map(list1, fn(a) -> Cryptoloan.Notifications.update_notification(a, %{ealert: true}) end)
     mail1 = Enum.map(list1, fn(y) -> Cryptoloan.Email.ethereum_text_email(y.user.email, resp)|> Mailer.deliver_now end)
-    #Cryptoloan.Email.welcome_text_email("naomimachado21@gmail.com", resp)
-    #|> Mailer.deliver_now
+  end
+
+  def get_spot_price_ethereum() do
+    resp = HTTPoison.get!("https://api.coinbase.com/v2/prices/ETH-USD/spot")
+    body = Poison.decode!(resp.body)
+    body["data"]["amount"]
   end
 
   defp resolve_collateral() do
@@ -124,7 +108,7 @@
             amount = user_wallet.balance
             headers = [{"Content-type", "application/json"}]
 
-            {status, response} = HTTPoison.post("localhost:4000/api/v1/wallets/user/send_bitcoin", 
+            {status, response} = HTTPoison.post("localhost:4000/api/v1/wallets/user/send_bitcoin",
 		JSON.encode!(%{"sender_id" => requester_id, "receiver_id" => lender_id, "amount" => min_btc}), headers, [])
             IO.inspect response
            #response=%{body: "123"}
@@ -160,9 +144,4 @@
     end
   end
 
-  def get_spot_price_ethereum() do
-    resp = HTTPoison.get!("https://api.coinbase.com/v2/prices/ETH-USD/spot")
-    body = Poison.decode!(resp.body)
-    body["data"]["amount"]
-  end
 end

@@ -30,9 +30,6 @@ function ShowNotifications(props) {
            {props.note.etlimit}
         </td>
         <td>
-          <Link to={"/editnotifications/"+props.note.id}><Button color="primary">Reset</Button></Link>
-        </td>
-        <td>
           <Button onClick={delete_notification} color="danger">Delete</Button>
         </td>
   </tr>;
@@ -65,8 +62,8 @@ export default function Notifylist(props) {
         	<th>
         	   Ethereum Limit
         	</th>
-          <th colSpan="2">
-              Edit Options
+          <th>
+              Delete Options
         	</th>
 
         </tr>

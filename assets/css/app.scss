@@ -1,5 +1,10 @@
 @import "bootstrap";
 
+body{
+  font-family: Rockwell, Courier Bold, Courier, Georgia, Times, Times New Roman, serif;
+  font-weight: bold;
+  font-size: 15pt;
+}
 
 .user { text-align: right;}
 
@@ -21,6 +26,7 @@
 .navbar {
     color: #FFFFFF;
     background-color: #2B71B1 !important;
+    font-weight: bolder;
 }
 
 .navbar .navbar-nav > li > a {
@@ -41,6 +47,11 @@
   padding-left: 10pt;
   padding-right: 10pt;
   padding-bottom: 10pt;
+}
+
+.loan:hover {
+  color: white !important;
+  background-color: #2B71B1 !important;
 }
 
  .user {

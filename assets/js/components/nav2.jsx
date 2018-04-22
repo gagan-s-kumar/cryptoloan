@@ -90,7 +90,7 @@ function Nav2(props) {
 	    <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
       <span className="navbar-brand navbar-nav">
         <NavItem>
-          <NavLink to="/" exact={true} activeClassName="active" className="nav-link">Cryptoloan</NavLink>
+          <NavLink to="/" exact={true} activeClassName="active" className="nav-link"><h2>Cryptoloan</h2></NavLink>
         </NavItem>
       </span>
       <ul className="navbar-nav mr-auto" role="navigation">

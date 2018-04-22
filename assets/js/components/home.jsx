@@ -35,13 +35,15 @@ export default function HomePage(props) {
        <Tabs>
     <TabList className="nav nav-tabs">
       <Tab className="btn btn-primary">Bitcoin</Tab>
+      &nbsp;
       <Tab className="btn btn-primary">Ethereum</Tab>
+      &nbsp;
       <Tab className="btn btn-primary">Litecoin</Tab>
     </TabList>
-
+    &nbsp;
     <TabPanel>
     <div>
-	BITCOIN: ${props.bitcoin}
+	<b>BITCOIN</b><i>(Current Spot value)</i><b>: ${props.bitcoin}</b>
     <AreaChart
     axes
     margin={{top: 10, right: 20, bottom: 50, left: 50}}
@@ -59,7 +61,7 @@ export default function HomePage(props) {
     </TabPanel>
     <TabPanel>
     <div>
-	ETHEREUM: ${props.ethereum}
+	<b>ETHEREUM</b><i>(Current Spot value)</i><b>: ${props.ethereum}</b>
     <AreaChart
     axes
     margin={{top: 10, right: 20, bottom: 50, left: 50}}
@@ -77,7 +79,7 @@ export default function HomePage(props) {
     </TabPanel>
     <TabPanel>
     <div>
-	LITECOIN: ${props.litecoin}
+	     <b>LITECOIN</b><i>(Current Spot value)</i><b>: ${props.litecoin}</b>
     <AreaChart
     axes
     margin={{top: 10, right: 20, bottom: 50, left: 50}}

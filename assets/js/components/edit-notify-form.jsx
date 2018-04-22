@@ -54,10 +54,7 @@ function EditNotifyForm(props) {
           user_id: props.token.user_id,
           bclimit: props.task.bclimit,
           lclimit: props.task.lclimit,
-          etlimit: props.task.etlimit,
-          balert: false,
-          lalert: false,
-          ealert: false
+          etlimit: props.task.etlimit
         };
         let action = {
           type: 'UPDATE_NOTIFY_FORM',
