@@ -71,7 +71,7 @@ export default function Requestloans(props) {
 }
   let req1 = _.map(props.ln, (nn) => <ShowRequests key={nn.id} req={nn} token={props.token} user={props.user} />);
   return <div>
-    <h2>All Requested Loans</h2>
+    <h2>All Loan Requests</h2>
             <table className="data">
               <tbody>
               <tr>
