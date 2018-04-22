@@ -34,8 +34,10 @@ function Actions(props) {
     }
 
   }
-  else if(props.user_id==props.borrower_id && props.loan.accepted)
+  else if(props.user_id==props.borrower_id && (props.loan.accepted && props.loan.completed))
     return <td>Loan Cleared</td>;
+  else if(props.user_id==props.borrower_id && props.loan.accepted)
+    return <td>Payment Under Process</td>;
   else {
     return <td></td>;
   }
