@@ -24,6 +24,7 @@ defmodule Cryptoloan.Users.User do
   def changeset(user, attrs) do
     user
     |> cast(attrs, [:name, :email, :password, :password_hash, :password_confirmation, :wallet, :debit, :credit, :token, :account_id, :loan_accepted, :refresh_token])
+    |> validate_format(:email, ~r/.+@.+\..+/)
     |> validate_confirmation(:password)
     |> validate_password(:password)
     |> put_pass_hash()
