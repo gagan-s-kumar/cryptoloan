@@ -11,6 +11,7 @@ function requested_loans(){
 function request_loans(){
   api.request_users();
   api.request_loans();
+  api.request_users();
 }
 
 export default function LoansNav(){
