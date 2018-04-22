@@ -13,10 +13,11 @@ function Actions(props) {
    if(!props.wallet){
       return <td>Link your wallet</td>;
     }
-    if(props.loan.mini_balance > (props.wallet.data.balance * props.bitcoin)){
-      return <td>Low Bitcoin balance</td>;
-    } else if(props.loan.requestedloan_id.granted) {
+    if(props.loan.requestedloan_id.granted) {
       return <td>Other offer Accepted</td>;
+    }
+    else if(props.loan.mini_balance > (props.wallet.data.balance * props.bitcoin)){
+      return <td>Low Bitcoin balance</td>;
     }
 
     return <td>
@@ -32,7 +33,10 @@ function Actions(props) {
       return <td>Loan Active</td>;
     }
 
-  } else {
+  }
+  else if(props.user_id==props.borrower_id && props.loan.accepted)
+    return <td>Loan Cleared</td>;
+  else {
     return <td></td>;
   }
 }
@@ -134,7 +138,7 @@ function Loans(props) {
            Lender name
         </th>
         <th>
-            Requested Name
+            Requester Name
           </th>
         <th>
            Actions

@@ -3,6 +3,7 @@ import { Button, FormGroup, Label, Input } from 'reactstrap';
 
 import { connect } from 'react-redux';
 import api from './api';
+import {Redirect } from 'react-router-dom';
 
 function RequestLoanForm(props) {
 
@@ -42,10 +43,16 @@ function RequestLoanForm(props) {
     else {
     api.new_requestedloans(data);
     props.dispatch({type: 'CLEAR_REQUESTEDLOANS_FORM'});
+    let updated_user = {loan_accepted: true};
+    api.update_user_details(updated_user, props.user.id);
     api.request_requestedloans();
   }
 }
-  
+  if(!props.user)
+    return <Redirect to="/" />;
+
+  if(props.user.loan_accepted)
+    return <div></div>;
   return <div style={{padding: "4ex"}}>
     <h2>Request A New Loan</h2>
     <FormGroup>
@@ -65,7 +72,7 @@ function RequestLoanForm(props) {
 
 function state2props(state) {
   return { requestedloans_form: state.requestedloans_form,
-           users: state.users,
+//           user: state.user,
 	   wallet: state.wallet,};
 }
 
