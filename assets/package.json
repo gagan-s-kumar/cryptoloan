@@ -6,7 +6,7 @@
     "watch": "brunch watch --stdin"
   },
   "dependencies": {
-    "bootstrap": "^4.0.0",
+    "bootstrap": "^4.1.0",
     "cloudflare": "^2.4.1",
     "coinbase": "^2.0.7",
     "d3": "^5.0.0",
@@ -17,8 +17,8 @@
     "phoenix": "file:../deps/phoenix",
     "phoenix_html": "file:../deps/phoenix_html",
     "popper.js": "^1.14.3",
-    "react": "^16.3.1",
-    "react-dom": "^16.3.1",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
     "react-easy-chart": "^1.0.0",
     "react-icons": "^2.2.7",
     "react-redux": "^5.0.7",
@@ -26,7 +26,7 @@
     "react-tabs": "^2.2.1",
     "reactstrap": "^5.0.0",
     "redux": "^3.7.2",
-    "underscore": "^1.8.3",
+    "underscore": "^1.9.0",
     "universal-cookie": "^2.1.2"
   },
   "devDependencies": {

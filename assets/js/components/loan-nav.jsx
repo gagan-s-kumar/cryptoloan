@@ -5,9 +5,11 @@ import api from './api';
 
 function requested_loans(){
   api.request_requestedloans();
+  api.request_users();
 }
 
 function request_loans(){
+  api.request_users();
   api.request_loans();
 }
 

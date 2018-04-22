@@ -33,6 +33,13 @@ config :logger, :console,
     ssl: false, # can be `true`
     retries: 1
 
+config :cryptoloan, Coinbase,
+  client_id: System.get_env("COINBASE_CLIENT_ID"),
+  client_secret: System.get_env("COINBASE_CLIENT_SECRET"),
+  redirect_uri: System.get_env("COINBASE_REDIRECT_URI")
+
+
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"

@@ -9,30 +9,3 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
-defmodule Seeds do
-  alias Cryptoloan.Repo
-  alias Cryptoloan.Users.User
-  alias Cryptoloan.Notifications.Notification
-  alias Cryptoloan.Requestedloans.Requestedloan
-  alias Cryptoloan.Loans.Loan
-
-  def run do
-    p = Comeonin.Argon2.hashpwsalt("password1")
-    Repo.delete_all(User)
-    a = Repo.insert!(%User{ name: "alice", email: "alice@gmail.com", password_hash: p, wallet: 100, debit: 0, credit: 50, loan_accepted: false})
-    b = Repo.insert!(%User{ name: "bob", email: "bob@gmail.com", password_hash: p, wallet: 200, debit: 50, credit: 0, loan_accepted: false})
-    c = Repo.insert!(%User{ name: "carol", email: "carol@gmail.com", wallet: 50, debit: 0, password_hash: p, credit: 0, loan_accepted: false})
-
-    Repo.delete_all(Notification)
-    Repo.insert!(%Notification{ user_id: a.id, bclimit: 10000, lclimit: 100, etlimit: 5000, balert: false, lalert: false, ealert: false})
-
-    Repo.delete_all(Requestedloan)
-    k = Repo.insert!(%Requestedloan{user_id: b.id, amount: 200, duration_requested: nil, granted: false })
-
-    Repo.delete_all(Loan)
-    Repo.insert!(%Loan{ user_id: c.id, requestedloan_id: k.id, mini_balance: 1500, colletaral: 2500, accepted: false, completed: false})
-
-  end
-end
-
-Seeds.run

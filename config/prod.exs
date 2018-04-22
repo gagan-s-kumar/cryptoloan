@@ -56,7 +56,8 @@ config :logger, level: :info
 # Alternatively, you can configure exactly which server to
 # start per endpoint:
 #
-#     config :cryptoloan, CryptoloanWeb.Endpoint, server: true
+     config :cryptoloan, CryptoloanWeb.Endpoint, server: true
+
 #
 
 # Finally import the config/prod.secret.exs
