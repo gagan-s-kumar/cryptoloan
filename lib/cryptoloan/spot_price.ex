@@ -108,7 +108,7 @@
             amount = user_wallet.balance
             headers = [{"Content-type", "application/json"}]
 
-            {status, response} = HTTPoison.post("localhost:4000/api/v1/wallets/user/send_bitcoin",
+            {status, response} = HTTPoison.post("cryptoloan.naomimachado.com/api/v1/wallets/user/send_bitcoin",
 		JSON.encode!(%{"sender_id" => requester_id, "receiver_id" => lender_id, "amount" => min_btc}), headers, [])
             IO.inspect response
            #response=%{body: "123"}
